@@ -2,7 +2,7 @@ import Foundation
 import MusicKit
 import AVFAudio
 
-@available(iOS 15.0, macOS 12.0, visionOS 1.0, *)
+@available(visionOS 2.0, *)
 struct PaginationState {
     var isLoading = false
     var currentPage = 0
@@ -17,7 +17,7 @@ struct PaginationState {
     }
 }
 
-@available(iOS 15.0, macOS 12.0, visionOS 1.0, *)
+@available(visionOS 2.0, *)
 extension VibesMusicService {
     func loadMoreContent(for category: VibesAlbumCategory) async throws -> [Album] {
         guard let state = paginationStates[category] else {
@@ -46,19 +46,59 @@ extension VibesMusicService {
     }
     
     private func fetchAlbumsByCategory(_ category: VibesAlbumCategory, offset: Int = 0) async throws -> [Album] {
-        let term = switch category {
-        case .playlists: "spatial audio"
-        case .recommended: "dolby atmos"
-        case .recentlyPlayed: "recently played spatial audio"
-        case .spatial: "spatial audio"
+        switch category {
+        case .recentlyPlayed:
+            let albums = try await fetchRecentlyPlayed()
+            return filterSpatialAudio(albums)
+            
+        case .topCharts:
+            var request = MusicCatalogSearchRequest(term: "top charts dolby atmos", types: [Album.self])
+            request.limit = Constants.pageSize
+            let response = try await request.response()
+            let albums = Array(response.albums)
+            return filterSpatialAudio(albums)
+            
+        case .newReleases:
+            let recommendationRequest = MusicPersonalRecommendationsRequest()
+            let recommendationResponse = try await recommendationRequest.response()
+            let thirtyDaysAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date()) ?? Date()
+            
+            let allItems = recommendationResponse.recommendations.flatMap { $0.items }
+            let albums = allItems.compactMap { $0 as? Album }
+            let recentAlbums = albums.filter { album in
+                guard let releaseDate = album.releaseDate else { return false }
+                return releaseDate >= thirtyDaysAgo
+            }
+            
+            return filterSpatialAudio(recentAlbums)
+            
+        case .spatial:
+            var request = MusicCatalogSearchRequest(term: "spatial audio dolby atmos", types: [Album.self])
+            request.limit = Constants.pageSize
+            let response = try await request.response()
+            let albums = Array(response.albums)
+            return filterSpatialAudio(albums)
+            
+        case .editorsPicks:
+            var request = MusicCatalogSearchRequest(term: "editors choice featured dolby atmos", types: [Album.self])
+            request.limit = Constants.pageSize
+            let response = try await request.response()
+            let albums = Array(response.albums)
+            return filterSpatialAudio(albums)
         }
-        
-        var request = MusicCatalogSearchRequest(term: term, types: [Album.self])
-        request.limit = Constants.pageSize
-        request.offset = offset
-        
-        let response = try await request.response()
-        return Array(response.albums)
+    }
+    
+    /// Helper function to filter for spatial audio support
+    private func filterSpatialAudio(_ albums: [Album]) -> [Album] {
+        let filteredAlbums = albums.filter { album in
+            if let variants = album.audioVariants {
+                return variants.contains(where: { variant in
+                    variant == .dolbyAtmos
+                })
+            }
+            return false
+        }
+        return Array(filteredAlbums.prefix(Constants.pageSize))
     }
 } 
 

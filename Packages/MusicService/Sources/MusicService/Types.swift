@@ -3,6 +3,7 @@ import MusicKit
 
 public enum Constants {
     static let pageSize: Int = 25
+    static let albumsPerRow: Int = 12  // Maximum albums to show per category row
 }
 
 public enum MusicGenre {
@@ -88,18 +89,20 @@ public struct ParticleSettings {
     }
 }
 
+@available(visionOS 2.0, *)
 public enum VibesAlbumCategory: String, CaseIterable, Comparable {
     case recentlyPlayed = "Recently Played"
-    case recommended = "Recommended"
+    case topCharts = "Top Charts"
+    case newReleases = "New Releases"
     case spatial = "Spatial Audio"
-    case playlists = "Playlists"
+    case editorsPicks = "Editor's Picks"
     
-    // Implement Comparable based on raw value
     public static func < (lhs: VibesAlbumCategory, rhs: VibesAlbumCategory) -> Bool {
         lhs.rawValue < rhs.rawValue
     }
 }
 
+@available(visionOS 2.0, *)
 public struct LoadState {
     public var albums: [AlbumRepresentable] = []
     public var hasMore = true
@@ -114,9 +117,38 @@ public struct LoadState {
     }
 }
 
-public enum MusicError: Error {
-    case notAuthorized
+@available(visionOS 2.0, *)
+public enum MusicServiceError: LocalizedError {
+    case noActiveSubscription
+    case playbackFailed
+    case spatialAudioNotAvailable
+    case authorizationFailed
+    case audioSessionSetupFailed(Error)
+    case audioEngineSetupFailed(Error)
+    case albumFetchFailed
+    case headTrackingNotAvailable
     case artworkURLNotFound
-    case subscriptionRequired
-    case unknown
+    
+    public var errorDescription: String? {
+        switch self {
+        case .noActiveSubscription:
+            return "Active Apple Music subscription required"
+        case .playbackFailed:
+            return "Failed to play the selected track"
+        case .spatialAudioNotAvailable:
+            return "Spatial Audio not available on this device"
+        case .authorizationFailed:
+            return "Failed to authorize Apple Music access"
+        case .audioSessionSetupFailed(let error):
+            return "Failed to setup audio session: \(error.localizedDescription)"
+        case .audioEngineSetupFailed(let error):
+            return "Failed to setup audio engine: \(error.localizedDescription)"
+        case .albumFetchFailed:
+            return "Failed to fetch album details"
+        case .headTrackingNotAvailable:
+            return "Head tracking is not available on this device"
+        case .artworkURLNotFound:
+            return "Could not find artwork URL"
+        }
+    }
 }

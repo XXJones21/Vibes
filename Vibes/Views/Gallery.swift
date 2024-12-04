@@ -5,24 +5,51 @@ import MusicService
 struct Gallery: View {
     @StateObject private var viewModel = GalleryViewModel()
     @EnvironmentObject private var musicService: VibesMusicService
+    @State private var showingAuthAlert = false
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 60) {
-                ForEach(viewModel.albumsByCategory.keys.sorted(), id: \.self) { category in
-                    AlbumRow(
-                        title: category.rawValue,
-                        albums: viewModel.albumsByCategory[category] ?? [],
-                        onAlbumTap: { album in
-                            viewModel.selectedAlbum = album
-                        }
-                    )
+            if viewModel.albumsByCategory.isEmpty {
+                VStack(spacing: 20) {
+                    ProgressView()
+                        .scaleEffect(1.5)
+                    Text("Loading Albums...")
+                        .font(.headline)
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.top, 100)
+            } else {
+                VStack(alignment: .leading, spacing: 60) {
+                    ForEach(viewModel.albumsByCategory.keys.sorted(), id: \.self) { category in
+                        AlbumRow(
+                            title: category.rawValue,
+                            albums: viewModel.albumsByCategory[category] ?? [],
+                            onAlbumTap: { album in
+                                viewModel.selectedAlbum = album
+                            }
+                        )
+                    }
+                }
+                .padding(.vertical, 40)
             }
-            .padding(.vertical, 40)
         }
         .task {
-            try? await viewModel.loadInitialContent(musicService)
+            do {
+                try await viewModel.loadInitialContent(musicService)
+            } catch {
+                print("Failed to load content:", error)
+                showingAuthAlert = true
+            }
+        }
+        .alert("Authorization Required", isPresented: $showingAuthAlert) {
+            Button("Authorize") {
+                Task {
+                    await musicService.checkAuthorization()
+                }
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Please authorize access to Apple Music to view your albums.")
         }
         
         if let selectedAlbum = viewModel.selectedAlbum {
@@ -140,9 +167,10 @@ struct AlbumCard: View {
         }) {
             VStack(alignment: .leading, spacing: 12) {
                 // Album Artwork with RealityKit integration
-                AlbumArtworkView(album: album, width: cardWidth, height: cardHeight, depth: cardDepth)
+                AlbumArtworkView(album: album, width: cardWidth, height: cardHeight, depth: cardDepth, isHovered: isHovered)
                     .frame(width: 180, height: 180)
-                    .shadow(radius: isHovered ? 15 : 8)
+                    .shadow(radius: isHovered ? 12 : 4)
+                    .hoverEffect(.lift)
                 
                 VStack(alignment: .leading, spacing: 6) {
                     Text(album.title)
@@ -159,9 +187,11 @@ struct AlbumCard: View {
             }
         }
         .buttonStyle(.plain)
-        .scaleEffect(isHovered ? 1.08 : 1.0)
-        .animation(.spring(response: 0.3), value: isHovered)
-        .onHover { isHovered = $0 }
+        .scaleEffect(isHovered ? 1.05 : 1.0)
+        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isHovered)
+        .onHover { hovering in
+            isHovered = hovering
+        }
     }
 }
 
@@ -170,7 +200,9 @@ struct AlbumArtworkView: View {
     let width: Float
     let height: Float
     let depth: Float
+    let isHovered: Bool
     @State private var artworkTexture: MaterialParameters?
+    @State private var modelEntity: ModelEntity?
     
     var body: some View {
         RealityView { content in
@@ -178,34 +210,91 @@ struct AlbumArtworkView: View {
             
             // Create a box for the CD case
             let mesh = MeshResource.generateBox(width: width, height: height, depth: depth)
-            let material = UnlitMaterial(color: .white)
+            
+            // Create a physically based material for realistic appearance
+            var material = PhysicallyBasedMaterial()
+            material.baseColor = .init(tint: .white)
+            material.roughness = .init(floatLiteral: 0.3) // Slightly glossy
+            material.metallic = .init(floatLiteral: 0.1)  // Slight metallic sheen
+            
             let modelEntity = ModelEntity(mesh: mesh, materials: [material])
             
             // Position the entity with more depth
-            modelEntity.position.z = -0.2
+            modelEntity.position.z = -0.15
             
             // Add slight rotation for better 3D effect
             modelEntity.transform.rotation = simd_quatf(angle: .pi * 0.05, axis: [0, 1, 0])
+            
+            // Store reference for animations
+            self.modelEntity = modelEntity
             
             entity.addChild(modelEntity)
             content.add(entity)
             
             // Load artwork
             Task {
+                print("Starting artwork load for album:", album.title)
                 if let artwork = album.artwork {
                     do {
+                        print("Fetching artwork data for:", album.title)
                         let imageData = try await artwork.data(width: 300, height: 300)
-                        if let uiImage = UIImage(data: imageData),
-                           let cgImage = uiImage.cgImage {
-                            let texture = try await TextureResource.generate(from: cgImage, options: .init(semantic: .color))
-                            var material = UnlitMaterial()
-                            material.color = .init(texture: .init(texture))
-                            modelEntity.model?.materials = [material]
+                        print("Got artwork data for:", album.title, "size:", imageData.count)
+                        
+                        if let uiImage = UIImage(data: imageData) {
+                            print("Created UIImage for:", album.title)
+                            if let cgImage = uiImage.cgImage {
+                                print("Got CGImage for:", album.title)
+                                let texture = try await TextureResource.generate(from: cgImage, options: .init(semantic: .color))
+                                print("Generated texture for:", album.title)
+                                
+                                // Update the material with the album artwork
+                                var updatedMaterial = PhysicallyBasedMaterial()
+                                updatedMaterial.baseColor = .init(texture: .init(texture))
+                                updatedMaterial.roughness = .init(floatLiteral: 0.3)
+                                updatedMaterial.metallic = .init(floatLiteral: 0.1)
+                                
+                                modelEntity.model?.materials = [updatedMaterial]
+                                print("Updated material for:", album.title)
+                            } else {
+                                print("Failed to get CGImage for:", album.title)
+                            }
+                        } else {
+                            print("Failed to create UIImage from data for:", album.title)
                         }
                     } catch {
-                        print("Failed to load artwork:", error)
+                        print("Failed to load artwork for \(album.title):", error)
                     }
+                } else {
+                    print("No artwork available for album:", album.title)
                 }
+            }
+        } update: { content in
+            guard let modelEntity = modelEntity else { return }
+            
+            // Animate rotation and position when hovered
+            if isHovered {
+                modelEntity.transform.rotation = simd_quatf(angle: .pi * 0.15, axis: [0, 1, 0])
+                modelEntity.position.z = -0.1
+                
+                // Add subtle floating animation
+                let floatAnimation = FromToByAnimation(
+                    name: "float",
+                    from: modelEntity.position.y,
+                    to: modelEntity.position.y + 0.01,
+                    duration: 1.0
+                )
+                
+                // Configure animation to repeat and autoReverse
+                let animation = try? AnimationResource.generate(with: floatAnimation)
+                if let animation = animation {
+                    modelEntity.position.y += 0.005
+                    modelEntity.playAnimation(animation, transitionDuration: 0.5, startsPaused: false)
+                }
+            } else {
+                modelEntity.transform.rotation = simd_quatf(angle: .pi * 0.05, axis: [0, 1, 0])
+                modelEntity.position.z = -0.15
+                modelEntity.position.y = 0
+                modelEntity.stopAllAnimations()
             }
         }
     }
@@ -220,10 +309,22 @@ class GalleryViewModel: ObservableObject {
     @Published var error: Error?
     
     func loadInitialContent(_ musicService: VibesMusicService) async throws {
+        guard musicService.isAuthorized else {
+            print("Not authorized, requesting authorization...")
+            await musicService.checkAuthorization()
+            guard musicService.isAuthorized else {
+                throw MusicServiceError.authorizationFailed
+            }
+            return
+        }
+        
+        print("Loading albums for categories...")
         // Load albums for all categories
         for category in MusicService.VibesAlbumCategory.allCases {
             do {
+                print("Fetching albums for category:", category)
                 let albums = try await musicService.fetchAlbums(category: category)
+                print("Fetched \(albums.count) albums for category:", category)
                 albumsByCategory[category] = albums
             } catch {
                 print("Failed to load albums for category \(category): \(error)")
