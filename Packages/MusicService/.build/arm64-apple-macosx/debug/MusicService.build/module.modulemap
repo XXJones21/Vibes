@@ -1,4 +1,0 @@
-module MusicService {
-    header "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService-Swift.h"
-    requires objc
-}
