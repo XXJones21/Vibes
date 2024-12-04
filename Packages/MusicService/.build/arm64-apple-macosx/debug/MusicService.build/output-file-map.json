@@ -1,0 +1,47 @@
+{
+  "": {
+    "swift-dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/master.swiftdeps"
+  },
+  "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/Sources/MusicService/Models/MusicKitWrappers.swift": {
+    "dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicKitWrappers.d",
+    "object": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicKitWrappers.swift.o",
+    "swiftmodule": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicKitWrappers~partial.swiftmodule",
+    "swift-dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicKitWrappers.swiftdeps"
+  },
+  "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/Sources/MusicService/MusicService+Albums.swift": {
+    "dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Albums.d",
+    "object": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Albums.swift.o",
+    "swiftmodule": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Albums~partial.swiftmodule",
+    "swift-dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Albums.swiftdeps"
+  },
+  "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/Sources/MusicService/MusicService+Pagination.swift": {
+    "dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Pagination.d",
+    "object": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Pagination.swift.o",
+    "swiftmodule": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Pagination~partial.swiftmodule",
+    "swift-dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Pagination.swiftdeps"
+  },
+  "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/Sources/MusicService/MusicService+Setup.swift": {
+    "dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Setup.d",
+    "object": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Setup.swift.o",
+    "swiftmodule": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Setup~partial.swiftmodule",
+    "swift-dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Setup.swiftdeps"
+  },
+  "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/Sources/MusicService/MusicService+Subscription.swift": {
+    "dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Subscription.d",
+    "object": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Subscription.swift.o",
+    "swiftmodule": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Subscription~partial.swiftmodule",
+    "swift-dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService+Subscription.swiftdeps"
+  },
+  "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/Sources/MusicService/MusicService.swift": {
+    "dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService.d",
+    "object": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService.swift.o",
+    "swiftmodule": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService~partial.swiftmodule",
+    "swift-dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/MusicService.swiftdeps"
+  },
+  "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/Sources/MusicService/Types.swift": {
+    "dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/Types.d",
+    "object": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/Types.swift.o",
+    "swiftmodule": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/Types~partial.swiftmodule",
+    "swift-dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/MusicService/.build/arm64-apple-macosx/debug/MusicService.build/Types.swiftdeps"
+  }
+}

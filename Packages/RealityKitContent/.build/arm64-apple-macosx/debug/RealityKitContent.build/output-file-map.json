@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/RealityKitContent/.build/arm64-apple-macosx/debug/RealityKitContent.build/master.swiftdeps"
+  },
+  "/Users/jones/Documents/VisionOS apps/Vibes/Packages/RealityKitContent/Sources/RealityKitContent/RealityKitContent.swift": {
+    "dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/RealityKitContent/.build/arm64-apple-macosx/debug/RealityKitContent.build/RealityKitContent.d",
+    "object": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/RealityKitContent/.build/arm64-apple-macosx/debug/RealityKitContent.build/RealityKitContent.swift.o",
+    "swiftmodule": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/RealityKitContent/.build/arm64-apple-macosx/debug/RealityKitContent.build/RealityKitContent~partial.swiftmodule",
+    "swift-dependencies": "/Users/jones/Documents/VisionOS apps/Vibes/Packages/RealityKitContent/.build/arm64-apple-macosx/debug/RealityKitContent.build/RealityKitContent.swiftdeps"
+  }
+}

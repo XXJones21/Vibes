@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "musadorakit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rryam/MusadoraKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "9ec6d477b0fc98579337cddf5bdea2b9c6d67c5f"
+      }
+    }
+  ],
+  "version" : 2
+}
