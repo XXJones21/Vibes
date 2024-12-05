@@ -4,31 +4,37 @@ import MusicService
 
 struct ContentView: View {
     @EnvironmentObject private var musicService: VibesMusicService
+    @State private var showWelcome = true
     @State private var isLoading = true
     @State private var isInitialLoad = true
     
     var body: some View {
         ZStack {
-            Group {
-                if musicService.isAuthorized {
-                    Gallery()
-                        .task {
-                            if isInitialLoad {
-                                try? await Task.sleep(for: .seconds(2))
-                                isInitialLoad = false
-                                isLoading = false
-                                
-                                // Debug: Analyze The Midnight's Heroes album
-                                try? await musicService.analyzeAlbum(title: "Heroes", artist: "The Midnight")
-                            }
-                        }
-                } else {
-                    AuthorizationView()
+            if showWelcome {
+                WelcomeView {
+                    withAnimation(.easeOut(duration: 0.7)) {
+                        showWelcome = false
+                    }
                 }
-            }
-            
-            if isLoading {
-                LoadingView(message: "Loading your music...")
+            } else {
+                Group {
+                    if musicService.isAuthorized {
+                        Gallery()
+                            .task {
+                                if isInitialLoad {
+                                    isInitialLoad = false
+                                    isLoading = false
+                                }
+                            }
+                    } else {
+                        AuthorizationView()
+                    }
+                }
+                .opacity(showWelcome ? 0 : 1)
+                
+                if isLoading {
+                    LoadingView(message: "Loading your music...")
+                }
             }
         }
         .task {
