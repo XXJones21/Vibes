@@ -14,6 +14,8 @@ public protocol MusicProviding {
 @available(visionOS 2.0, *)
 public protocol AlbumRepresentable {
     var id: String { get }
+    var catalogID: MusicItemID? { get }
+    var subscriptionID: String? { get }
     var title: String { get }
     var artistName: String { get }
     var artwork: ArtworkRepresentable? { get }
@@ -43,6 +45,10 @@ public struct MusicKitAlbum: AlbumRepresentable {
     }
     
     public var id: String { album.id.rawValue }
+    public var catalogID: MusicItemID? { album.id }
+    public var subscriptionID: String? {
+        return album.id.rawValue
+    }
     public var title: String { album.title }
     public var artistName: String { album.artistName }
     public var artwork: ArtworkRepresentable? { album.artwork.map(MusicKitArtwork.init) }

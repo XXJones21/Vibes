@@ -81,14 +81,21 @@ public class VibesMusicService: ObservableObject, MusicProviding {
             throw MusicServiceError.playbackFailed
         }
         
-        let request = MusicCatalogResourceRequest<Album>(matching: \.id, equalTo: MusicItemID(rawValue: musicKitAlbum.id))
-        let response = try await request.response()
-        
-        guard let albumToPlay = response.items.first else {
+        // Load detailed album with tracks
+        let detailedAlbum = try await musicKitAlbum.loadDetails()
+        guard let tracks = detailedAlbum.tracks else {
             throw MusicServiceError.playbackFailed
         }
         
-        try await player.queue = ApplicationMusicPlayer.Queue(for: [albumToPlay])
+        // Convert back to MusicKit tracks
+        let musicKitTracks = tracks.compactMap { track -> MusicKit.Track? in
+            guard let musicKitTrack = track as? MusicKitTrack else { return nil }
+            return musicKitTrack.musicKitTrack
+        }
+        
+        // Create a queue with the tracks
+        try await player.queue = ApplicationMusicPlayer.Queue(for: musicKitTracks)
+        try await player.play()  // Start playing immediately
     }
     
     public func play() async throws {

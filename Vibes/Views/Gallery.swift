@@ -25,7 +25,9 @@ struct Gallery: View {
                             title: category.rawValue,
                             albums: viewModel.albumsByCategory[category] ?? [],
                             onAlbumTap: { album in
-                                viewModel.selectedAlbum = album
+                                Task {
+                                    try? await viewModel.playAlbum(album, using: musicService)
+                                }
                             }
                         )
                     }
@@ -50,46 +52,6 @@ struct Gallery: View {
             Button("Cancel", role: .cancel) { }
         } message: {
             Text("Please authorize access to Apple Music to view your albums.")
-        }
-        
-        if let selectedAlbum = viewModel.selectedAlbum {
-            VStack(spacing: 10) {
-                Text(selectedAlbum.title)
-                    .font(.headline)
-                Text(selectedAlbum.artistName)
-                    .font(.subheadline)
-                
-                HStack(spacing: 20) {
-                    Button(action: {
-                        Task {
-                            do {
-                                try await viewModel.playAlbum(selectedAlbum, using: musicService)
-                            } catch {
-                                print("Failed to play album:", error)
-                            }
-                        }
-                    }) {
-                        Image(systemName: "play.fill")
-                            .font(.title2)
-                    }
-                    
-                    if viewModel.isPlaying {
-                        Button(action: {
-                            Task {
-                                await viewModel.pausePlayback(using: musicService)
-                            }
-                        }) {
-                            Image(systemName: "pause.fill")
-                                .font(.title2)
-                        }
-                    }
-                }
-                .padding()
-            }
-            .padding()
-            .background(.ultraThinMaterial)
-            .cornerRadius(15)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         }
     }
 }
@@ -146,7 +108,6 @@ struct AlbumCard: View {
     let album: MusicService.AlbumRepresentable
     let onTap: (MusicService.AlbumRepresentable) -> Void
     @State private var isHovered = false
-    @EnvironmentObject private var musicService: VibesMusicService
     
     // CD case dimensions (in meters)
     private let cardWidth: Float = 0.142  // Standard CD width
@@ -154,17 +115,7 @@ struct AlbumCard: View {
     private let cardDepth: Float = 0.01   // Thickness of a CD case
     
     var body: some View {
-        Button(action: {
-            onTap(album)
-            Task {
-                do {
-                    try await musicService.queueAlbum(album)
-                    try await musicService.play()
-                } catch {
-                    print("Failed to play album:", error)
-                }
-            }
-        }) {
+        Button(action: { onTap(album) }) {
             VStack(alignment: .leading, spacing: 12) {
                 // Album Artwork with RealityKit integration
                 AlbumArtworkView(album: album, width: cardWidth, height: cardHeight, depth: cardDepth, isHovered: isHovered)
