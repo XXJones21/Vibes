@@ -1,6 +1,16 @@
-# Vibes
+# Vibes - Spatial Audio Music Player
 
-A spatial music visualization app for visionOS, iOS, and macOS that creates immersive visual experiences from your music.
+A visionOS music player app that creates immersive spatial audio experiences.
+
+## Project Status (December 5, 2023)
+
+The project has achieved a significant milestone with working music playback functionality. Album grid view is now fully operational with proper artwork loading and immediate playback on selection. Key Apple Music integration issues have been resolved by implementing proper catalog ID handling and adding required entitlements. The codebase maintains strict visionOS 2.0 compatibility with proper availability attributes.
+
+### Current Priorities
+1. 🎵 Implement Now Playing view for active playback
+2. 🎮 Add gesture-based playback controls
+3. 💫 Polish UI transitions and animations
+4. 🔊 Develop spatial audio visualization
 
 ## Features
 

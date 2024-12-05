@@ -46,7 +46,7 @@ struct AlbumDetailView: View {
                                     if musicService.isPlaying {
                                         try await musicService.pause()
                                     } else {
-                                        try await musicService.setQueue(for: [album])
+                                        try await musicService.queueAlbum(album)
                                         try await musicService.play()
                                     }
                                 } catch {

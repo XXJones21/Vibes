@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "MusicService",
     platforms: [
-        .visionOS(.v1)
+        .custom("visionOS", versionString: "2.0")
     ],
     products: [
         .library(

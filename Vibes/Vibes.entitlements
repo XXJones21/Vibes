@@ -13,6 +13,16 @@
     <key>com.apple.security.exception.mach-lookup.global-name</key>
     <array>
         <string>com.apple.itunescloud.music-subscription-status-service</string>
+        <string>com.apple.mediaremoted</string>
+        <string>com.apple.mediaremoted.lockscreen</string>
+        <string>com.apple.mediaremoted.xpc</string>
+        <string>com.apple.xpc.amsengagementd</string>
+        <string>com.apple.applemediaservices</string>
+    </array>
+    <key>com.apple.security.temporary-exception.apple-events</key>
+    <array>
+        <string>com.apple.Music</string>
+        <string>com.apple.iTunes</string>
     </array>
 </dict>
 </plist> 
