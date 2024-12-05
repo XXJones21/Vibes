@@ -47,7 +47,7 @@ extension VibesMusicService {
         let maxOffset = requestsNeeded * Constants.pageSize
         
         for offset in stride(from: 0, to: maxOffset, by: Constants.pageSize) {
-            var request = MusicCatalogSearchRequest(term: "atmos", types: [Album.self])
+            var request = MusicCatalogSearchRequest(term: "top hits", types: [Album.self])
             request.limit = Constants.pageSize
             request.offset = offset
             let response = try await request.response()
@@ -67,7 +67,7 @@ extension VibesMusicService {
         let maxOffset = requestsNeeded * Constants.pageSize
         
         for offset in stride(from: 0, to: maxOffset, by: Constants.pageSize) {
-            var request = MusicCatalogSearchRequest(term: "spatial audio", types: [Album.self])
+            var request = MusicCatalogSearchRequest(term: "new releases", types: [Album.self])
             request.limit = Constants.pageSize
             request.offset = offset
             let response = try await request.response()
@@ -86,18 +86,26 @@ extension VibesMusicService {
         let requestsNeeded = (Constants.albumsPerRow + Constants.pageSize - 1) / Constants.pageSize
         let maxOffset = requestsNeeded * Constants.pageSize
         
-        for offset in stride(from: 0, to: maxOffset, by: Constants.pageSize) {
-            var request = MusicCatalogSearchRequest(term: "dolby atmos", types: [Album.self])
-            request.limit = Constants.pageSize
-            request.offset = offset
-            let response = try await request.response()
-            allAlbums.append(contentsOf: response.albums)
-            
-            if allAlbums.count >= Constants.albumsPerRow {
-                break
+        // Try multiple search terms to get better results
+        let searchTerms = ["dolby atmos", "spatial audio", "360 audio"]
+        
+        for term in searchTerms {
+            for offset in stride(from: 0, to: maxOffset, by: Constants.pageSize) {
+                var request = MusicCatalogSearchRequest(term: term, types: [Album.self])
+                request.limit = Constants.pageSize
+                request.offset = offset
+                let response = try await request.response()
+                allAlbums.append(contentsOf: response.albums)
+                
+                if allAlbums.count >= Constants.albumsPerRow * 2 {  // Get more to filter
+                    break
+                }
             }
         }
-        return filterSpatialAudio(allAlbums)
+        
+        // Remove duplicates
+        let uniqueAlbums = Array(Set(allAlbums))
+        return filterSpatialAudio(uniqueAlbums)
     }
     
     /// Fetches editor's picks
@@ -107,7 +115,7 @@ extension VibesMusicService {
         let maxOffset = requestsNeeded * Constants.pageSize
         
         for offset in stride(from: 0, to: maxOffset, by: Constants.pageSize) {
-            var request = MusicCatalogSearchRequest(term: "featured atmos", types: [Album.self])
+            var request = MusicCatalogSearchRequest(term: "featured hits", types: [Album.self])
             request.limit = Constants.pageSize
             request.offset = offset
             let response = try await request.response()
@@ -124,14 +132,25 @@ extension VibesMusicService {
     private func filterSpatialAudio(_ albums: [Album]) -> [Album] {
         // First get all albums that definitely support Dolby Atmos
         let spatialAlbums = albums.filter { album in
+            // Check audio variants first
             if let variants = album.audioVariants {
                 return variants.contains(where: { variant in
-                    variant == .dolbyAtmos
+                    variant == .dolbyAtmos || variant == .spatialAudio
                 })
             }
-            // Also check title for Atmos/Spatial keywords as fallback
-            return album.title.localizedCaseInsensitiveContains("atmos") ||
-                   album.title.localizedCaseInsensitiveContains("spatial")
+            
+            // If no variants, check if it's in our catalog search results
+            // but filter out test/demo content
+            let isTestContent = album.title.localizedCaseInsensitiveContains("test") ||
+                              album.title.localizedCaseInsensitiveContains("demo") ||
+                              album.title.localizedCaseInsensitiveContains("noise")
+            
+            return !isTestContent && (
+                album.title.localizedCaseInsensitiveContains("atmos") ||
+                album.title.localizedCaseInsensitiveContains("spatial") ||
+                album.artistName.localizedCaseInsensitiveContains("atmos") ||
+                album.artistName.localizedCaseInsensitiveContains("spatial")
+            )
         }
         
         // If we found any spatial audio albums, return those

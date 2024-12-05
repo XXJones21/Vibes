@@ -17,6 +17,9 @@ struct ContentView: View {
                                 try? await Task.sleep(for: .seconds(2))
                                 isInitialLoad = false
                                 isLoading = false
+                                
+                                // Debug: Analyze The Midnight's Heroes album
+                                try? await musicService.analyzeAlbum(title: "Heroes", artist: "The Midnight")
                             }
                         }
                 } else {

@@ -170,7 +170,11 @@ struct AlbumCard: View {
                 AlbumArtworkView(album: album, width: cardWidth, height: cardHeight, depth: cardDepth, isHovered: isHovered)
                     .frame(width: 180, height: 180)
                     .shadow(radius: isHovered ? 12 : 4)
-                    .hoverEffect(.lift)
+                    .scaleEffect(isHovered ? 1.05 : 1.0)
+                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isHovered)
+                    .onHover { hovering in
+                        isHovered = hovering
+                    }
                 
                 VStack(alignment: .leading, spacing: 6) {
                     Text(album.title)
@@ -187,11 +191,6 @@ struct AlbumCard: View {
             }
         }
         .buttonStyle(.plain)
-        .scaleEffect(isHovered ? 1.05 : 1.0)
-        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isHovered)
-        .onHover { hovering in
-            isHovered = hovering
-        }
     }
 }
 
