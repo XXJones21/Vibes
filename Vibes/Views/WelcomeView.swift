@@ -3,6 +3,7 @@ import RealityKit
 
 struct WelcomeView: View {
     let onComplete: () -> Void
+    @StateObject private var animation = WelcomeAnimation()
     @State private var opacity = 0.0
     @State private var showTagline = false
     @State private var showParticles = false
@@ -19,11 +20,20 @@ struct WelcomeView: View {
             .ignoresSafeArea()
             
             if showParticles {
-                WelcomeAnimationView {
-                    withAnimation(.easeOut(duration: 0.7)) {
-                        opacity = 0
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                            onComplete()
+                // Particle animation using RealityView
+                RealityView { content in
+                    content.add(animation.rootEntity)
+                    animation.startAnimation()
+                } update: { content in
+                    // Update logic if needed
+                }
+                .onChange(of: animation.currentPhase) { _, phase in
+                    if phase == .complete {
+                        withAnimation(.easeOut(duration: 0.7)) {
+                            opacity = 0
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                                onComplete()
+                            }
                         }
                     }
                 }

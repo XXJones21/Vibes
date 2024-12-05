@@ -1,5 +1,6 @@
 import RealityKit
 import SwiftUI
+import CoreText
 
 @available(visionOS 2.0, *)
 class WelcomeAnimation: ObservableObject {
@@ -17,8 +18,7 @@ class WelcomeAnimation: ObservableObject {
     
     enum AnimationPhase {
         case initial
-        case particleSpawn
-        case globeFormation
+        case fireflyFloat
         case centerPull
         case textFormation
         case stableState
@@ -27,12 +27,14 @@ class WelcomeAnimation: ObservableObject {
     }
     
     // Animation durations
-    private let spawnDuration: TimeInterval = 1.0
-    private let globeDuration: TimeInterval = 3.0
-    private let pullDuration: TimeInterval = 1.0
+    private let fireflyDuration: TimeInterval = 4.0
+    private let pullDuration: TimeInterval = 4.0
     private let textDuration: TimeInterval = 2.0
     private let stableDuration: TimeInterval = 2.0
     private let burstDuration: TimeInterval = 2.0
+    
+    private var textPaths: [CGPath] = []
+    private var totalPathLength: CGFloat = 0
     
     deinit {
         currentAnimator?.invalidate()
@@ -41,22 +43,63 @@ class WelcomeAnimation: ObservableObject {
     
     init() {
         let material = UnlitMaterial(color: .init(.purple.opacity(0.6)))
-        let mesh = MeshResource.generateSphere(radius: 0.02)
+        let mesh = MeshResource.generateSphere(radius: 0.003)
         rootEntity = ModelEntity(mesh: mesh, materials: [material])
+        
+        // Generate text paths
+        generateTextPaths()
         setupParticles()
+    }
+    
+    private func generateTextPaths() {
+        let text = "VIBES"
+        let fontSize: CGFloat = 100  // Large size for better detail
+        
+        // Create font with specified name and size
+        let font: CTFont? = CTFontCreateWithName("Helvetica-Bold" as CFString, fontSize, nil)
+        guard let font = font else { return }
+        
+        var unichars = [UniChar](text.utf16)
+        var glyphs = [CGGlyph](repeating: 0, count: unichars.count)
+        
+        // Convert characters to glyphs
+        let gotGlyphs = CTFontGetGlyphsForCharacters(font, &unichars, &glyphs, unichars.count)
+        guard gotGlyphs else { return }
+        
+        var xOffset: CGFloat = 0
+        
+        // Generate path for each letter
+        for glyph in glyphs {
+            if let letterPath = CTFontCreatePathForGlyph(font, glyph, nil) {
+                // Get letter bounds
+                var boundingBox = letterPath.boundingBox
+                
+                // Create transform to position letter
+                var transform = CGAffineTransform(translationX: xOffset - boundingBox.origin.x, y: 0)
+                
+                // Apply transform to path
+                if let transformedPath = letterPath.copy(using: &transform) {
+                    textPaths.append(transformedPath)
+                    totalPathLength += transformedPath.length
+                }
+                
+                // Update offset for next letter
+                xOffset += boundingBox.width + fontSize * 0.1 // 10% of fontSize for spacing
+            }
+        }
     }
     
     private func setupParticles() {
         for _ in 0..<particleCount {
             let particle = ModelEntity(
-                mesh: MeshResource.generateSphere(radius: Float.random(in: 0.01...0.03)),
+                mesh: MeshResource.generateSphere(radius: Float.random(in: 0.0025...0.0035)),
                 materials: [generateRandomMaterial()]
             )
             particles.append(particle)
             rootEntity.addChild(particle)
             
-            // Start particles at random positions far from center
-            let radius = Float.random(in: 2...3)
+            // Start particles in a more dispersed, firefly-like pattern
+            let radius = Float.random(in: 4...8)
             let theta = Float.random(in: 0...2 * .pi)
             let phi = Float.random(in: 0...2 * .pi)
             
@@ -65,14 +108,15 @@ class WelcomeAnimation: ObservableObject {
                 radius * sin(theta) * sin(phi),
                 radius * cos(theta)
             )
-            particle.scale = .zero
+            // Start particles visible but small
+            particle.scale = SIMD3<Float>(repeating: 0.3)
         }
     }
     
     func startAnimation() {
-        currentPhase = .particleSpawn
+        currentPhase = .fireflyFloat
         updateParticleDebugColor()
-        animateParticleSpawn()
+        animateFireflies()
     }
     
     private func startNewAnimation(_ block: @escaping (Timer) -> Void) {
@@ -92,8 +136,8 @@ class WelcomeAnimation: ObservableObject {
         }
     }
     
-    private func animateParticleSpawn() {
-        print("DEBUG: Starting particle spawn animation")
+    private func animateFireflies() {
+        print("DEBUG: Starting firefly float animation")
         let startTime = Date()
         
         startNewAnimation { [weak self] timer in
@@ -103,19 +147,40 @@ class WelcomeAnimation: ObservableObject {
             }
             
             let elapsed = Date().timeIntervalSince(startTime)
-            let progress = Float(min(1.0, elapsed / self.spawnDuration))
-            print("DEBUG: Spawn progress: \(Int(progress * 100))%")
+            let progress = Float(min(1.0, elapsed / self.fireflyDuration))
+            print("DEBUG: Firefly progress: \(Int(progress * 100))%")
             
+            self.noiseOffset += 0.01
+            
+            // Update each particle with gentle, random movement
             self.updateParticlesInBatches { particle in
-                particle.scale = SIMD3<Float>(repeating: progress * 0.3)
+                let index = Float(self.particles.firstIndex(of: particle) ?? 0)
+                
+                // Create gentle, random movement using perlin noise
+                let floatSpeed: Float = 0.3
+                let floatAmplitude: Float = 0.5
+                let individualOffset = index * 0.1
+                
+                let floatMotion = SIMD3<Float>(
+                    sin(self.noiseOffset + individualOffset) * floatAmplitude,
+                    cos(self.noiseOffset * 0.7 + individualOffset) * floatAmplitude,
+                    sin(self.noiseOffset * 1.3 + individualOffset) * floatAmplitude
+                )
+                
+                // Apply gentle movement
+                particle.position += floatMotion * floatSpeed * 0.016
+                
+                // Subtle scale pulsing
+                let scalePulse = 0.3 + sin(self.noiseOffset * 2 + individualOffset) * 0.1
+                particle.scale = SIMD3<Float>(repeating: scalePulse)
             }
             
-            if elapsed >= self.spawnDuration {
-                print("DEBUG: Spawn complete, transitioning to globe formation")
+            if elapsed >= self.fireflyDuration {
+                print("DEBUG: Firefly float complete, transitioning to center pull")
                 timer.invalidate()
-                self.currentPhase = .globeFormation
+                self.currentPhase = .centerPull
                 self.updateParticleDebugColor()
-                self.animateGlobeFormation()
+                self.animateCenterPull()
             }
         }
     }
@@ -149,42 +214,6 @@ class WelcomeAnimation: ObservableObject {
         particle.scale = SIMD3<Float>(repeating: 0.3 + progress * 0.7) // Start from spawn scale and grow
     }
     
-    private func animateGlobeFormation() {
-        print("DEBUG: Starting globe formation animation")
-        currentPhase = .globeFormation
-        updateParticleDebugColor()
-        let startTime = Date()
-        let globeRadius: Float = 2.0
-        
-        startNewAnimation { [weak self] timer in
-            guard let self = self else {
-                timer.invalidate()
-                return
-            }
-            
-            let elapsed = Date().timeIntervalSince(startTime)
-            let progress = Float(min(1.0, elapsed / self.globeDuration))
-            print("DEBUG: Globe formation progress: \(Int(progress * 100))%")
-            
-            self.noiseOffset += 0.01
-            
-            self.updateParticlesInBatches { particle in
-                if let index = self.particles.firstIndex(of: particle) {
-                    self.updateParticlePosition(particle, index: index, progress: progress, globeRadius: globeRadius)
-                    self.updateParticleAppearance(particle, progress: progress)
-                }
-            }
-            
-            if elapsed >= self.globeDuration {
-                print("DEBUG: Globe formation complete, transitioning to center pull")
-                timer.invalidate()
-                self.currentPhase = .centerPull
-                self.updateParticleDebugColor()
-                self.animateCenterPull()
-            }
-        }
-    }
-    
     private func animateCenterPull() {
         print("DEBUG: Starting center pull animation")
         currentPhase = .centerPull
@@ -201,24 +230,38 @@ class WelcomeAnimation: ObservableObject {
             let progress = Float(min(1.0, elapsed / self.pullDuration))
             print("DEBUG: Center pull progress: \(Int(progress * 100))%")
             
-            self.noiseOffset += 0.02
+            // Exponential acceleration
+            let accelerationCurve = pow(progress, 2.5)
             
             self.updateParticlesInBatches { particle in
-                if let index = self.particles.firstIndex(of: particle) {
-                    let directionToCenter = -particle.position
-                    let distance = length(directionToCenter)
+                // Calculate direction to center
+                let directionToCenter = -particle.position
+                let distance = length(directionToCenter)
+                
+                if distance > 0.01 {  // Prevent division by zero
+                    // Base pull force increases with progress
+                    let basePullForce = 0.5 + (accelerationCurve * 2.0)
                     
-                    // Add swirl effect
-                    let swirl = SIMD3<Float>(
+                    // Gravitational effect: force increases as particles get closer
+                    let gravitationalEffect = 1.0 + (1.0 - min(distance, 4.0) / 4.0) * accelerationCurve * 2.0
+                    
+                    // Calculate final force with direction
+                    let pullForce = normalize(directionToCenter) * basePullForce * gravitationalEffect
+                    
+                    // Add some spiral motion
+                    let spiralStrength = 0.5 * (1.0 - accelerationCurve)  // Spiral decreases as pull increases
+                    let spiral = SIMD3<Float>(
                         -particle.position.y,
                         particle.position.x,
-                        particle.position.z
-                    ) * 0.5
+                        0
+                    ) * spiralStrength
                     
-                    let pullForce = normalize(directionToCenter) * (2.0 - distance) * progress
-                    let swirlForce = normalize(swirl) * 0.3 * (1.0 - progress)
+                    // Apply forces
+                    particle.position += (pullForce + normalize(spiral)) * 0.016
                     
-                    particle.position += (pullForce + swirlForce) * 0.05
+                    // Scale particles slightly based on their speed toward center
+                    let speedScale = 0.3 + (gravitationalEffect * 0.1)
+                    particle.scale = SIMD3<Float>(repeating: speedScale)
                 }
             }
             
@@ -354,38 +397,31 @@ class WelcomeAnimation: ObservableObject {
     }
     
     private func getTextPosition(forIndex index: Int) -> SIMD3<Float> {
-        let letterHeight: Float = 0.5
-        let letterSpacing: Float = 0.4
-        let startX: Float = -1.0
+        guard !textPaths.isEmpty else { return .zero }
         
-        let points: [SIMD3<Float>] = [
-            // V
-            SIMD3<Float>(startX, letterHeight/2, 0),
-            SIMD3<Float>(startX + 0.2, -letterHeight/2, 0),
-            SIMD3<Float>(startX + 0.4, letterHeight/2, 0),
-            
-            // I
-            SIMD3<Float>(startX + letterSpacing, letterHeight/2, 0),
-            SIMD3<Float>(startX + letterSpacing, -letterHeight/2, 0),
-            
-            // B
-            SIMD3<Float>(startX + letterSpacing * 2, letterHeight/2, 0),
-            SIMD3<Float>(startX + letterSpacing * 2, -letterHeight/2, 0),
-            SIMD3<Float>(startX + letterSpacing * 2.5, 0, 0),
-            
-            // E
-            SIMD3<Float>(startX + letterSpacing * 3, letterHeight/2, 0),
-            SIMD3<Float>(startX + letterSpacing * 3, 0, 0),
-            SIMD3<Float>(startX + letterSpacing * 3, -letterHeight/2, 0),
-            
-            // S
-            SIMD3<Float>(startX + letterSpacing * 4, letterHeight/2, 0),
-            SIMD3<Float>(startX + letterSpacing * 4.2, 0, 0),
-            SIMD3<Float>(startX + letterSpacing * 4.4, -letterHeight/2, 0)
-        ]
+        // Calculate which path and position along path
+        let particlePosition = CGFloat(index) / CGFloat(particleCount) * totalPathLength
+        var currentLength: CGFloat = 0
         
-        let pathIndex = (index * points.count) / particleCount
-        return points[pathIndex]
+        for path in textPaths {
+            let pathLength = path.length
+            if currentLength + pathLength > particlePosition {
+                // This is the path our particle belongs on
+                let localPosition = particlePosition - currentLength
+                let point = path.point(at: localPosition / pathLength)
+                
+                // Scale down the coordinates (since we used a large fontSize)
+                let scale: Float = 0.01  // Adjust this to change overall text size
+                return SIMD3<Float>(
+                    Float(point.x) * scale,
+                    Float(point.y) * scale,
+                    0
+                )
+            }
+            currentLength += pathLength
+        }
+        
+        return .zero
     }
     
     private func generateRandomMaterial() -> UnlitMaterial {
@@ -404,9 +440,8 @@ class WelcomeAnimation: ObservableObject {
     private func getDebugColorForPhase(_ phase: AnimationPhase) -> UIColor {
         switch phase {
         case .initial: return .gray
-        case .particleSpawn: return .green
-        case .globeFormation: return .blue
-        case .centerPull: return .yellow
+        case .fireflyFloat: return .green
+        case .centerPull: return .blue
         case .textFormation: return .orange
         case .stableState: return .purple
         case .finalBurst: return .red
@@ -420,6 +455,83 @@ class WelcomeAnimation: ObservableObject {
         updateParticlesInBatches { particle in
             particle.model?.materials = [material]
         }
+    }
+}
+
+// Extension to get path length and point at position
+extension CGPath {
+    var length: CGFloat {
+        var length: CGFloat = 0
+        applyWithBlock { element in
+            let points = element.pointee.points
+            switch element.pointee.type {
+            case .moveToPoint: break
+            case .addLineToPoint:
+                length += hypot(points[0].x - element.pointee.points[0].x,
+                              points[0].y - element.pointee.points[0].y)
+            case .addQuadCurveToPoint:
+                // Approximate curve length
+                length += 0.5 * hypot(points[0].x - points[1].x,
+                                    points[0].y - points[1].y)
+            case .addCurveToPoint:
+                // Approximate curve length
+                length += 0.5 * (hypot(points[0].x - points[1].x,
+                                     points[0].y - points[1].y) +
+                               hypot(points[1].x - points[2].x,
+                                     points[1].y - points[2].y))
+            case .closeSubpath: break
+            @unknown default: break
+            }
+        }
+        return length
+    }
+    
+    func point(at position: CGFloat) -> CGPoint {
+        var currentLength: CGFloat = 0
+        var result = CGPoint.zero
+        var found = false
+        
+        applyWithBlock { element in
+            if found { return }
+            let points = element.pointee.points
+            
+            switch element.pointee.type {
+            case .moveToPoint:
+                result = points[0]
+            case .addLineToPoint:
+                let length = hypot(points[0].x - result.x,
+                                 points[0].y - result.y)
+                if currentLength + length > position {
+                    let t = (position - currentLength) / length
+                    result = CGPoint(
+                        x: result.x + (points[0].x - result.x) * t,
+                        y: result.y + (points[0].y - result.y) * t
+                    )
+                    found = true
+                } else {
+                    currentLength += length
+                    result = points[0]
+                }
+            case .addQuadCurveToPoint, .addCurveToPoint:
+                // For curves, we'll use linear interpolation as an approximation
+                let length = 0.5 * hypot(points[0].x - points[1].x,
+                                       points[0].y - points[1].y)
+                if currentLength + length > position {
+                    let t = (position - currentLength) / length
+                    result = CGPoint(
+                        x: result.x + (points[1].x - result.x) * t,
+                        y: result.y + (points[1].y - result.y) * t
+                    )
+                    found = true
+                } else {
+                    currentLength += length
+                    result = points[1]
+                }
+            case .closeSubpath: break
+            @unknown default: break
+            }
+        }
+        return result
     }
 }
 
