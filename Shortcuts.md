@@ -1,11 +1,41 @@
 # Shortcuts
 
+### "Onboard me"
+This command will:
+1. Review all markdown documents in sequence:
+   - README.md for project overview
+   - current-status.md for latest state
+   - current-issues.md for known issues
+   - Composer-history.md for project evolution
+2. Analyze the codebase structure:
+   - MusicService package implementation
+   - UI/UX components in Views directory
+   - Project configuration and dependencies
+3. Review visionOS sample projects for reference patterns:
+   - Spatial Audio implementation
+   - Hand tracking gestures
+   - Immersive spaces
+   - RealityKit UI integration
+   - Glass UI styling
+4. Verify platform requirements:
+   - visionOS 2.0+ availability attributes
+   - Dolby Atmos support
+   - SwiftUI and RealityKit usage
+5. Confirm understanding of Golden Rules:
+   - Package modification restrictions
+   - View layout guidelines
+   - Platform compatibility
+   - Version control practices
+   - Code quality standards
+
 > **Onboarding Instructions**: 
+
 > Please review all markdown documents, the codebase, and the contents in the MVP folder to familiarize yourself with the project. Pay special attention to:
+> - This is a visionOS-only project (requires visionOS 2.0+ for Dolby Atmos support)
 > - `Composer-history.md` for project evolution and key decisions
 > - `current-status.md` and `current-issues.md` for latest state
 > - `README.md` for project overview and structure
-> - The MusicService package implementation
+> - The MusicService package implementation (visionOS 2.0+ specific)
 > - UI/UX components in the Views directory
 > - Project configuration and dependencies
 > - Reference all VisionOS sample projects at `/Users/jones/Documents/Sample Apps/VisionOS`, particularly:
@@ -14,6 +44,19 @@
 >   - Creating Immersive Spaces - for visualization environments
 >   - RealityKit-UIPortal - for UI integration
 >   - Glass - for UI styling and effects
+> - The Golden Rules section below must be followed at all times
+
+## Golden Rules
+
+- Do not make major adjustments to any of the packages including adding, removing features. Only change if asked directly. If unsure, explain what you want to do and ask for approval first.
+
+- Do not make any adjustments to any of the views, mainly anything to alter its' current layout unless specifically told to do so. Explain what change you want to do and ask for approval first.
+
+- Always check availability attributes match the target platform (e.g., `@available(visionOS 2.0, *)`)
+- When fixing issues, compare with a previous working version (preferably from git history) before making changes
+- Keep the code clean and well-documented
+- Follow SwiftUI and RealityKit best practices
+- Test on device when possible
 
 This document contains key phrases that can be used to automate common tasks in the development workflow.
 
