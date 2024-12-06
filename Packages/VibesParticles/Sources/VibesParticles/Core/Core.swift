@@ -29,10 +29,12 @@ public struct VibesParticles {
     public static func registerSystem() {
         guard !isRegistered else { return }
         
-        // Register the system with RealityKit
-        AetherSystem.registerSystem()
-        isRegistered = true
-        print("VibesParticles: Successfully registered AetherSystem")
+        if #available(visionOS 2.0, *) {
+            // Register the system with RealityKit
+            AetherSystem.registerSystem()
+            isRegistered = true
+            print("VibesParticles: Successfully registered AetherSystem")
+        }
     }
     
     /// Unregister the Aether particle system.
