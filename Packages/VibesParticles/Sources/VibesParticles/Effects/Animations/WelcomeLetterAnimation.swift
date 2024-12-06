@@ -1,6 +1,5 @@
 import SwiftUI
 import RealityKit
-import VibesParticles
 
 /// Creates an immersive welcome animation using ethereal particle effects
 @available(visionOS 2.0, *)
@@ -53,15 +52,8 @@ public class WelcomeLetterAnimation: ObservableObject {
             rootEntity.addChild(system.rootEntity)
         }
         
-        // Calculate visual bounds for proper positioning
-        let bounds = rootEntity.visualBounds(relativeTo: nil)
-        
-        // Position in space - adjust based on visual bounds
-        rootEntity.position = [
-            -bounds.min.x,  // Center horizontally
-            1.6 - bounds.min.y,  // Eye level, accounting for bounds
-            -2.0 - bounds.min.z  // 2 meters away, accounting for bounds
-        ]
+        // Position in space - using fixed values for consistent placement
+        rootEntity.position = [0, 1.6, -2.0]  // Eye level, 2 meters away
     }
     
     public func startAnimation() {
@@ -150,12 +142,12 @@ public class WelcomeLetterAnimation: ObservableObject {
                 emitterSize: [1.5, 1.5, 1.5],
                 birthRate: 10,
                 colorConfig: .evolving(
-                    start: .single(ParticleEmitterComponent.ParticleEmitter.Color(
+                    start: AetherEmitterComponent.ColorConfig.Color(
                         red: 0.5, green: 0.0, blue: 0.5, alpha: 0.9
-                    )),
-                    end: .single(ParticleEmitterComponent.ParticleEmitter.Color(
+                    ),
+                    end: AetherEmitterComponent.ColorConfig.Color(
                         red: 0.0, green: 0.0, blue: 1.0, alpha: 0.7
-                    ))
+                    )
                 ),
                 bounds: BoundingBox(min: [-3, -3, -3], max: [3, 3, 3]),
                 acceleration: [0, 0.05, 0],
@@ -174,12 +166,12 @@ public class WelcomeLetterAnimation: ObservableObject {
                 emitterSize: [8, 8, 8],
                 birthRate: 200,
                 colorConfig: .evolving(
-                    start: .single(ParticleEmitterComponent.ParticleEmitter.Color(
+                    start: AetherEmitterComponent.ColorConfig.Color(
                         red: 0.5, green: 0.0, blue: 0.5, alpha: 0.6
-                    )),
-                    end: .single(ParticleEmitterComponent.ParticleEmitter.Color(
+                    ),
+                    end: AetherEmitterComponent.ColorConfig.Color(
                         red: 1.0, green: 1.0, blue: 1.0, alpha: 0.0
-                    ))
+                    )
                 ),
                 bounds: BoundingBox(min: [-8, -8, -8], max: [8, 8, 8]),
                 acceleration: [0, 2.0, 1.0],
@@ -195,28 +187,5 @@ public class WelcomeLetterAnimation: ObservableObject {
             mainSystem.stop()
             letterSystems.forEach { $0.stop() }
         }
-    }
-}
-
-struct WelcomeLetterAnimationView: View {
-    @StateObject private var animation = WelcomeLetterAnimation()
-    let onComplete: () -> Void
-    
-    var body: some View {
-        RealityView { content in
-            content.add(animation.rootEntity)
-        }
-        .task {
-            animation.startAnimation()
-            // Wait for all phases to complete
-            try? await Task.sleep(for: .seconds(18)) // Sum of all phase durations
-            onComplete()
-        }
-    }
-}
-
-#Preview {
-    WelcomeLetterAnimationView {
-        print("Animation complete")
     }
 } 
