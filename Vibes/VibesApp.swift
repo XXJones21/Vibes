@@ -4,6 +4,7 @@ import RealityKit
 import VibesParticles
 
 @main
+@available(visionOS 2.0, *)
 struct VibesApp: App {
     @StateObject private var musicService = VibesMusicService()
     

@@ -1,7 +1,8 @@
 import SwiftUI
+import RealityKit
 import MusicService
-import MusicKit
 
+@available(visionOS 2.0, *)
 struct AlbumDetailView: View {
     let album: AlbumRepresentable
     @Environment(\.dismiss) private var dismiss
@@ -92,69 +93,88 @@ struct AlbumDetailView: View {
     }
 }
 
+@available(visionOS 2.0, *)
 private struct ArtworkImage: View {
     let artwork: ArtworkRepresentable
     let width: CGFloat
     let height: CGFloat
-    @State private var imageData: Data?
+    @State private var modelEntity: ModelEntity?
+    @EnvironmentObject private var musicService: VibesMusicService
+    
+    // CD case dimensions (in meters)
+    private let cardWidth: Float = 0.3  // Larger for detail view
+    private let cardHeight: Float = 0.3 // Larger for detail view
+    private let cardDepth: Float = 0.01 // Standard thickness
     
     var body: some View {
-        Group {
-            if let imageData = imageData,
-               let uiImage = UIImage(data: imageData) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            } else {
-                ProgressView()
-                    .tint(Color.purple)
-                    .task {
-                        do {
-                            self.imageData = try await artwork.data(width: Int(width), height: Int(height))
-                        } catch {
-                            print("Failed to load artwork:", error)
-                        }
+        RealityView { content in
+            let entity = Entity()
+            
+            // Create a box for the CD case
+            let mesh = MeshResource.generateBox(width: cardWidth, height: cardHeight, depth: cardDepth)
+            
+            // Create initial material
+            var material = PhysicallyBasedMaterial()
+            material.baseColor = .init(tint: .white)
+            material.roughness = .init(floatLiteral: 0.3)
+            material.metallic = .init(floatLiteral: 0.1)
+            
+            let modelEntity = ModelEntity(mesh: mesh, materials: [material])
+            modelEntity.position.z = -0.3  // Position further back for detail view
+            modelEntity.transform.rotation = simd_quatf(angle: .pi * 0.05, axis: [0, 1, 0])
+            
+            self.modelEntity = modelEntity
+            entity.addChild(modelEntity)
+            content.add(entity)
+            
+            // Load artwork
+            Task {
+                do {
+                    let imageData = try await artwork.data(width: Int(width), height: Int(height))
+                    
+                    // Convert data to CGImage
+                    guard let imageSource = CGImageSourceCreateWithData(imageData as CFData, nil),
+                          let cgImage = CGImageSourceCreateImageAtIndex(imageSource, 0, nil) else {
+                        print("Failed to create CGImage")
+                        return
                     }
+                    
+                    // Generate texture
+                    let texture = try await TextureResource.generate(from: cgImage, options: .init(semantic: .color))
+                    
+                    // Update material with artwork
+                    var updatedMaterial = PhysicallyBasedMaterial()
+                    updatedMaterial.baseColor = .init(texture: .init(texture))
+                    updatedMaterial.roughness = .init(floatLiteral: 0.3)
+                    updatedMaterial.metallic = .init(floatLiteral: 0.1)
+                    
+                    modelEntity.model?.materials = [updatedMaterial]
+                } catch {
+                    print("Failed to load artwork:", error)
+                }
+            }
+        } update: { content in
+            guard let modelEntity = modelEntity else { return }
+            
+            // Add subtle floating animation
+            let floatAnimation = FromToByAnimation(
+                name: "float",
+                from: modelEntity.position.y,
+                to: modelEntity.position.y + 0.01,
+                duration: 1.0
+            )
+            
+            // Configure animation
+            if let animation = try? AnimationResource.generate(with: floatAnimation) {
+                modelEntity.position.y += 0.005
+                modelEntity.playAnimation(animation, transitionDuration: 0.5, startsPaused: false)
             }
         }
     }
 }
 
 #Preview {
-    let mockAlbum = MusicKitAlbum(Album.mock)
-    
-    return AlbumDetailView(album: mockAlbum)
+    AlbumDetailView(album: MusicKitAlbum.mock)
         .environmentObject(VibesMusicService())
-}
-
-// MARK: - Preview Helpers
-extension Album {
-    static var mock: Album {
-        get {
-            let decoder = JSONDecoder()
-            let json = """
-            {
-                "id": "1234",
-                "type": "albums",
-                "href": "/v1/catalog/us/albums/1234",
-                "attributes": {
-                    "name": "Preview Album",
-                    "artistName": "Preview Artist",
-                    "artwork": null,
-                    "contentRating": null,
-                    "editorialNotes": null,
-                    "isCompilation": false,
-                    "isComplete": true,
-                    "isSingle": false,
-                    "playParams": null,
-                    "releaseDate": "2023-12-04",
-                    "trackCount": 12,
-                    "url": "https://music.apple.com/us/album/1234"
-                }
-            }
-            """.data(using: .utf8)!
-            
-            return try! decoder.decode(Album.self, from: json)
-        }
-    }
 } 
+

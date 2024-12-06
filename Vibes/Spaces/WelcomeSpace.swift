@@ -2,6 +2,7 @@ import SwiftUI
 import RealityKit
 import VibesParticles
 
+@available(visionOS 2.0, *)
 struct WelcomeSpace: View {
     var body: some View {
         RealityView { content in

@@ -1,6 +1,7 @@
 import SwiftUI
 import RealityKit
 
+@available(visionOS 2.0, *)
 struct LoadingView: View {
     @State private var rotation: Double = 0
     @State private var scale: CGFloat = 1.0

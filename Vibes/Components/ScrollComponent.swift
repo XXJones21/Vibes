@@ -1,5 +1,6 @@
 import RealityKit
 
+@available(visionOS 2.0, *)
 struct ScrollComponent: Component {
     var axis: ScrollAxis
     var bounds: ClosedRange<Float>

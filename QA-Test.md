@@ -1,5 +1,39 @@
 # Welcome Animation Improvement Plan
 
+## Proposed Changes for Testing
+
+### Image Texture Loading Update (Needs Testing)
+Current Implementation:
+```swift
+if let uiImage = UIImage(data: imageData) {
+    if let cgImage = uiImage.cgImage {
+        let texture = try await TextureResource.generate(from: cgImage, options: .init(semantic: .color))
+        // ... material setup
+    }
+}
+```
+
+Proposed Change:
+```swift
+let texture = try await TextureResource.generate(from: imageData, options: .init(semantic: .color))
+// ... material setup
+```
+
+Testing Required:
+- [ ] Test texture loading with different image formats
+- [ ] Verify texture quality in 3D space
+- [ ] Check performance impact
+- [ ] Test with various album artwork sizes
+- [ ] Verify memory usage
+- [ ] Test error handling
+- [ ] Document any visual differences
+
+Notes:
+- Current implementation uses UIKit bridge
+- Proposed change uses direct data-to-texture conversion
+- Need to verify if this affects texture quality or performance
+- Hold off on implementation until testing is complete
+
 ## Phase 1: Core System Overhaul
 
 ### 1.1 Base ParticleEmitterComponent Setup

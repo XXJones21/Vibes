@@ -2,6 +2,7 @@ import SwiftUI
 import RealityKit
 import MusicService
 
+@available(visionOS 2.0, *)
 struct ContentView: View {
     @EnvironmentObject private var musicService: VibesMusicService
     @Environment(\.openImmersiveSpace) private var openImmersiveSpace

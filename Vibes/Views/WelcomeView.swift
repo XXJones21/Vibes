@@ -2,6 +2,7 @@ import SwiftUI
 import RealityKit
 import VibesParticles
 
+@available(visionOS 2.0, *)
 struct WelcomeView: View {
     let onComplete: () -> Void
     @State private var opacity = 0.0
@@ -24,22 +25,22 @@ struct WelcomeView: View {
                 // Particle animation using RealityView
                 RealityView { content in
                     // Create animation with proper coordinate space
-                    let letterAnimation = WelcomeLetterAnimation(
-                        content: content,
-                        onComplete: {
-                            withAnimation(.easeOut(duration: 0.7)) {
-                                opacity = 0
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                                    onComplete()
-                                }
-                            }
-                        }
-                    )
+                    let letterAnimation = WelcomeLetterAnimation(content: content)
                     animation = letterAnimation
                     content.add(letterAnimation.entity)
                     letterAnimation.start()
+                    
+                    // Handle completion in the update closure
                 } update: { content in
-                    // Update logic if needed
+                    if let animation = animation,
+                       animation.currentPhase == .finalBurst {
+                        withAnimation(.easeOut(duration: 0.7)) {
+                            opacity = 0
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                                onComplete()
+                            }
+                        }
+                    }
                 }
             }
             
