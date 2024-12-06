@@ -3,6 +3,31 @@
 ## Project Overview
 Vibes is a spatial music visualization app targeting visionOS, iOS, and macOS platforms. The project uses SwiftUI for UI components, MusicKit for Apple Music integration, and RealityKit for 3D visualizations.
 
+## December 8, 2023
+
+### Particle System Restoration
+- Successfully reverted to `ParticleEmitterComponent` from custom components
+- Fixed availability attributes in multiple effect files:
+  - `FirefliesEffect.swift`
+  - `GalaxyEffect.swift`
+  - Working on `WelcomeLetterAnimation.swift`
+
+### Technical Implementation
+- Identified working particle system in commit cd55f1f
+- Restored proper component usage across effects
+- Addressing macOS availability errors in components
+- Working on color value conversion in welcome animation
+
+### Current Challenges
+1. macOS availability errors in particle components
+2. Color value conversion issues in welcome animation
+3. BoundingBox availability constraints
+
+### Next Steps
+- Complete welcome animation fixes
+- Test particle system functionality
+- Verify component behavior across effects
+
 ## Technical Implementation Details
 
 ### MusicService Package Structure

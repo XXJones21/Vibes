@@ -1,21 +1,27 @@
 import RealityKit
 
-/// A particle effect that creates bright, twinkling sparkles that fall gently.
-/// Perfect for creating a magical, celebratory atmosphere.
-@available(visionOS 2.0, *)
+/// A particle effect that creates bright, twinkling sparkles.
+/// Perfect for creating a magical, energetic effect.
 public struct SparklesEffect {
     /// Creates a preconfigured emitter component for the sparkles effect
-    public static var emitterComponent: AetherEmitterComponent {
-        AetherEmitterComponent(
-            shape: .point,
-            emitterSize: [0.1, 0.1, 0.1],
-            birthRate: 200,
-            lifetime: 2.0,
-            speed: 0.5,
-            scale: [1, 1, 1],
-            colorConfig: .constant(.white),
-            bounds: .init(min: [-3, -3, -3], max: [3, 3, 3]),
-            acceleration: [0, -0.5, 0]
+    public static var emitterComponent: ParticleEmitterComponent {
+        var component = ParticleEmitterComponent()
+        
+        // Configure emitter shape and size
+        component.emitterShape = .point
+        component.emitterShapeSize = [0.1, 0.1, 0.1]
+        
+        // Configure particle appearance
+        let whiteColor = ParticleEmitterComponent.ParticleEmitter.Color(
+            red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0
         )
+        component.mainEmitter.color = .constant(.single(whiteColor))
+        component.mainEmitter.birthRate = 200
+        component.mainEmitter.size = 0.05
+        component.mainEmitter.lifeSpan = 2.0
+        component.mainEmitter.acceleration = [0, -0.5, 0]
+        component.speed = 0.5
+        
+        return component
     }
 } 

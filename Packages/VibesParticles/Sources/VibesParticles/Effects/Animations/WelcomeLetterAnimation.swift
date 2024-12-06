@@ -142,12 +142,12 @@ public class WelcomeLetterAnimation: ObservableObject {
                 emitterSize: [1.5, 1.5, 1.5],
                 birthRate: 10,
                 colorConfig: .evolving(
-                    start: AetherEmitterComponent.ColorConfig.Color(
+                    start: .single(ParticleEmitterComponent.ParticleEmitter.Color(
                         red: 0.5, green: 0.0, blue: 0.5, alpha: 0.9
-                    ),
-                    end: AetherEmitterComponent.ColorConfig.Color(
+                    )),
+                    end: .single(ParticleEmitterComponent.ParticleEmitter.Color(
                         red: 0.0, green: 0.0, blue: 1.0, alpha: 0.7
-                    )
+                    ))
                 ),
                 bounds: BoundingBox(min: [-3, -3, -3], max: [3, 3, 3]),
                 acceleration: [0, 0.05, 0],
@@ -166,12 +166,12 @@ public class WelcomeLetterAnimation: ObservableObject {
                 emitterSize: [8, 8, 8],
                 birthRate: 200,
                 colorConfig: .evolving(
-                    start: AetherEmitterComponent.ColorConfig.Color(
+                    start: .single(ParticleEmitterComponent.ParticleEmitter.Color(
                         red: 0.5, green: 0.0, blue: 0.5, alpha: 0.6
-                    ),
-                    end: AetherEmitterComponent.ColorConfig.Color(
+                    )),
+                    end: .single(ParticleEmitterComponent.ParticleEmitter.Color(
                         red: 1.0, green: 1.0, blue: 1.0, alpha: 0.0
-                    )
+                    ))
                 ),
                 bounds: BoundingBox(min: [-8, -8, -8], max: [8, 8, 8]),
                 acceleration: [0, 2.0, 1.0],

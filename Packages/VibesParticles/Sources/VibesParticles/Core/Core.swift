@@ -21,8 +21,9 @@ import RealityKit
 /// let entity = Entity()
 /// entity.components.set(FirefliesEffect.emitterComponent)
 /// ```
-@available(visionOS 2.0, macOS, unavailable)
+@available(visionOS 2.0, *)
 @available(iOS, unavailable)
+@available(macOS, unavailable)
 @available(tvOS, unavailable)
 public struct VibesParticles {
     /// Register the Aether particle system with RealityKit.

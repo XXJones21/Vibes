@@ -1,6 +1,19 @@
 # Current Status
 
-## December 7, 2023
+## December 8, 2023
+
+### Particle System Fixes
+- Restored working particle system by reverting to `ParticleEmitterComponent`
+- Fixed availability attributes in multiple effect files
+- Updated component usage in:
+  - `FirefliesEffect.swift`
+  - `GalaxyEffect.swift`
+  - Working on `WelcomeLetterAnimation.swift`
+
+### Next Steps
+- Fix remaining macOS availability errors
+- Complete color conversion fixes in welcome animation
+- Test particle system functionality
 
 ### Particle System Improvements
 - Fixed particle visibility issues in welcome animation
@@ -10,11 +23,3 @@
   - Fixed particle emitter configuration
 - Verified correct API usage against RealityKit documentation
 - Updated documentation with proper property names and usage
-
-### Next Steps
-- Verify particle visibility in welcome animation
-- Consider implementing additional particle properties:
-  - `sizeVariation` for more natural effects
-  - `lifeSpanVariation` for varied particle lifetimes
-  - `colorEvolutionPower` for smoother transitions
-  - `opacityCurve` for better fade effects
