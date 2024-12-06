@@ -21,8 +21,9 @@ struct VibesApp: App {
                 .environmentObject(musicService)
         }
         
-        ImmersiveSpace(id: "Welcome") {
+        // Temporarily disabled
+        /*ImmersiveSpace(id: "Welcome") {
             WelcomeSpace()
-        }
+        }*/
     }
 } 

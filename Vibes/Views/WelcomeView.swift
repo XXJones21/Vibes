@@ -8,6 +8,7 @@ struct WelcomeView: View {
     @State private var opacity = 0.0
     @State private var showTagline = false
     @State private var showParticles = false
+    @State private var showTitle = false
     @State private var animation: WelcomeLetterAnimation?
     
     var body: some View {
@@ -21,19 +22,34 @@ struct WelcomeView: View {
             )
             .ignoresSafeArea()
             
+            VStack(spacing: 40) {
+                if showTitle {
+                    Text("VIBES")
+                        .font(.system(size: 60, weight: .bold))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [.purple, .blue],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .transition(.scale.combined(with: .opacity))
+                }
+                
+                if showTagline {
+                    Text("Experience Music in a New Dimension")
+                        .font(.title2)
+                        .foregroundStyle(.secondary)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+            }
+            
             if showParticles {
                 // Particle animation using RealityView
                 RealityView { content in
                     // Create animation with proper coordinate space
-                    let letterAnimation = WelcomeLetterAnimation(content: content)
-                    animation = letterAnimation
-                    content.add(letterAnimation.entity)
-                    letterAnimation.start()
-                    
-                    // Handle completion in the update closure
-                } update: { content in
-                    if let animation = animation,
-                       animation.currentPhase == .finalBurst {
+                    let letterAnimation = WelcomeLetterAnimation(content: content) {
+                        // Animation complete callback
                         withAnimation(.easeOut(duration: 0.7)) {
                             opacity = 0
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
@@ -41,29 +57,32 @@ struct WelcomeView: View {
                             }
                         }
                     }
+                    animation = letterAnimation
+                    content.add(letterAnimation.entity)
+                    letterAnimation.start()
+                } update: { content in
+                    if let animation = animation {
+                        switch animation.currentPhase {
+                        case .textFormation:
+                            withAnimation(.easeIn(duration: 0.7)) {
+                                showTitle = true
+                            }
+                        case .stableState:
+                            withAnimation(.easeOut(duration: 0.7)) {
+                                showTagline = true
+                            }
+                        default:
+                            break
+                        }
+                    }
                 }
-            }
-            
-            // Tagline
-            if showTagline {
-                Text("Experience Music in a New Dimension")
-                    .font(.title2)
-                    .foregroundStyle(.secondary)
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }
         .opacity(opacity)
         .onAppear {
-            // Fade in view
+            // Initial fade in
             withAnimation(.easeOut(duration: 1.0)) {
                 opacity = 1.0
-            }
-            
-            // Show tagline after a delay
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                withAnimation(.easeOut(duration: 0.7)) {
-                    showTagline = true
-                }
             }
             
             // Start particle animation

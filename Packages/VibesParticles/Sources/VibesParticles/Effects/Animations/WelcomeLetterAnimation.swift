@@ -115,10 +115,10 @@ public class WelcomeLetterAnimation: ObservableObject {
             // Pull to scene center
             let config = AetherParticles.ParticleConfiguration(
                 emitterShape: .sphere,
-                emitterSize: [2, 2, 2],
-                birthRate: 100,
+                emitterSize: [1, 1, 1],  // Half the original size
+                birthRate: 150,          // 50% more particles
                 colorConfig: AetherParticles.randomRainbowColor(),
-                bounds: BoundingBox(min: [-5, -5, -5], max: [5, 5, 5]),
+                bounds: BoundingBox(min: [-2.5, -2.5, -2.5], max: [2.5, 2.5, 2.5]),  // Half the bounds
                 acceleration: sceneCenter - mainSystem.rootEntity.position,
                 speed: 0.5,
                 lifetime: 3.0
@@ -133,7 +133,18 @@ public class WelcomeLetterAnimation: ObservableObject {
             for (index, system) in letterSystems.enumerated() {
                 let offset = Self.letterOffsetFromCenter(index)
                 system.rootEntity.position = sceneCenter + offset
-                system.update(with: AetherParticles.ParticlePreset.galaxySplit.configuration)
+                let galaxyConfig = AetherParticles.ParticlePreset.galaxySplit.configuration
+                let halfSizeConfig = AetherParticles.ParticleConfiguration(
+                    emitterShape: galaxyConfig.emitterShape,
+                    emitterSize: [0.05, 0.05, 0.05],  // Half the original size
+                    birthRate: galaxyConfig.birthRate * 1.5,  // 50% more particles
+                    colorConfig: galaxyConfig.colorConfig,
+                    bounds: BoundingBox(min: [-0.1, -0.1, -0.1], max: [0.1, 0.1, 0.1]),  // Half the bounds
+                    acceleration: galaxyConfig.acceleration,
+                    speed: galaxyConfig.speed,
+                    lifetime: galaxyConfig.lifetime
+                )
+                system.update(with: halfSizeConfig)
                 system.start()
             }
             
@@ -141,8 +152,8 @@ public class WelcomeLetterAnimation: ObservableObject {
             // Gentle floating movement with color pulsing
             let floatingConfig = AetherParticles.ParticleConfiguration(
                 emitterShape: .sphere,
-                emitterSize: [0.1, 0.1, 0.1],
-                birthRate: 50,
+                emitterSize: [0.05, 0.05, 0.05],  // Half the original size
+                birthRate: 75,                     // 50% more particles
                 colorConfig: .evolving(
                     start: .single(ParticleEmitterComponent.ParticleEmitter.Color(
                         red: 0.5, green: 0.0, blue: 0.5, alpha: 0.8
@@ -151,9 +162,9 @@ public class WelcomeLetterAnimation: ObservableObject {
                         red: 0.3, green: 0.0, blue: 0.8, alpha: 0.6
                     ))
                 ),
-                bounds: BoundingBox(min: [-0.2, -0.2, -0.2], max: [0.2, 0.2, 0.2]),
-                acceleration: [0, 0.05, 0],  // Gentle upward drift
-                speed: 0.1,  // Slow movement
+                bounds: BoundingBox(min: [-0.1, -0.1, -0.1], max: [0.1, 0.1, 0.1]),  // Half the bounds
+                acceleration: [0, 0.05, 0],
+                speed: 0.1,
                 lifetime: 2.0
             )
             letterSystems.forEach { system in
@@ -165,10 +176,10 @@ public class WelcomeLetterAnimation: ObservableObject {
             // Burst from scene center
             let burstConfig = AetherParticles.ParticleConfiguration(
                 emitterShape: .sphere,
-                emitterSize: [0.1, 0.1, 0.1],
-                birthRate: 200,
+                emitterSize: [0.05, 0.05, 0.05],  // Half the original size
+                birthRate: 300,                    // 50% more particles
                 colorConfig: AetherParticles.randomRainbowColor(),
-                bounds: BoundingBox(min: [-10, -10, -10], max: [10, 10, 10]),
+                bounds: BoundingBox(min: [-5, -5, -5], max: [5, 5, 5]),  // Half the bounds
                 acceleration: [0, 2.0, 1.0],
                 speed: 2.0,
                 lifetime: 2.0
