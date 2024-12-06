@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "VibesParticles",
     platforms: [
-        .visionOS(.v2)
+        .custom("visionOS", versionString: "2.0")
     ],
     products: [
         .library(
@@ -15,9 +15,13 @@ let package = Package(
     targets: [
         .target(
             name: "VibesParticles",
-            dependencies: []),
+            dependencies: [],
+            path: "Sources/VibesParticles"
+        ),
         .testTarget(
             name: "VibesParticlesTests",
-            dependencies: ["VibesParticles"]),
+            dependencies: ["VibesParticles"],
+            path: "Tests/VibesParticlesTests"
+        ),
     ]
 ) 
