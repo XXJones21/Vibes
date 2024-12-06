@@ -3,31 +3,6 @@
 ## Project Overview
 Vibes is a spatial music visualization app targeting visionOS, iOS, and macOS platforms. The project uses SwiftUI for UI components, MusicKit for Apple Music integration, and RealityKit for 3D visualizations.
 
-## December 8, 2023
-
-### Particle System Restoration
-- Successfully reverted to `ParticleEmitterComponent` from custom components
-- Fixed availability attributes in multiple effect files:
-  - `FirefliesEffect.swift`
-  - `GalaxyEffect.swift`
-  - Working on `WelcomeLetterAnimation.swift`
-
-### Technical Implementation
-- Identified working particle system in commit cd55f1f
-- Restored proper component usage across effects
-- Addressing macOS availability errors in components
-- Working on color value conversion in welcome animation
-
-### Current Challenges
-1. macOS availability errors in particle components
-2. Color value conversion issues in welcome animation
-3. BoundingBox availability constraints
-
-### Next Steps
-- Complete welcome animation fixes
-- Test particle system functionality
-- Verify component behavior across effects
-
 ## Technical Implementation Details
 
 ### MusicService Package Structure
@@ -378,3 +353,42 @@ Vibes/
   - Lifetime variation for particle dynamics
   - Color evolution for smooth transitions
   - Opacity curves for fade effects
+
+## December 7, 2023 - Coordinate Space and Animation Improvements
+
+### Technical Implementation
+- Fixed coordinate space conversion in WelcomeLetterAnimation:
+  - Implemented proper RealityKit coordinate space system
+  - Fixed scene center point calculation
+  - Updated all animation phases to use correct space
+- Enhanced stable state animation:
+  - Added gentle floating movement
+  - Implemented color pulsing
+  - Maintained proper text shape
+- Improved animation phase transitions:
+  - All phases now properly centered
+  - Smooth transitions between states
+  - Better particle control
+
+### Issues Addressed
+1. Coordinate Space Conversion:
+   - Problem: Incorrect coordinate space conversion
+   - Solution: Implemented proper RealityKit space conversion
+   - Used correct protocol conformance
+
+2. Animation Center Point:
+   - Problem: Animations not properly centered
+   - Solution: Using converted scene center for all phases
+   - Fixed position calculations
+
+3. Stable State Animation:
+   - Problem: Missing proper floating text effect
+   - Solution: Added gentle movement and color pulsing
+   - Improved particle control
+
+### Next Steps
+- Fix remaining availability attributes
+- Implement proper error handling
+- Test animation phases with new coordinate system
+- Optimize performance
+- Add comprehensive documentation

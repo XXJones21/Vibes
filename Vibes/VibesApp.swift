@@ -1,5 +1,6 @@
 import SwiftUI
 import MusicService
+import RealityKit
 import VibesParticles
 
 @main
@@ -7,11 +8,13 @@ struct VibesApp: App {
     @StateObject private var musicService = VibesMusicService()
     
     init() {
-        // Register the particle system
-        VibesParticles.registerSystem()
+        // Register particle system
+        if #available(visionOS 2.0, *) {
+            VibesParticles.registerSystem()
+        }
     }
     
-    var body: some Scene {
+    var body: some SwiftUI.Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(musicService)

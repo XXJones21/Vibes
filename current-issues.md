@@ -1,42 +1,32 @@
 # Current Issues
 
-## December 8, 2023
-
-### Resolved Issues
-1. ✅ Particle system component restoration:
-   - Successfully reverted to `ParticleEmitterComponent`
-   - Fixed availability attributes in multiple files
-   - Updated component usage in key effect files
-
-### Current Issues
-1. 🚧 Welcome Animation Issues:
-   - macOS availability errors in particle components
-   - Color value conversion errors
-   - BoundingBox availability errors
-
-### Upcoming Tasks
-1. Fix remaining availability errors in `WelcomeLetterAnimation.swift`
-2. Test particle system after all fixes
-3. Verify component functionality across all effects
-
 ## December 7, 2023
 
 ### Resolved Issues
-1. ✅ Particle visibility in welcome animation:
-   - Fixed incorrect property names in particle emitter
-   - Implemented proper RealityKit API properties
-   - Updated documentation with correct usage
+1. ✅ Coordinate space conversion:
+   - Fixed incorrect space conversion in welcome animation
+   - Implemented proper RealityKit coordinate spaces
+   - Updated all animation phases to use correct center
+
+2. ✅ Stable state animation:
+   - Added proper floating text effect
+   - Implemented color pulsing
+   - Fixed particle movement
 
 ### Current Issues
-1. 🚧 Particle System Enhancements:
-   - Need to verify particle visibility after fixes
-   - Consider implementing additional particle properties
-   - Test different particle configurations
+1. 🚧 Availability Attributes:
+   - Need to fix macOS availability warnings
+   - Update visionOS availability checks
+   - Ensure proper platform support
+
+2. 🚧 Error Handling:
+   - Need comprehensive error handling
+   - Better error reporting
+   - Graceful fallbacks
 
 ### Upcoming Tasks
-1. Test welcome animation with fixed particle system
-2. Consider implementing additional RealityKit particle features:
-   - Particle size variation
-   - Lifetime variation
-   - Color evolution control
-   - Opacity curve management
+1. Test animation phases with new coordinate system
+2. Implement proper error handling
+3. Fix availability attributes
+4. Add performance monitoring
+5. Update documentation

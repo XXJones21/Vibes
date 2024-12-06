@@ -2,6 +2,7 @@ import RealityKit
 
 /// A particle effect that creates a gentle rain effect.
 /// Perfect for creating a calming, atmospheric effect.
+@available(visionOS 2.0, *)
 public struct RainEffect {
     /// Creates a preconfigured emitter component for the rain effect
     public static var emitterComponent: ParticleEmitterComponent {

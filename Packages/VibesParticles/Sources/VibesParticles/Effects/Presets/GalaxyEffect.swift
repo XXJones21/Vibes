@@ -2,6 +2,7 @@ import RealityKit
 
 /// A particle effect that creates a swirling galaxy formation.
 /// Perfect for creating a cosmic, ethereal atmosphere.
+@available(visionOS 2.0, *)
 public struct GalaxyEffect {
     /// Creates a preconfigured emitter component for the galaxy effect
     public static var emitterComponent: ParticleEmitterComponent {

@@ -4,10 +4,10 @@ import VibesParticles
 
 struct WelcomeView: View {
     let onComplete: () -> Void
-    @StateObject private var animation = WelcomeLetterAnimation()
     @State private var opacity = 0.0
     @State private var showTagline = false
     @State private var showParticles = false
+    @State private var animation: WelcomeLetterAnimation?
     
     var body: some View {
         ZStack {
@@ -23,20 +23,23 @@ struct WelcomeView: View {
             if showParticles {
                 // Particle animation using RealityView
                 RealityView { content in
-                    content.add(animation.rootEntity)
-                    animation.startAnimation()
-                } update: { content in
-                    // Update logic if needed
-                }
-                .onChange(of: animation.currentPhase) { _, phase in
-                    if phase == .complete {
-                        withAnimation(.easeOut(duration: 0.7)) {
-                            opacity = 0
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                                onComplete()
+                    // Create animation with proper coordinate space
+                    let letterAnimation = WelcomeLetterAnimation(
+                        content: content,
+                        onComplete: {
+                            withAnimation(.easeOut(duration: 0.7)) {
+                                opacity = 0
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                                    onComplete()
+                                }
                             }
                         }
-                    }
+                    )
+                    animation = letterAnimation
+                    content.add(letterAnimation.entity)
+                    letterAnimation.start()
+                } update: { content in
+                    // Update logic if needed
                 }
             }
             

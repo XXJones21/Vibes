@@ -2,6 +2,7 @@ import RealityKit
 
 /// A particle effect that creates bright, twinkling sparkles.
 /// Perfect for creating a magical, energetic effect.
+@available(visionOS 2.0, *)
 public struct SparklesEffect {
     /// Creates a preconfigured emitter component for the sparkles effect
     public static var emitterComponent: ParticleEmitterComponent {

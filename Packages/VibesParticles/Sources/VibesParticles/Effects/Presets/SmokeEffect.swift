@@ -2,6 +2,7 @@ import RealityKit
 
 /// A particle effect that creates ethereal smoke-like formations.
 /// Perfect for creating a mystical, atmospheric effect.
+@available(visionOS 2.0, *)
 public struct SmokeEffect {
     /// Creates a preconfigured emitter component for the smoke effect
     public static var emitterComponent: ParticleEmitterComponent {

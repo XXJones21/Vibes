@@ -26,6 +26,13 @@ This document contains key phrases that can be used to automate common tasks in 
 
 - Do not make any adjustments to any of the views, mainly anything to alter its' current layout unless specifically told to do so. Explain what change you want to do and ask for approval first.
 
+- When asked to review code:
+  1. Read EVERY single file in the scope
+  2. Do not skip any files, even if they seem unrelated
+  3. Do not make assumptions about file contents
+  4. Read everything completely before formulating any response
+  5. Only after having a complete picture of all files, start answering
+
 - Always check availability attributes match the target platform (e.g., `@available(visionOS 2.0, *)`)
 - When fixing issues, compare with a previous working version (preferably from git history) before making changes
 - Keep the code clean and well-documented

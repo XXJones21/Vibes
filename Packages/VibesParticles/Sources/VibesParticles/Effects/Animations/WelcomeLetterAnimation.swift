@@ -1,120 +1,125 @@
 import SwiftUI
 import RealityKit
+import _RealityKit_SwiftUI
 
 /// Creates an immersive welcome animation using ethereal particle effects
 @available(visionOS 2.0, *)
 public class WelcomeLetterAnimation: ObservableObject {
     // Root entity that will host all particle systems
-    public private(set) var rootEntity = Entity()
+    private let rootEntity = Entity()
     
-    // Main particle system for initial phases
-    private var mainSystem: AetherParticles
-    
-    // Letter particle systems for split phase
+    // Individual letter particle systems
     private var letterSystems: [AetherParticles] = []
     
-    // Animation phase tracking
-    @Published public private(set) var currentPhase: AnimationPhase = .initial {
-        didSet {
-            print("Animation phase changed: \(oldValue) -> \(currentPhase)")
-        }
-    }
+    // Main particle system for overall effects
+    private var mainSystem: AetherParticles
+    
+    // Center point in scene space
+    private let sceneCenter: SIMD3<Float>
     
     // Animation phases
     public enum AnimationPhase {
         case initial
-        case fireflyFloat
+        case globeFormation
         case centerPull
-        case galaxyForm
-        case galaxySplit
+        case textFormation
         case stableState
         case finalBurst
-        case complete
     }
+    
+    @Published public private(set) var currentPhase: AnimationPhase = .initial
     
     // Animation durations
-    private let fireflyDuration: TimeInterval = 4.0
-    private let pullDuration: TimeInterval = 4.0
-    private let galaxyDuration: TimeInterval = 3.0
-    private let splitDuration: TimeInterval = 3.0
-    private let stableDuration: TimeInterval = 2.0
-    private let burstDuration: TimeInterval = 2.0
+    private let phaseDurations: [AnimationPhase: TimeInterval] = [
+        .globeFormation: 4.0,
+        .centerPull: 3.0,
+        .textFormation: 3.0,
+        .stableState: 2.0,
+        .finalBurst: 2.0
+    ]
     
-    public init() {
-        // Initialize main particle system with firefly preset
-        mainSystem = AetherParticles(configuration: AetherParticles.ParticlePreset.fireflies.configuration)
+    // Completion callback
+    private var onComplete: (() -> Void)?
+    
+    // MARK: - Initialization
+    
+    public init(content: RealityViewContent, onComplete: (() -> Void)? = nil) {
+        self.onComplete = onComplete
+        
+        // Convert window center to scene space
+        let windowCenter = Point3D(x: 0, y: 0, z: 0)
+        self.sceneCenter = content.convert(windowCenter, 
+            from: .local,
+            to: SceneRealityCoordinateSpace.scene
+        )
+        
+        // Initialize main system at scene center
+        mainSystem = AetherParticles(configuration: .default)
+        mainSystem.rootEntity.position = sceneCenter
         rootEntity.addChild(mainSystem.rootEntity)
         
-        // Create letter systems (initially hidden)
+        // Create letter systems around scene center
         for i in 0..<5 {
-            let system = AetherParticles.forLetterPosition(i)
-            letterSystems.append(system)
-            rootEntity.addChild(system.rootEntity)
+            let letterSystem = Self.forLetterPosition(i, center: sceneCenter)
+            letterSystems.append(letterSystem)
+            rootEntity.addChild(letterSystem.rootEntity)
         }
-        
-        // Position in space - using fixed values for consistent placement
-        rootEntity.position = [0, 1.6, -2.0]  // Eye level, 2 meters away
     }
     
-    public func startAnimation() {
-        // Start the animation sequence
-        currentPhase = .fireflyFloat
-        updateParticlesForPhase(.fireflyFloat)
+    // MARK: - Public Methods
+    
+    public var entity: Entity { rootEntity }
+    
+    public func start() {
+        advancePhase(.globeFormation)
+    }
+    
+    // MARK: - Private Methods
+    
+    private func advancePhase(_ phase: AnimationPhase) {
+        updateParticlesForPhase(phase)
         
-        // Schedule phase transitions
-        DispatchQueue.main.asyncAfter(deadline: .now() + fireflyDuration) { [weak self] in
-            self?.transitionToPhase(.centerPull)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + (self?.pullDuration ?? 4.0)) { [weak self] in
-                self?.transitionToPhase(.galaxyForm)
+        // Schedule next phase
+        if let duration = phaseDurations[phase] {
+            DispatchQueue.main.asyncAfter(deadline: .now() + duration) { [weak self] in
+                guard let self = self else { return }
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + (self?.galaxyDuration ?? 3.0)) { [weak self] in
-                    self?.transitionToPhase(.galaxySplit)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + (self?.splitDuration ?? 3.0)) { [weak self] in
-                        self?.transitionToPhase(.stableState)
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + (self?.stableDuration ?? 2.0)) { [weak self] in
-                            self?.transitionToPhase(.finalBurst)
-                            
-                            DispatchQueue.main.asyncAfter(deadline: .now() + (self?.burstDuration ?? 2.0)) { [weak self] in
-                                self?.transitionToPhase(.complete)
-                            }
-                        }
-                    }
+                switch phase {
+                case .initial: break
+                case .globeFormation: self.advancePhase(.centerPull)
+                case .centerPull: self.advancePhase(.textFormation)
+                case .textFormation: self.advancePhase(.stableState)
+                case .stableState: self.advancePhase(.finalBurst)
+                case .finalBurst: self.onComplete?()
                 }
             }
         }
     }
     
-    private func transitionToPhase(_ phase: AnimationPhase) {
-        currentPhase = phase
-        updateParticlesForPhase(phase)
-    }
-    
     private func updateParticlesForPhase(_ phase: AnimationPhase) {
-        print("Updating particles for phase: \(phase)")
+        currentPhase = phase
+        
         switch phase {
         case .initial:
-            print("Initial phase - stopping all systems")
             mainSystem.stop()
             letterSystems.forEach { $0.stop() }
             
-        case .fireflyFloat:
-            print("Firefly phase - starting main system with fireflies preset")
+        case .globeFormation:
+            // Start at scene center
+            mainSystem.rootEntity.position = sceneCenter
             mainSystem.update(with: AetherParticles.ParticlePreset.fireflies.configuration)
             mainSystem.start()
             letterSystems.forEach { $0.stop() }
             
         case .centerPull:
-            print("Center pull phase - updating configuration")
+            // Pull to scene center
             let config = AetherParticles.ParticleConfiguration(
                 emitterShape: .sphere,
                 emitterSize: [2, 2, 2],
                 birthRate: 100,
                 colorConfig: AetherParticles.randomRainbowColor(),
                 bounds: BoundingBox(min: [-5, -5, -5], max: [5, 5, 5]),
-                acceleration: [0, -0.5, -2.0],
+                acceleration: sceneCenter - mainSystem.rootEntity.position,
                 speed: 0.5,
                 lifetime: 3.0
             )
@@ -122,70 +127,74 @@ public class WelcomeLetterAnimation: ObservableObject {
             mainSystem.start()
             letterSystems.forEach { $0.stop() }
             
-        case .galaxyForm:
-            mainSystem.update(with: AetherParticles.ParticlePreset.galaxy.configuration)
-            mainSystem.start()
-            letterSystems.forEach { $0.stop() }
-            
-        case .galaxySplit:
+        case .textFormation:
             mainSystem.stop()
+            // Position letter systems around scene center
             for (index, system) in letterSystems.enumerated() {
-                system.rootEntity.position = AetherParticles.letterPositions[index]
+                let offset = Self.letterOffsetFromCenter(index)
+                system.rootEntity.position = sceneCenter + offset
                 system.update(with: AetherParticles.ParticlePreset.galaxySplit.configuration)
                 system.start()
             }
             
         case .stableState:
-            mainSystem.stop()
-            let config = AetherParticles.ParticleConfiguration(
+            // Gentle floating movement with color pulsing
+            let floatingConfig = AetherParticles.ParticleConfiguration(
                 emitterShape: .sphere,
-                emitterSize: [1.5, 1.5, 1.5],
-                birthRate: 10,
+                emitterSize: [0.1, 0.1, 0.1],
+                birthRate: 50,
                 colorConfig: .evolving(
                     start: .single(ParticleEmitterComponent.ParticleEmitter.Color(
-                        red: 0.5, green: 0.0, blue: 0.5, alpha: 0.9
+                        red: 0.5, green: 0.0, blue: 0.5, alpha: 0.8
                     )),
                     end: .single(ParticleEmitterComponent.ParticleEmitter.Color(
-                        red: 0.0, green: 0.0, blue: 1.0, alpha: 0.7
+                        red: 0.3, green: 0.0, blue: 0.8, alpha: 0.6
                     ))
                 ),
-                bounds: BoundingBox(min: [-3, -3, -3], max: [3, 3, 3]),
-                acceleration: [0, 0.05, 0],
-                speed: 0.1,
-                lifetime: 3.0
+                bounds: BoundingBox(min: [-0.2, -0.2, -0.2], max: [0.2, 0.2, 0.2]),
+                acceleration: [0, 0.05, 0],  // Gentle upward drift
+                speed: 0.1,  // Slow movement
+                lifetime: 2.0
             )
             letterSystems.forEach { system in
-                system.update(with: config)
+                system.update(with: floatingConfig)
                 system.start()
             }
             
         case .finalBurst:
-            mainSystem.stop()
-            let config = AetherParticles.ParticleConfiguration(
+            // Burst from scene center
+            let burstConfig = AetherParticles.ParticleConfiguration(
                 emitterShape: .sphere,
-                emitterSize: [8, 8, 8],
+                emitterSize: [0.1, 0.1, 0.1],
                 birthRate: 200,
-                colorConfig: .evolving(
-                    start: .single(ParticleEmitterComponent.ParticleEmitter.Color(
-                        red: 0.5, green: 0.0, blue: 0.5, alpha: 0.6
-                    )),
-                    end: .single(ParticleEmitterComponent.ParticleEmitter.Color(
-                        red: 1.0, green: 1.0, blue: 1.0, alpha: 0.0
-                    ))
-                ),
-                bounds: BoundingBox(min: [-8, -8, -8], max: [8, 8, 8]),
+                colorConfig: AetherParticles.randomRainbowColor(),
+                bounds: BoundingBox(min: [-10, -10, -10], max: [10, 10, 10]),
                 acceleration: [0, 2.0, 1.0],
-                speed: 1.0,
+                speed: 2.0,
                 lifetime: 2.0
             )
-            letterSystems.forEach { system in
-                system.update(with: config)
-                system.start()
-            }
-            
-        case .complete:
-            mainSystem.stop()
+            mainSystem.rootEntity.position = sceneCenter
+            mainSystem.update(with: burstConfig)
+            mainSystem.start()
             letterSystems.forEach { $0.stop() }
         }
+    }
+    
+    private static func letterOffsetFromCenter(_ index: Int) -> SIMD3<Float> {
+        let spacing: Float = 1.0
+        return [
+            Float(index - 2) * spacing,  // X offset from center (-2 to center the word)
+            0,                           // Y stays at 0
+            0                            // Z stays at converted depth
+        ]
+    }
+    
+    private static func forLetterPosition(_ index: Int, center: SIMD3<Float>) -> AetherParticles {
+        precondition(index >= 0 && index < 5, "Letter index out of bounds")
+        
+        let system = AetherParticles(configuration: AetherParticles.ParticlePreset.galaxySplit.configuration)
+        let offset = letterOffsetFromCenter(index)
+        system.rootEntity.position = center + offset
+        return system
     }
 } 

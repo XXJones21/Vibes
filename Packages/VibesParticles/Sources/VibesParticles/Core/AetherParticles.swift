@@ -327,16 +327,21 @@ public class AetherParticles: ObservableObject {
         let randomHue = hues.randomElement() ?? 0
         let nextHue = hues.first(where: { $0 > randomHue }) ?? hues[0]
         
+        // Convert hue to RGB for start color
+        let (r1, g1, b1) = hueToRGB(hue: randomHue)
         let startColor = ParticleEmitterComponent.ParticleEmitter.Color(
-            red: 1.0,
-            green: 0.0,
-            blue: 0.0,
+            red: CGFloat(r1),
+            green: CGFloat(g1),
+            blue: CGFloat(b1),
             alpha: 0.8
         )
+        
+        // Convert hue to RGB for end color
+        let (r2, g2, b2) = hueToRGB(hue: nextHue)
         let endColor = ParticleEmitterComponent.ParticleEmitter.Color(
-            red: 0.0,
-            green: 0.0,
-            blue: 1.0,
+            red: CGFloat(r2),
+            green: CGFloat(g2),
+            blue: CGFloat(b2),
             alpha: 0.6
         )
         
@@ -344,6 +349,26 @@ public class AetherParticles: ObservableObject {
             start: .single(startColor),
             end: .single(endColor)
         )
+    }
+
+    // Convert hue to RGB (helper function)
+    private static func hueToRGB(hue: CGFloat) -> (Float, Float, Float) {
+        let h = hue * 6.0
+        let i = floor(h)
+        let f = h - i
+        let p = 0.0
+        let q = 1.0 - f
+        let t = f
+        
+        switch Int(i) % 6 {
+        case 0: return (1.0, Float(t), 0.0)
+        case 1: return (Float(q), 1.0, 0.0)
+        case 2: return (0.0, 1.0, Float(t))
+        case 3: return (0.0, Float(q), 1.0)
+        case 4: return (Float(t), 0.0, 1.0)
+        case 5: return (1.0, 0.0, Float(q))
+        default: return (0.0, 0.0, 0.0)
+        }
     }
 }
 

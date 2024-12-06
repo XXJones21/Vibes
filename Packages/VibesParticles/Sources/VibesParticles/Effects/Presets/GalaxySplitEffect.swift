@@ -2,6 +2,7 @@ import RealityKit
 
 /// A particle effect that creates a split galaxy formation with individual swirls.
 /// Perfect for creating a cosmic, ethereal atmosphere.
+@available(visionOS 2.0, *)
 public struct GalaxySplitEffect {
     /// Creates a preconfigured emitter component for a single split galaxy effect
     public static var emitterComponent: ParticleEmitterComponent {
