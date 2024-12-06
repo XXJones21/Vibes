@@ -2,40 +2,37 @@ import SwiftUI
 import RealityKit
 import MusicService
 
+@available(visionOS 2.0, *)
 struct ContentView: View {
     @EnvironmentObject private var musicService: VibesMusicService
-    @State private var isLoading = true
-    @State private var isInitialLoad = true
+    @Environment(\.openImmersiveSpace) private var openImmersiveSpace
+    @Environment(\.dismissImmersiveSpace) private var dismissImmersiveSpace
+    @State private var showWelcome = true
     
     var body: some View {
         ZStack {
-            Group {
-                if musicService.isAuthorized {
-                    Gallery()
-                        .task {
-                            if isInitialLoad {
-                                try? await Task.sleep(for: .seconds(2))
-                                isInitialLoad = false
-                                isLoading = false
-                                
-                                // Debug: Analyze The Midnight's Heroes album
-                                try? await musicService.analyzeAlbum(title: "Heroes", artist: "The Midnight")
-                            }
-                        }
-                } else {
-                    AuthorizationView()
+            if showWelcome {
+                WelcomeView {
+                    withAnimation(.easeOut(duration: 0.7)) {
+                        showWelcome = false
+                    }
+                    Task {
+                        await dismissImmersiveSpace()
+                    }
+                }
+            } else {
+                Group {
+                    if musicService.isAuthorized {
+                        Gallery()
+                    } else {
+                        AuthorizationView()
+                    }
                 }
             }
-            
-            if isLoading {
-                LoadingView(message: "Loading your music...")
-            }
         }
-        .task {
-            isLoading = true
-            await musicService.checkAuthorization()
-            if !musicService.isAuthorized {
-                isLoading = false
+        .onAppear {
+            Task {
+                await openImmersiveSpace(id: "Welcome")
             }
         }
     }

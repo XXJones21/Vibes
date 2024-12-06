@@ -2,15 +2,33 @@
 
 A visionOS music player app that creates immersive spatial audio experiences.
 
-## Project Status (December 5, 2023)
+## Project Status
 
-The project has achieved a significant milestone with working music playback functionality. Album grid view is now fully operational with proper artwork loading and immediate playback on selection. Key Apple Music integration issues have been resolved by implementing proper catalog ID handling and adding required entitlements. The codebase maintains strict visionOS 2.0 compatibility with proper availability attributes.
+## Current State
+The welcome animation has been significantly improved with standardized particle system bounds and more natural transitions. Particles now spawn around the user and flow smoothly between phases. Core functionality is maintained with better consistency, though some platform availability issues need addressing.
+
+## Top Priorities
+1. Address platform availability linter errors
+2. Verify animation timing against UX specifications
+3. Test and optimize particle system performance
+4. Consider additional particle effects for other views
+5. Complete comprehensive testing with new bounds
+
+### Current Progress (December 7, 2023)
+Fixed particle system visibility issues by implementing correct RealityKit particle properties. Updated documentation with proper API usage and best practices. The welcome animation's particle system has been corrected with proper lifetime and size configurations.
 
 ### Current Priorities
-1. 🎵 Implement Now Playing view for active playback
-2. 🎮 Add gesture-based playback controls
-3. 💫 Polish UI transitions and animations
-4. 🔊 Develop spatial audio visualization
+1. Verify particle visibility in welcome animation
+2. Implement additional particle features for enhanced effects
+3. Test different particle configurations
+4. Consider implementing advanced RealityKit particle properties
+
+### Upcoming Features
+- Robust particle system API
+- Type-safe color configurations
+- Efficient entity management
+- Comprehensive error handling
+- Unit test coverage
 
 ## Features
 

@@ -79,4 +79,63 @@
 
 5. **Optimize Performance:**
    - Reduce texture sizes and implement caching.
-   - Optimize layout calculations and memory management. 
+   - Optimize layout calculations and memory management.
+
+## Welcome View
+
+The welcome view provides an immersive introduction to the app through a dynamic particle animation system.
+
+### Initial Setup
+- Create ParticleSystem class to manage the effect
+- Setup base particle properties (color, size, lifetime)
+- Create emitter points in a spherical formation
+
+### Animation Phases (Total Duration: 10 seconds)
+
+#### 1. Globe Formation (0-3s)
+- Emit particles in spherical pattern
+- Use perlin noise for natural movement
+- Gradient colors between purple and blue
+- Soft glow/bloom effect
+
+#### 2. Center Pull (3-4s)
+- Attract particles to center point
+- Increase density/compression
+- Add swirl effect during pull
+
+#### 3. Text Formation (4-6s)
+- Define "VIBES" text path
+- Distribute particles along path
+- Add subtle oscillation
+- Implement color transitions
+
+#### 4. Stable State (6-8s)
+- Gentle particle movement
+- Soft color pulsing
+- Maintain text shape
+
+#### 5. Final Burst (8-10s)
+- Explosive force outward
+- Fade out opacity
+- Smoke-like dissipation
+
+### Technical Implementation Notes
+- Use RealityKit's particle system for optimal performance
+- Implement perlin noise for organic movement
+- Use batch processing for particle updates
+- Optimize for visionOS rendering pipeline
+- Maintain 60fps performance target
+
+### Visual Style
+- Primary colors: Purple (#8A2BE2) to Blue (#4169E1)
+- Particle size: 0.01-0.03 units
+- Glow intensity: 0.4-0.8
+- Opacity range: 0.3-0.8
+- Bloom effect intensity: 0.3
+
+### Performance Considerations
+- Maximum particle count: 500
+- Batch updates in groups of 50
+- Use spatial partitioning for collision detection
+- Implement particle pooling for memory efficiency
+- Progressive loading of particle systems 

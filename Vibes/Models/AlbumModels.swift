@@ -2,6 +2,7 @@ import SwiftUI
 import RealityKit
 import MusicKit
 
+@available(visionOS 2.0, *)
 struct AlbumLoadState: Equatable {
     var albums: [Album]
     var isLoading: Bool

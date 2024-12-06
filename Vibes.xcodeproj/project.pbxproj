@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF8CC0692D0284840004FD59 /* VibesParticles in Frameworks */ = {isa = PBXBuildFile; productRef = DF8CC0682D0284840004FD59 /* VibesParticles */; };
 		DFD744B62D0021A500C35DF4 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DFD744B52D0021A500C35DF4 /* RealityKitContent */; };
 		DFD744B72D0021A500C35DF5 /* MusicService in Frameworks */ = {isa = PBXBuildFile; productRef = DFD744B72D0021A500C35DF6 /* MusicService */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF8CC0672D0284840004FD59 /* VibesParticles */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = VibesParticles; sourceTree = "<group>"; };
 		DFD744B02D0021A500C35DF4 /* Vibes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vibes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFD744B42D0021A500C35DF4 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		DFD744B82D0021A500C35DF7 /* MusicService */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MusicService; sourceTree = "<group>"; };
@@ -45,6 +47,7 @@
 			files = (
 				DFD744B62D0021A500C35DF4 /* RealityKitContent in Frameworks */,
 				DFD744B72D0021A500C35DF5 /* MusicService in Frameworks */,
+				DF8CC0692D0284840004FD59 /* VibesParticles in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +84,7 @@
 			children = (
 				DFD744B42D0021A500C35DF4 /* RealityKitContent */,
 				DFD744B82D0021A500C35DF7 /* MusicService */,
+				DF8CC0672D0284840004FD59 /* VibesParticles */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -107,6 +111,7 @@
 			packageProductDependencies = (
 				DFD744B52D0021A500C35DF4 /* RealityKitContent */,
 				DFD744B72D0021A500C35DF6 /* MusicService */,
+				DF8CC0682D0284840004FD59 /* VibesParticles */,
 			);
 			productName = Vibes;
 			productReference = DFD744B02D0021A500C35DF4 /* Vibes.app */;
@@ -136,6 +141,8 @@
 			);
 			mainGroup = DFD744A72D0021A500C35DF4;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DFD744B12D0021A500C35DF4 /* Products */;
 			projectDirPath = "";
@@ -370,6 +377,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DF8CC0682D0284840004FD59 /* VibesParticles */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VibesParticles;
+		};
 		DFD744B52D0021A500C35DF4 /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityKitContent;

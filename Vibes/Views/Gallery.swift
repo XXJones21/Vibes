@@ -2,6 +2,7 @@ import SwiftUI
 import RealityKit
 import MusicService
 
+@available(visionOS 2.0, *)
 struct Gallery: View {
     @StateObject private var viewModel = GalleryViewModel()
     @EnvironmentObject private var musicService: VibesMusicService
@@ -190,27 +191,25 @@ struct AlbumArtworkView: View {
                         let imageData = try await artwork.data(width: 300, height: 300)
                         print("Got artwork data for:", album.title, "size:", imageData.count)
                         
-                        if let uiImage = UIImage(data: imageData) {
-                            print("Created UIImage for:", album.title)
-                            if let cgImage = uiImage.cgImage {
-                                print("Got CGImage for:", album.title)
-                                let texture = try await TextureResource.generate(from: cgImage, options: .init(semantic: .color))
-                                print("Generated texture for:", album.title)
-                                
-                                // Update the material with the album artwork
-                                var updatedMaterial = PhysicallyBasedMaterial()
-                                updatedMaterial.baseColor = .init(texture: .init(texture))
-                                updatedMaterial.roughness = .init(floatLiteral: 0.3)
-                                updatedMaterial.metallic = .init(floatLiteral: 0.1)
-                                
-                                modelEntity.model?.materials = [updatedMaterial]
-                                print("Updated material for:", album.title)
-                            } else {
-                                print("Failed to get CGImage for:", album.title)
-                            }
-                        } else {
-                            print("Failed to create UIImage from data for:", album.title)
+                        // Convert data to CGImage
+                        guard let imageSource = CGImageSourceCreateWithData(imageData as CFData, nil),
+                              let cgImage = CGImageSourceCreateImageAtIndex(imageSource, 0, nil) else {
+                            print("Failed to create CGImage for:", album.title)
+                            return
                         }
+                        
+                        // Generate texture from CGImage
+                        let texture = try await TextureResource.generate(from: cgImage, options: .init(semantic: .color))
+                        print("Generated texture for:", album.title)
+                        
+                        // Update the material with the album artwork
+                        var updatedMaterial = PhysicallyBasedMaterial()
+                        updatedMaterial.baseColor = .init(texture: .init(texture))
+                        updatedMaterial.roughness = .init(floatLiteral: 0.3)
+                        updatedMaterial.metallic = .init(floatLiteral: 0.1)
+                        
+                        modelEntity.model?.materials = [updatedMaterial]
+                        print("Updated material for:", album.title)
                     } catch {
                         print("Failed to load artwork for \(album.title):", error)
                     }

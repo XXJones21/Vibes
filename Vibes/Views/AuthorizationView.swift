@@ -2,6 +2,7 @@ import SwiftUI
 import RealityKit
 import MusicService
 
+@available(visionOS 2.0, *)
 struct AuthorizationView: View {
     @EnvironmentObject private var musicService: VibesMusicService
     
