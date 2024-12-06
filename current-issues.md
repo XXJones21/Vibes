@@ -17,6 +17,12 @@
 2. Add loading states and error feedback in UI
 3. Implement proper state management for playback
 4. Add unit tests for MusicService
+5. Consider renaming VibesParticles package to AetherKit:
+   - Update package structure and dependencies
+   - Rename source directories
+   - Update import statements
+   - Update Xcode project configuration
+   - Test all particle system integrations
 
 ## Platform Compatibility
 - ✅ visionOS 2.0 compatibility maintained

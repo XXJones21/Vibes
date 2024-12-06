@@ -1,32 +1,6 @@
 # Shortcuts
 
-### "Onboard me"
-This command will:
-1. Review all markdown documents in sequence:
-   - README.md for project overview
-   - current-status.md for latest state
-   - current-issues.md for known issues
-   - Composer-history.md for project evolution
-2. Analyze the codebase structure:
-   - MusicService package implementation
-   - UI/UX components in Views directory
-   - Project configuration and dependencies
-3. Review visionOS sample projects for reference patterns:
-   - Spatial Audio implementation
-   - Hand tracking gestures
-   - Immersive spaces
-   - RealityKit UI integration
-   - Glass UI styling
-4. Verify platform requirements:
-   - visionOS 2.0+ availability attributes
-   - Dolby Atmos support
-   - SwiftUI and RealityKit usage
-5. Confirm understanding of Golden Rules:
-   - Package modification restrictions
-   - View layout guidelines
-   - Platform compatibility
-   - Version control practices
-   - Code quality standards
+This document contains key phrases that can be used to automate common tasks in the development workflow. If you are being asked to read this file, please navigate to the "Onboard Me" section and perform each step in that action.
 
 > **Onboarding Instructions**: 
 
@@ -58,9 +32,37 @@ This command will:
 - Follow SwiftUI and RealityKit best practices
 - Test on device when possible
 
-This document contains key phrases that can be used to automate common tasks in the development workflow.
-
 ## Available Shortcuts
+
+### "Onboard me"
+This command will:
+1. Review all markdown documents in sequence:
+   - README.md for project overview
+   - current-status.md for latest state
+   - current-issues.md for known issues
+   - Composer-history.md for project evolution
+2. Analyze the codebase structure:
+   - MusicService package implementation
+   - VibesParticles package implementation
+   - UI/UX components in Views directory
+   - Project configuration and dependencies
+3. Review visionOS sample projects for reference patterns:
+   - Spatial Audio implementation
+   - Hand tracking gestures
+   - Immersive spaces
+   - RealityKit UI integration
+   - Glass UI styling
+   - RealityKit Particles in visionOS: '/Users/jones/Documents/Sample Apps/VisionOS/SimulatingParticlesInYourVisionOSApp'
+4. Verify platform requirements:
+   - visionOS 2.0+ availability attributes
+   - Dolby Atmos support
+   - SwiftUI and RealityKit usage
+5. Confirm understanding of Golden Rules:
+   - Package modification restrictions
+   - View layout guidelines
+   - Platform compatibility
+   - Version control practices
+   - Code quality standards
 
 ### "Summarize today's work"
 This command will:
