@@ -64,7 +64,8 @@ public class AetherParticles: ObservableObject {
                     colorConfig: AetherParticles.randomRainbowColor(),
                     bounds: BoundingBox(min: [-5, -5, -5], max: [5, 5, 5]),
                     acceleration: [0, 0.1, 0],
-                    speed: 0.2
+                    speed: 0.2,
+                    lifetime: 5.0
                 )
                 
             case .galaxy:
@@ -83,14 +84,15 @@ public class AetherParticles: ObservableObject {
                 return ParticleConfiguration(
                     emitterShape: .sphere,
                     emitterSize: [6, 6, 6],
-                    birthRate: 0,
+                    birthRate: 150,
                     colorConfig: .evolving(
                         start: .single(purpleColor),
                         end: .single(blueColor)
                     ),
                     bounds: BoundingBox(min: [-8, -8, -8], max: [8, 8, 8]),
                     acceleration: [0, 0.1, -0.5],
-                    speed: 0.3
+                    speed: 0.3,
+                    lifetime: 4.0
                 )
                 
             case .galaxySplit:
@@ -109,14 +111,15 @@ public class AetherParticles: ObservableObject {
                 return ParticleConfiguration(
                     emitterShape: .sphere,
                     emitterSize: [1.5, 1.5, 1.5],
-                    birthRate: 0,
+                    birthRate: 100,
                     colorConfig: .evolving(
                         start: .single(purpleColor),
                         end: .single(blueColor)
                     ),
                     bounds: BoundingBox(min: [-3, -3, -3], max: [3, 3, 3]),
                     acceleration: [0, 0.05, 0],
-                    speed: 0.2
+                    speed: 0.2,
+                    lifetime: 3.0
                 )
                 
             case .sparkles:
@@ -133,7 +136,8 @@ public class AetherParticles: ObservableObject {
                     colorConfig: .constant(.single(whiteColor)),
                     bounds: BoundingBox(min: [-3, -3, -3], max: [3, 3, 3]),
                     acceleration: [0, -0.5, 0],
-                    speed: 0.5
+                    speed: 0.5,
+                    lifetime: 2.0
                 )
                 
             case .smoke:
@@ -159,7 +163,8 @@ public class AetherParticles: ObservableObject {
                     ),
                     bounds: BoundingBox(min: [-5, -5, -5], max: [5, 5, 5]),
                     acceleration: [0, 0.2, 0],
-                    speed: 0.1
+                    speed: 0.1,
+                    lifetime: 1.0
                 )
                 
             case .rain:
@@ -176,7 +181,8 @@ public class AetherParticles: ObservableObject {
                     colorConfig: .constant(.single(rainColor)),
                     bounds: BoundingBox(min: [-10, -10, -10], max: [10, 10, 10]),
                     acceleration: [0, -2.0, 0],
-                    speed: 1.0
+                    speed: 1.0,
+                    lifetime: 1.0
                 )
             }
         }
@@ -205,6 +211,9 @@ public class AetherParticles: ObservableObject {
         /// The initial speed of particle movement (in meters per second)
         public var speed: Float
         
+        /// The lifetime of each particle in seconds
+        public var lifetime: Float
+        
         /// Creates a default configuration with moderate values
         public static var `default`: ParticleConfiguration {
             ParticleConfiguration(
@@ -214,7 +223,8 @@ public class AetherParticles: ObservableObject {
                 colorConfig: .constant(.single(.white.withAlphaComponent(0.6))),
                 bounds: BoundingBox(min: [-5, -5, -5], max: [5, 5, 5]),
                 acceleration: [0, 0, 0],
-                speed: 0.2
+                speed: 0.2,
+                lifetime: 3.0
             )
         }
         
@@ -225,7 +235,8 @@ public class AetherParticles: ObservableObject {
             colorConfig: ParticleEmitterComponent.ParticleEmitter.ParticleColor = .constant(.single(.white.withAlphaComponent(0.6))),
             bounds: BoundingBox = BoundingBox(min: [-5, -5, -5], max: [5, 5, 5]),
             acceleration: SIMD3<Float> = [0, 0, 0],
-            speed: Float = 0.2
+            speed: Float = 0.2,
+            lifetime: Float = 3.0
         ) {
             self.emitterShape = emitterShape
             self.emitterSize = emitterSize
@@ -234,6 +245,7 @@ public class AetherParticles: ObservableObject {
             self.bounds = bounds
             self.acceleration = acceleration
             self.speed = speed
+            self.lifetime = lifetime
         }
     }
     
@@ -286,6 +298,8 @@ public class AetherParticles: ObservableObject {
         // Configure particle appearance
         emitterComponent.mainEmitter.color = configuration.colorConfig
         emitterComponent.mainEmitter.birthRate = 0  // Start inactive
+        emitterComponent.mainEmitter.size = 0.1  // Set particle size
+        emitterComponent.mainEmitter.lifeSpan = Double(configuration.lifetime)  // Set lifetime
         
         // Configure movement
         emitterComponent.mainEmitter.acceleration = configuration.acceleration

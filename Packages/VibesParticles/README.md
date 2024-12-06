@@ -12,6 +12,9 @@ AetherParticles is a specialized particle system designed to create visual conne
 - Maintain proper visionOS 2.0+ availability attributes
 - Follow RealityKit's particle system best practices for performance
 - Consider music reactivity in effect design
+- Set particle lifetime on the mainEmitter, not the component itself
+- Always set a reasonable particle lifetime (1-5 seconds) to prevent accumulation
+- Consider particle count and performance impact in your design
 
 ## Best Practices
 
@@ -21,6 +24,9 @@ AetherParticles is a specialized particle system designed to create visual conne
 - Implement proper particle pooling and reuse
 - Consider using birth rate modulation instead of creating new systems
 - Clean up particles when they're no longer needed
+- Monitor frame rate impact with different particle counts
+- Use appropriate particle lifetimes to manage system load
+- Consider using simpler particle shapes for better performance
 
 ### Visual Quality
 - Match particle size to the scale of your scene
@@ -28,9 +34,12 @@ AetherParticles is a specialized particle system designed to create visual conne
 - Consider particle lifetime for natural effects
 - Implement smooth color transitions
 - Use appropriate emitter shapes for different effects:
-  - Sphere: For ambient effects like fireflies
-  - Point: For focused effects like sparkles
-  - Plane: For environmental effects like rain
+  - Sphere: For ambient effects like fireflies (good for 360° dispersion)
+  - Point: For focused effects like sparkles (efficient for concentrated effects)
+  - Plane: For environmental effects like rain (ideal for directional effects)
+- Consider particle size variation for more natural effects
+- Use color evolution for dynamic visual interest
+- Implement proper depth sorting with alpha blending
 
 ### System Design
 - Organize particle systems hierarchically
@@ -38,13 +47,19 @@ AetherParticles is a specialized particle system designed to create visual conne
 - Implement proper state management (active, inactive, transitioning)
 - Handle cleanup and memory management explicitly
 - Consider spatial audio integration for immersion
+- Design for modularity and reusability
+- Implement proper error handling and state validation
+- Use configuration presets for common effects
 
-### Optimization Tips
-- Use shared configurations for similar effects
-- Implement proper distance-based culling
-- Batch similar particle systems
-- Monitor and adjust performance based on frame rate
-- Cache commonly used configurations
+### RealityKit Integration
+- Properly integrate with RealityView for SwiftUI apps
+- Handle entity lifecycle management
+- Use RealityKit's built-in physics when applicable
+- Consider spatial interaction with other entities
+- Implement proper scene graph management
+- Handle system state changes appropriately
+- Use RealityKit's native types for better performance
+- Consider view space vs world space for particle effects
 
 ### Example Implementations
 
@@ -62,7 +77,8 @@ let config = AetherParticles.ParticleConfiguration(
     ),
     bounds: BoundingBox(min: [-5, -5, -5], max: [5, 5, 5]),  // Contain particles
     acceleration: [0, 0.1, 0],
-    speed: 0.5
+    speed: 0.5,
+    lifetime: 3.0  // Important: Set appropriate lifetime
 )
 ```
 
@@ -115,6 +131,40 @@ func updateVisibility(viewerPosition: SIMD3<Float>) {
 - RealityKit color evolution and transitions
 - Spatial awareness and bounds management
 - Performance-optimized using RealityKit's particle pooling
+- Dynamic birth rate modulation
+- Proper particle lifetime management
+- Efficient cleanup and memory handling
+
+## Performance Guidelines
+
+### Particle Count Recommendations
+- Ambient effects: 100-200 particles
+- Focused effects: 50-100 particles
+- Complex effects: Up to 500 particles (monitor performance)
+- System-wide limit: Consider keeping total particles under 1000
+
+### Frame Rate Targets
+- Maintain 60 FPS minimum
+- Monitor CPU/GPU impact
+- Use particle culling when appropriate
+- Implement LOD (Level of Detail) for distant effects
+
+### Memory Management
+- Implement proper cleanup
+- Use particle pooling
+- Monitor memory usage
+- Cache commonly used resources
+- Clean up unused systems promptly
+
+## Common Pitfalls to Avoid
+- Not setting particle lifetime
+- Excessive particle counts
+- Memory leaks from uncleaned systems
+- Poor performance from complex particle shapes
+- Inefficient update loops
+- Missing cleanup in lifecycle events
+- Improper RealityKit integration
+- Unhandled state transitions
 
 ## Requirements
 
