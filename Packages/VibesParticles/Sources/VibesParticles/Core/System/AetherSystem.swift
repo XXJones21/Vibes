@@ -23,7 +23,6 @@ public class AetherSystem: System {
     
     /// System dependencies
     public static var dependencies: [SystemDependency] {
-        // We don't need specific system dependencies for now
         []
     }
     
@@ -48,6 +47,9 @@ public class AetherSystem: System {
         let currentTime = Date().timeIntervalSinceReferenceDate
         let deltaTime = lastUpdateTime > 0 ? currentTime - lastUpdateTime : 0
         lastUpdateTime = currentTime
+        
+        // Debug logging
+        print("VibesParticles: System update at time: \(currentTime)")
         
         // Update existing particles
         for particleEntity in context.entities(matching: Self.particleQuery, updatingSystemWhen: .rendering) {

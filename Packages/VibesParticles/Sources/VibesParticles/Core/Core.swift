@@ -21,7 +21,9 @@ import RealityKit
 /// let entity = Entity()
 /// entity.components.set(FirefliesEffect.emitterComponent)
 /// ```
-@available(visionOS 2.0, *)
+@available(visionOS 2.0, macOS, unavailable)
+@available(iOS, unavailable)
+@available(tvOS, unavailable)
 public struct VibesParticles {
     /// Register the Aether particle system with RealityKit.
     /// This should be called when your app launches, typically in your app's init
