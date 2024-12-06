@@ -15,9 +15,10 @@
 
 ### Current Issues
 1. 🚧 Availability Attributes:
-   - Need to fix macOS availability warnings
-   - Update visionOS availability checks
-   - Ensure proper platform support
+   - ✅ Removed unnecessary platform checks (iOS, macOS, tvOS)
+   - 🚧 Fixed RealityKit API availability in VibesParticles
+   - 🚧 Need to audit remaining RealityKit API usage
+   - 🚧 Need to verify platform support across codebase
 
 2. 🚧 Error Handling:
    - Need comprehensive error handling
