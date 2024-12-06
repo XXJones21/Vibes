@@ -1,94 +1,36 @@
 # MusicService
 
-A Swift package for integrating Apple Music functionality in visionOS apps, providing a clean interface for music playback and library management.
+A visionOS-optimized music service package integrating with Apple Music.
+
+## Recent Updates (December 8, 2023)
+- Improved integration with VibesParticles package
+- Updated to support standardized particle bounds
+- Enhanced music visualization support
+- Optimized for visionOS 2.0+ platform requirements
 
 ## Features
-
 - Apple Music integration
-- Album browsing and management
-- Playback control
-- Artwork handling
-- Spatial audio support
-- Category-based organization
-- Efficient caching system
+- Music visualization support
+- Spatial audio optimization
+- visionOS 2.0+ specific features
+- Particle system integration
+
+## Integration with VibesParticles
+The package now supports the standardized particle system bounds (±12.5 units) from the VibesParticles package, ensuring consistent visualization behavior across the app.
 
 ## Requirements
-
 - visionOS 2.0+
 - Swift 5.9+
 - MusicKit
+- RealityKit
 
-## Package Structure
+## Known Issues
+- Platform availability attributes need updating
+- Performance optimization needed for particle-based visualizations
+- Documentation updates pending for new features
 
-```
-MusicService/
-├── Sources/
-│   └── MusicService/
-│       ├── Models/          # Data models and types
-│       ├── MusicService.swift       # Core service
-│       ├── MusicService+Albums.swift # Album management
-│       ├── MusicService+Debug.swift  # Debug utilities
-│       ├── MusicService+Pagination.swift # Pagination
-│       ├── MusicService+Setup.swift     # Setup
-│       ├── MusicService+Subscription.swift # Subscription
-│       └── Types.swift      # Core types and protocols
-└── Tests/                  # Unit tests
-```
-
-## Usage
-
-### Basic Setup
-
-```swift
-import MusicService
-
-// Initialize the service
-let musicService = MusicService()
-
-// Request authorization
-try await musicService.requestAuthorization()
-
-// Check subscription status
-let isSubscribed = try await musicService.verifySubscription()
-```
-
-### Album Management
-
-```swift
-// Fetch albums by category
-let albums = try await musicService.fetchAlbums(category: .recentlyAdded)
-
-// Get album artwork
-let artwork = try await albums.first?.artwork(size: CGSize(width: 300, height: 300))
-```
-
-### Playback Control
-
-```swift
-// Start playback
-try await musicService.play(album: selectedAlbum)
-
-// Control playback
-musicService.pause()
-musicService.resume()
-musicService.skipToNext()
-```
-
-## Album Categories
-
-- `.recentlyAdded`
-- `.recentlyPlayed`
-- `.favorites`
-- `.heavyRotation`
-
-## Implementation Notes
-
-- Uses MusicKit for Apple Music integration
-- Implements efficient caching for albums and artwork
-- Provides proper error handling
-- Supports spatial audio configuration
-- Manages authorization and subscription status
-
-## License
-
-This package is part of the Vibes project. 
+## Next Steps
+1. Address platform availability linter errors
+2. Optimize music visualization performance
+3. Update documentation with new standards
+4. Add examples for particle-based visualization patterns

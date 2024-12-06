@@ -1,33 +1,30 @@
 # Current Issues
 
-## December 7, 2023
+## Platform Availability
+- Several linter errors related to macOS/visionOS availability:
+  - ObservableObject
+  - Entity
+  - Published
+  - BoundingBox
+  - RealityViewContent
+  - Point3D
+- Need to verify and update availability attributes
 
-### Resolved Issues
-1. ✅ Coordinate space conversion:
-   - Fixed incorrect space conversion in welcome animation
-   - Implemented proper RealityKit coordinate spaces
-   - Updated all animation phases to use correct center
+## Animation System
+- Animation timing needs verification against UX specs
+- Particle counts may need optimization for performance
+- Some phases might need fine-tuning:
+  - Globe formation initial spread
+  - Center pull transition smoothness
+  - Text formation particle distribution
 
-2. ✅ Stable state animation:
-   - Added proper floating text effect
-   - Implemented color pulsing
-   - Fixed particle movement
+## Performance Considerations
+- Test increased particle counts impact
+- Verify memory usage with expanded bounds
+- Monitor frame rate during phase transitions
 
-### Current Issues
-1. 🚧 Availability Attributes:
-   - ✅ Removed unnecessary platform checks (iOS, macOS, tvOS)
-   - 🚧 Fixed RealityKit API availability in VibesParticles
-   - 🚧 Need to audit remaining RealityKit API usage
-   - 🚧 Need to verify platform support across codebase
-
-2. 🚧 Error Handling:
-   - Need comprehensive error handling
-   - Better error reporting
-   - Graceful fallbacks
-
-### Upcoming Tasks
-1. Test animation phases with new coordinate system
-2. Implement proper error handling
-3. Fix availability attributes
-4. Add performance monitoring
-5. Update documentation
+## Next Steps
+1. Address platform availability errors
+2. Verify animation timing matches UX design
+3. Test and optimize particle system performance
+4. Consider implementing additional effects

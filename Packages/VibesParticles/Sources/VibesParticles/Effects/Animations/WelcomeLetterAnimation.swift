@@ -105,27 +105,35 @@ public class WelcomeLetterAnimation: ObservableObject {
             letterSystems.forEach { $0.stop() }
             
         case .globeFormation:
-            // Start at scene center
+            // Start particles appearing around the user
+            let globeConfig = AetherParticles.ParticleConfiguration(
+                emitterShape: .sphere,
+                emitterSize: [25, 25, 25],  // Large emission volume around user
+                birthRate: 100,
+                colorConfig: AetherParticles.randomRainbowColor(),
+                bounds: AetherParticles.standardBounds,
+                acceleration: [0, 0, 0],  // No initial pull, just appear
+                speed: 0.1,  // Slow, dreamy movement
+                lifetime: 4.0
+            )
             mainSystem.rootEntity.position = sceneCenter
-            mainSystem.update(with: AetherParticles.ParticlePreset.fireflies.configuration)
+            mainSystem.update(with: globeConfig)
             mainSystem.start()
             letterSystems.forEach { $0.stop() }
             
         case .centerPull:
-            // Pull to scene center
-            let config = AetherParticles.ParticleConfiguration(
+            // Now pull existing particles to center
+            let pullConfig = AetherParticles.ParticleConfiguration(
                 emitterShape: .sphere,
-                emitterSize: [1, 1, 1],  // Half the original size
-                birthRate: 150,          // 50% more particles
+                emitterSize: [0, 0, 0],  // No new emission
+                birthRate: 0,  // No new particles
                 colorConfig: AetherParticles.randomRainbowColor(),
-                bounds: BoundingBox(min: [-2.5, -2.5, -2.5], max: [2.5, 2.5, 2.5]),  // Half the bounds
+                bounds: AetherParticles.standardBounds,
                 acceleration: sceneCenter - mainSystem.rootEntity.position,
-                speed: 0.5,
+                speed: 1.0,  // Faster for the pull effect
                 lifetime: 3.0
             )
-            mainSystem.update(with: config)
-            mainSystem.start()
-            letterSystems.forEach { $0.stop() }
+            mainSystem.update(with: pullConfig)
             
         case .textFormation:
             mainSystem.stop()
@@ -136,10 +144,10 @@ public class WelcomeLetterAnimation: ObservableObject {
                 let galaxyConfig = AetherParticles.ParticlePreset.galaxySplit.configuration
                 let halfSizeConfig = AetherParticles.ParticleConfiguration(
                     emitterShape: galaxyConfig.emitterShape,
-                    emitterSize: [0.05, 0.05, 0.05],  // Half the original size
-                    birthRate: galaxyConfig.birthRate * 1.5,  // 50% more particles
+                    emitterSize: [0.05, 0.05, 0.05],
+                    birthRate: galaxyConfig.birthRate * 1.5,
                     colorConfig: galaxyConfig.colorConfig,
-                    bounds: BoundingBox(min: [-0.1, -0.1, -0.1], max: [0.1, 0.1, 0.1]),  // Half the bounds
+                    bounds: AetherParticles.standardBounds,
                     acceleration: galaxyConfig.acceleration,
                     speed: galaxyConfig.speed,
                     lifetime: galaxyConfig.lifetime
@@ -152,8 +160,8 @@ public class WelcomeLetterAnimation: ObservableObject {
             // Gentle floating movement with color pulsing
             let floatingConfig = AetherParticles.ParticleConfiguration(
                 emitterShape: .sphere,
-                emitterSize: [0.05, 0.05, 0.05],  // Half the original size
-                birthRate: 75,                     // 50% more particles
+                emitterSize: [0.05, 0.05, 0.05],
+                birthRate: 75,
                 colorConfig: .evolving(
                     start: .single(ParticleEmitterComponent.ParticleEmitter.Color(
                         red: 0.5, green: 0.0, blue: 0.5, alpha: 0.8
@@ -162,7 +170,7 @@ public class WelcomeLetterAnimation: ObservableObject {
                         red: 0.3, green: 0.0, blue: 0.8, alpha: 0.6
                     ))
                 ),
-                bounds: BoundingBox(min: [-0.1, -0.1, -0.1], max: [0.1, 0.1, 0.1]),  // Half the bounds
+                bounds: AetherParticles.standardBounds,
                 acceleration: [0, 0.05, 0],
                 speed: 0.1,
                 lifetime: 2.0
@@ -176,10 +184,10 @@ public class WelcomeLetterAnimation: ObservableObject {
             // Burst from scene center
             let burstConfig = AetherParticles.ParticleConfiguration(
                 emitterShape: .sphere,
-                emitterSize: [0.05, 0.05, 0.05],  // Half the original size
-                birthRate: 300,                    // 50% more particles
+                emitterSize: [0.05, 0.05, 0.05],
+                birthRate: 300,
                 colorConfig: AetherParticles.randomRainbowColor(),
-                bounds: BoundingBox(min: [-5, -5, -5], max: [5, 5, 5]),  // Half the bounds
+                bounds: AetherParticles.standardBounds,
                 acceleration: [0, 2.0, 1.0],
                 speed: 2.0,
                 lifetime: 2.0

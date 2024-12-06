@@ -16,6 +16,9 @@ import SwiftUI
 public class AetherParticles: ObservableObject {
     // MARK: - Public Properties
     
+    /// Standard bounds for all particle systems
+    public static let standardBounds = BoundingBox(min: [-12.5, -12.5, -12.5], max: [12.5, 12.5, 12.5])
+    
     /// The root entity that hosts the particle emitter
     public var rootEntity: Entity { _rootEntity }
     private let _rootEntity: Entity
@@ -67,7 +70,7 @@ public class AetherParticles: ObservableObject {
                         blue: 1.0,
                         alpha: 1.0
                     ))),
-                    bounds: BoundingBox(min: [-3, -3, -3], max: [3, 3, 3]),
+                    bounds: BoundingBox(min: [-12.5, -12.5, -12.5], max: [12.5, 12.5, 12.5]),
                     acceleration: [0, 0.05, 0],
                     speed: 0.1,
                     lifetime: 2.0
@@ -94,7 +97,7 @@ public class AetherParticles: ObservableObject {
                         start: .single(purpleColor),
                         end: .single(blueColor)
                     ),
-                    bounds: BoundingBox(min: [-8, -8, -8], max: [8, 8, 8]),
+                    bounds: BoundingBox(min: [-12.5, -12.5, -12.5], max: [12.5, 12.5, 12.5]),
                     acceleration: [0, 0.1, -0.5],
                     speed: 0.3,
                     lifetime: 4.0
@@ -121,7 +124,7 @@ public class AetherParticles: ObservableObject {
                         start: .single(purpleColor),
                         end: .single(blueColor)
                     ),
-                    bounds: BoundingBox(min: [-3, -3, -3], max: [3, 3, 3]),
+                    bounds: BoundingBox(min: [-12.5, -12.5, -12.5], max: [12.5, 12.5, 12.5]),
                     acceleration: [0, 0.05, 0],
                     speed: 0.2,
                     lifetime: 3.0
@@ -139,7 +142,7 @@ public class AetherParticles: ObservableObject {
                     emitterSize: [0.1, 0.1, 0.1],
                     birthRate: 200,
                     colorConfig: .constant(.single(whiteColor)),
-                    bounds: BoundingBox(min: [-3, -3, -3], max: [3, 3, 3]),
+                    bounds: BoundingBox(min: [-12.5, -12.5, -12.5], max: [12.5, 12.5, 12.5]),
                     acceleration: [0, -0.5, 0],
                     speed: 0.5,
                     lifetime: 2.0
@@ -166,7 +169,7 @@ public class AetherParticles: ObservableObject {
                         start: .single(startWhite),
                         end: .single(endWhite)
                     ),
-                    bounds: BoundingBox(min: [-5, -5, -5], max: [5, 5, 5]),
+                    bounds: BoundingBox(min: [-12.5, -12.5, -12.5], max: [12.5, 12.5, 12.5]),
                     acceleration: [0, 0.2, 0],
                     speed: 0.1,
                     lifetime: 1.0
@@ -184,7 +187,7 @@ public class AetherParticles: ObservableObject {
                     emitterSize: [10, 0.1, 10],
                     birthRate: 300,
                     colorConfig: .constant(.single(rainColor)),
-                    bounds: BoundingBox(min: [-10, -10, -10], max: [10, 10, 10]),
+                    bounds: BoundingBox(min: [-12.5, -12.5, -12.5], max: [12.5, 12.5, 12.5]),
                     acceleration: [0, -2.0, 0],
                     speed: 1.0,
                     lifetime: 1.0
