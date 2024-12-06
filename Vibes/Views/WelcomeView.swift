@@ -1,9 +1,10 @@
 import SwiftUI
 import RealityKit
+import VibesParticles
 
 struct WelcomeView: View {
     let onComplete: () -> Void
-    @StateObject private var animation = WelcomeAnimation()
+    @StateObject private var animation = WelcomeLetterAnimation()
     @State private var opacity = 0.0
     @State private var showTagline = false
     @State private var showParticles = false

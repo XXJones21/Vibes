@@ -1,10 +1,10 @@
-import RealityKit
 import SwiftUI
+import RealityKit
 import VibesParticles
 
 /// Creates an immersive welcome animation using ethereal particle effects
 @available(visionOS 2.0, *)
-public class WelcomeAnimation: ObservableObject {
+public class WelcomeLetterAnimation: ObservableObject {
     // Root entity that will host all particle systems
     public private(set) var rootEntity = Entity()
     
@@ -53,8 +53,15 @@ public class WelcomeAnimation: ObservableObject {
             rootEntity.addChild(system.rootEntity)
         }
         
-        // Position in space
-        rootEntity.position = [0, 0, 0]
+        // Calculate visual bounds for proper positioning
+        let bounds = rootEntity.visualBounds(relativeTo: nil)
+        
+        // Position in space - adjust based on visual bounds
+        rootEntity.position = [
+            -bounds.min.x,  // Center horizontally
+            1.6 - bounds.min.y,  // Eye level, accounting for bounds
+            -2.0 - bounds.min.z  // 2 meters away, accounting for bounds
+        ]
     }
     
     public func startAnimation() {
@@ -94,17 +101,21 @@ public class WelcomeAnimation: ObservableObject {
     }
     
     private func updateParticlesForPhase(_ phase: AnimationPhase) {
+        print("Updating particles for phase: \(phase)")
         switch phase {
         case .initial:
+            print("Initial phase - stopping all systems")
             mainSystem.stop()
             letterSystems.forEach { $0.stop() }
             
         case .fireflyFloat:
+            print("Firefly phase - starting main system with fireflies preset")
             mainSystem.update(with: AetherParticles.ParticlePreset.fireflies.configuration)
             mainSystem.start()
             letterSystems.forEach { $0.stop() }
             
         case .centerPull:
+            print("Center pull phase - updating configuration")
             let config = AetherParticles.ParticleConfiguration(
                 emitterShape: .sphere,
                 emitterSize: [2, 2, 2],
@@ -112,7 +123,8 @@ public class WelcomeAnimation: ObservableObject {
                 colorConfig: AetherParticles.randomRainbowColor(),
                 bounds: BoundingBox(min: [-5, -5, -5], max: [5, 5, 5]),
                 acceleration: [0, -0.5, -2.0],
-                speed: 0.5
+                speed: 0.5,
+                lifetime: 3.0
             )
             mainSystem.update(with: config)
             mainSystem.start()
@@ -147,7 +159,8 @@ public class WelcomeAnimation: ObservableObject {
                 ),
                 bounds: BoundingBox(min: [-3, -3, -3], max: [3, 3, 3]),
                 acceleration: [0, 0.05, 0],
-                speed: 0.1
+                speed: 0.1,
+                lifetime: 3.0
             )
             letterSystems.forEach { system in
                 system.update(with: config)
@@ -170,7 +183,8 @@ public class WelcomeAnimation: ObservableObject {
                 ),
                 bounds: BoundingBox(min: [-8, -8, -8], max: [8, 8, 8]),
                 acceleration: [0, 2.0, 1.0],
-                speed: 1.0
+                speed: 1.0,
+                lifetime: 2.0
             )
             letterSystems.forEach { system in
                 system.update(with: config)
@@ -181,5 +195,28 @@ public class WelcomeAnimation: ObservableObject {
             mainSystem.stop()
             letterSystems.forEach { $0.stop() }
         }
+    }
+}
+
+struct WelcomeLetterAnimationView: View {
+    @StateObject private var animation = WelcomeLetterAnimation()
+    let onComplete: () -> Void
+    
+    var body: some View {
+        RealityView { content in
+            content.add(animation.rootEntity)
+        }
+        .task {
+            animation.startAnimation()
+            // Wait for all phases to complete
+            try? await Task.sleep(for: .seconds(18)) // Sum of all phase durations
+            onComplete()
+        }
+    }
+}
+
+#Preview {
+    WelcomeLetterAnimationView {
+        print("Animation complete")
     }
 } 

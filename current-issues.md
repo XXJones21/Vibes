@@ -1,30 +1,23 @@
 # Current Issues
 
-## Resolved (December 5, 2023)
-1. ✅ Fixed music playback by implementing proper catalog ID handling
-2. ✅ Added required entitlements for Apple Music integration
-3. ✅ Resolved album artwork loading issues
-4. ✅ Fixed album selection and playback flow
+## December 7, 2023
 
-## Known Issues
-1. 🐛 Now Playing view not yet implemented
-2. 🐛 Missing playback control gestures
-3. 🐛 UI transitions need polish
-4. 🐛 Spatial audio visualization pending
+### Resolved Issues
+1. ✅ Particle visibility in welcome animation:
+   - Fixed incorrect property names in particle emitter
+   - Implemented proper RealityKit API properties
+   - Updated documentation with correct usage
 
-## Technical Debt
-1. Need to implement proper error handling for playback failures
-2. Add loading states and error feedback in UI
-3. Implement proper state management for playback
-4. Add unit tests for MusicService
-5. Consider renaming VibesParticles package to AetherKit:
-   - Update package structure and dependencies
-   - Rename source directories
-   - Update import statements
-   - Update Xcode project configuration
-   - Test all particle system integrations
+### Current Issues
+1. 🚧 Particle System Enhancements:
+   - Need to verify particle visibility after fixes
+   - Consider implementing additional particle properties
+   - Test different particle configurations
 
-## Platform Compatibility
-- ✅ visionOS 2.0 compatibility maintained
-- ✅ Proper availability attributes added
-- ✅ MusicKit integration working
+### Upcoming Tasks
+1. Test welcome animation with fixed particle system
+2. Consider implementing additional RealityKit particle features:
+   - Particle size variation
+   - Lifetime variation
+   - Color evolution control
+   - Opacity curve management

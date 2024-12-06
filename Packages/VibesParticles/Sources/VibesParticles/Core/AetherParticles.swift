@@ -59,13 +59,18 @@ public class AetherParticles: ObservableObject {
             case .fireflies:
                 return ParticleConfiguration(
                     emitterShape: .sphere,
-                    emitterSize: [4, 4, 4],
-                    birthRate: 150,
-                    colorConfig: AetherParticles.randomRainbowColor(),
-                    bounds: BoundingBox(min: [-5, -5, -5], max: [5, 5, 5]),
-                    acceleration: [0, 0.1, 0],
-                    speed: 0.2,
-                    lifetime: 5.0
+                    emitterSize: [2, 2, 2],
+                    birthRate: 500,
+                    colorConfig: .constant(.single(ParticleEmitterComponent.ParticleEmitter.Color(
+                        red: 1.0,
+                        green: 1.0,
+                        blue: 1.0,
+                        alpha: 1.0
+                    ))),
+                    bounds: BoundingBox(min: [-3, -3, -3], max: [3, 3, 3]),
+                    acceleration: [0, 0.05, 0],
+                    speed: 0.1,
+                    lifetime: 2.0
                 )
                 
             case .galaxy:
@@ -298,7 +303,7 @@ public class AetherParticles: ObservableObject {
         // Configure particle appearance
         emitterComponent.mainEmitter.color = configuration.colorConfig
         emitterComponent.mainEmitter.birthRate = 0  // Start inactive
-        emitterComponent.mainEmitter.size = 0.1  // Set particle size
+        emitterComponent.mainEmitter.size = 0.05  // Set particle size to about quarter size (5cm diameter)
         emitterComponent.mainEmitter.lifeSpan = Double(configuration.lifetime)  // Set lifetime
         
         // Configure movement
