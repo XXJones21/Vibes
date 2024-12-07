@@ -30,7 +30,7 @@ Add to files that used the old MusicService:
 ### b. Replace Service Instantiation
 Replace existing MusicService instantiation with:
 
-`@StateObject private var musicService = VibesMusicService()`
+`@StateObject private var musicService = VibeMusicService()`
 
 
 ## Package Features
@@ -69,4 +69,6 @@ For more details about the package structure and future plans, see:
 markdown:package-structure.md
 startLine: 1
 endLine: 59
+
 ```
+</```rewritten_file>

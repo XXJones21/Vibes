@@ -1,11 +1,13 @@
 # Vibes Package Structure
 
-## Core Package: VibesKit
+> **Note**: The VibeKit umbrella package structure described below is a future task. Currently, the project uses individual packages (MusicService, VibesParticles) directly.
 
-VibesKit serves as the umbrella package containing all core functionality modules. This structure allows for better organization, clear dependency management, and modular development.
+## Core Package: VibeKit (Future Implementation)
+
+VibeKit serves as the umbrella package containing all core functionality modules. This structure allows for better organization, clear dependency management, and modular development.
 
 ```swift
-import VibesKit
+import VibeKit
 // Provides access to all sub-modules
 ```
 
@@ -16,8 +18,8 @@ import VibesKit
 - Audio session management
 - Playback controls
 - Music analysis and feature extraction
-```swift
-import VibesKit.MusicAnalytics
+swift
+import VibeKit.MusicAnalytics
 // Provides: MusicAnalyzer, PlaybackState, etc.
 ```
 
@@ -26,7 +28,7 @@ import VibesKit.MusicAnalytics
 - Physics and behavior
 - Material management
 ```swift
-import VibesKit.AetherParticles
+import VibeKit.AetherParticles
 // Provides: ParticleSystem, ParticleEmitter, etc.
 ```
 
@@ -35,7 +37,7 @@ import VibesKit.AetherParticles
 - Handles music-to-visual mapping
 - Manages visualization configurations
 ```swift
-import VibesKit.VisualizationEngine
+import VibeKit.VisualizationEngine
 // Provides: VibeGenerator, AlbumAnalyzer, etc.
 ```
 
@@ -44,7 +46,7 @@ import VibesKit.VisualizationEngine
 - Handles scene transitions
 - Coordinates spatial audio
 ```swift
-import VibesKit.ImmersiveService
+import VibeKit.ImmersiveService
 // Will provide: ImmersiveSpaceManager, SceneController, etc.
 ```
 
@@ -53,14 +55,14 @@ import VibesKit.ImmersiveService
 - Eye tracking features
 - Gesture recognition
 ```swift
-import VibesKit.TrackingService
+import VibeKit.TrackingService
 // Will provide: HandTrackingManager, GestureRecognizer, etc.
 ```
 
 ## Package Dependencies
 
 ```
-VibesKit
+VibeKit
 ├── MusicAnalytics
 │   ├── MusicKit
 │   └── AVFAudio
@@ -80,10 +82,10 @@ VibesKit
 ## Package Structure
 
 ```
-VibesKit/
+VibeKit/
 ├── Package.swift
 ├── Sources/
-│   ├── VibesKit/           # Umbrella module
+│   ├── VibeKit/           # Umbrella module
 │   ├── MusicAnalytics/     # Music analysis and playback
 │   ├── AetherParticles/    # Particle system
 │   ├── VisualizationEngine/# Visualization coordination
@@ -94,7 +96,6 @@ VibesKit/
     ├── AetherParticlesTests/
     └── VisualizationEngineTests/
 ```
-
 ## Benefits
 
 1. **Single Import Point**
@@ -144,4 +145,6 @@ class VibeGenerator {
         )
     }
 }
+
 ```
+</```rewritten_file>```

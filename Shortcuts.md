@@ -7,7 +7,7 @@ This document contains key phrases that can be used to automate common tasks in 
 > Please review all markdown documents, the codebase, and the contents in the MVP folder to familiarize yourself with the project. Pay special attention to:
 > - This is a visionOS-only project (requires visionOS 2.0+ for Dolby Atmos support)
 > - `Composer-history.md` for project evolution and key decisions
-> - `current-status.md` and `current-issues.md` for latest state
+> - `current-status.md`, `project-planning.md`, `project-health.md`and `current-issues.md` for latest state
 > - `README.md` for project overview and structure
 > - The MusicService package implementation (visionOS 2.0+ specific)
 > - UI/UX components in the Views directory
@@ -38,6 +38,10 @@ This document contains key phrases that can be used to automate common tasks in 
 - Keep the code clean and well-documented
 - Follow SwiftUI and RealityKit best practices
 - Test on device when possible
+- Do not overengineer, simple is better and more modular:
+  1. You can offer to do something but ask for permission first after you describe it
+  2. Do not do anything more than what is asked
+  3. Do not overengineer, simple is better and more modular
 
 ## Available Shortcuts
 
@@ -74,10 +78,11 @@ This command will:
 ### "Summarize today's work"
 This command will:
 1. Update `current-status.md` and `current-issues.md` with today's progress
-2. Update the Project Status section in `README.md` with:
+2. Update `project-planning.md` if any work was done for any of the phases listed in the document.
+3. Update the Project Status section in `README.md` with:
    - A summary paragraph based on current-status.md and current-issues.md
    - A list of current top priorities
-3. Add a new entry to `Composer-history.md`:
+4. Add a new entry to `Composer-history.md`:
    - Date-stamped section for today's changes
    - Technical implementation details
    - UI/UX changes and improvements

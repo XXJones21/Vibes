@@ -1,4 +1,4 @@
-# UX Design for Vibes
+# UX Design for Vibe
 
 ## Ideal User Journey
 
@@ -25,7 +25,7 @@
    - Users can customize visualization intensity and color schemes.
    - Settings are easily accessible and user-friendly.
 
-## Current Vibes Project Breakdown
+## Current Vibe Project Breakdown
 
 1. **AuthorizationView:**
    - **Function:** Requests Apple Music authorization.
@@ -59,7 +59,7 @@
   - Customization options for visual effects.
   - Comprehensive onboarding and tutorial.
 
-## To-Do List for Vibes
+## To-Do List for Vibe
 
 1. **Enhance GalleryView Interactions:**
    - Verify entity hierarchy and material system
