@@ -396,34 +396,17 @@ Vibes/
 ## December 8, 2023 - Availability Attributes Cleanup
 
 ### Technical Changes
-- Simplified availability attributes in VibesParticles package:
-  - Removed unnecessary platform checks (iOS, macOS, tvOS)
-  - Kept only essential visionOS 2.0 requirement
-  - Added proper availability check for RealityKit's registerSystem API
-- Improved platform-specific code handling:
-  - Added runtime checks for RealityKit APIs
-  - Better version compatibility management
-  - Cleaner code structure
+- Simplified availability attributes in AetherParticles module:
+  - Removed redundant availability checks
+  - Consolidated platform requirements
+  - Updated documentation
 
-### Implementation Details
-```swift
-// Before
-@available(visionOS 2.0, *)
-@available(iOS, unavailable)
-@available(macOS, unavailable)
-@available(tvOS, unavailable)
-public struct VibesParticles { }
+public struct AetherParticles { }
 
-// After
-@available(visionOS 2.0, *)
-public struct VibesParticles {
-    public static func registerSystem() {
-        if #available(visionOS 2.0, *) {
-            AetherSystem.registerSystem()
-        }
-    }
+// Updated implementation
+public struct AetherParticles {
+    // Core functionality
 }
-```
 
 ### Issues Addressed
 1. Simplified availability attributes

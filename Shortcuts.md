@@ -50,7 +50,7 @@ This command will:
    - Composer-history.md for project evolution
 2. Analyze the codebase structure:
    - MusicService package implementation
-   - VibesParticles package implementation
+   - AetherParticles module implementation
    - UI/UX components in Views directory
    - Project configuration and dependencies
 3. Review visionOS sample projects for reference patterns:

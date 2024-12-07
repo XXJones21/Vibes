@@ -8,7 +8,7 @@
 - Fixed particle vanishing issues with expanded boundaries
 
 ## Technical Status
-- Removed duplicate AetherParticles implementation
+- Migrated to AetherParticles module
 - Standardized particle system bounds across all presets
 - Improved animation continuity between phases
 - Core functionality maintained with better consistency

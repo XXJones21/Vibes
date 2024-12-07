@@ -1,7 +1,7 @@
 import SwiftUI
 import MusicService
 import RealityKit
-import VibesParticles
+import VibesKit
 
 @main
 @available(visionOS 2.0, *)
@@ -11,7 +11,7 @@ struct VibesApp: App {
     init() {
         // Register particle system
         if #available(visionOS 2.0, *) {
-            VibesParticles.registerSystem()
+            AetherSystem.registerSystem()
         }
     }
     

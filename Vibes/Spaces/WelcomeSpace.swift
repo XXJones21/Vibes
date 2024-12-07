@@ -1,6 +1,6 @@
 import SwiftUI
 import RealityKit
-import VibesParticles
+import VibesKit
 
 @available(visionOS 2.0, *)
 struct WelcomeSpace: View {

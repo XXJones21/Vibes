@@ -45,7 +45,7 @@ Fixed particle system visibility issues by implementing correct RealityKit parti
 - Xcode 15.0+
 - iOS 15.0+
 - macOS 12.0+
-- visionOS 1.0+
+- visionOS 2.0+
 - Swift 5.9+
 
 ## Installation
@@ -59,10 +59,10 @@ Fixed particle system visibility issues by implementing correct RealityKit parti
 ```
 Vibes/
 ├── Packages/
-│   └── MusicService/           # Music integration package
+│   └── VibesKit/           # Core functionality package
 │       ├── Sources/
-│       │   └── MusicService/   # Core music service implementation
-│       └── Tests/              # Unit tests
+│       │   └── VibesKit/   # Core implementation
+│       └── Tests/          # Unit tests
 ├── App/                        # Main app target
 └── Documentation/              # Project documentation
 ```

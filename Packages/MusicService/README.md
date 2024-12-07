@@ -3,7 +3,7 @@
 A visionOS-optimized music service package integrating with Apple Music.
 
 ## Recent Updates (December 8, 2023)
-- Improved integration with VibesParticles package
+- Improved integration with AetherParticles module
 - Updated to support standardized particle bounds
 - Enhanced music visualization support
 - Optimized for visionOS 2.0+ platform requirements
@@ -15,8 +15,8 @@ A visionOS-optimized music service package integrating with Apple Music.
 - visionOS 2.0+ specific features
 - Particle system integration
 
-## Integration with VibesParticles
-The package now supports the standardized particle system bounds (±12.5 units) from the VibesParticles package, ensuring consistent visualization behavior across the app.
+## Integration with AetherParticles
+The package now supports the standardized particle system bounds (±12.5 units) from the AetherParticles module, ensuring consistent visualization behavior across the app.
 
 ## Requirements
 - visionOS 2.0+

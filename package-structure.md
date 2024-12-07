@@ -21,7 +21,7 @@ import VibesKit.MusicAnalytics
 // Provides: MusicAnalyzer, PlaybackState, etc.
 ```
 
-#### 2. AetherParticles (formerly VibesParticles)
+#### 2. AetherParticles
 - Particle system core
 - Physics and behavior
 - Material management

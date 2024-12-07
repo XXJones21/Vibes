@@ -12,6 +12,10 @@ public class AetherSystem: System {
     /// Last update timestamp for delta time calculation
     private var lastUpdateTime: TimeInterval = 0
     
+    /// Whether the system has been registered
+    @MainActor
+    public private(set) static var isRegistered = false
+    
     /// System dependencies
     public static var dependencies: [SystemDependency] {
         []
@@ -19,7 +23,31 @@ public class AetherSystem: System {
     
     /// Initialize the system
     public required init(scene: Scene) {
-        print("VibesParticles: Initialized AetherSystem")
+        print("AetherParticles: Initialized AetherSystem")
+    }
+    
+    /// Register the Aether particle system with RealityKit.
+    /// This should be called when your app launches, typically in your app's init
+    /// or when setting up your first RealityView.
+    @MainActor
+    public static func registerSystem() {
+        guard !isRegistered else { return }
+        
+        if #available(visionOS 2.0, *) {
+            try? RealityKit.SystemRegistry.shared.register(system: AetherSystem.self)
+            isRegistered = true
+            print("AetherParticles: Successfully registered AetherSystem")
+        }
+    }
+    
+    /// Unregister the Aether particle system.
+    /// This should be called when your app is terminating or when you no longer need particle effects.
+    @MainActor
+    public static func unregisterSystem() {
+        guard isRegistered else { return }
+        RealityKit.SystemRegistry.shared.unregister(system: AetherSystem.self)
+        isRegistered = false
+        print("AetherParticles: Successfully unregistered AetherSystem")
     }
     
     /// Update the system - called every frame
@@ -27,9 +55,6 @@ public class AetherSystem: System {
         let currentTime = Date().timeIntervalSinceReferenceDate
         let deltaTime = lastUpdateTime > 0 ? currentTime - lastUpdateTime : 0
         lastUpdateTime = currentTime
-        
-        // Debug logging
-        print("VibesParticles: System update at time: \(currentTime)")
         
         // Update existing particles
         for particleEntity in context.entities(matching: Self.emitterQuery, updatingSystemWhen: .rendering) {
