@@ -1,7 +1,7 @@
 # Composer History
 
 ## Project Overview
-Vibes is a spatial music visualization app targeting visionOS, iOS, and macOS platforms. The project uses SwiftUI for UI components, MusicKit for Apple Music integration, and RealityKit for 3D visualizations.
+Vibes is a spatial music visualization app targeting the visionOS.The project uses SwiftUI for UI components, MusicKit for Apple Music integration, and RealityKit for 3D visualizations.
 
 ## Technical Implementation Details
 
