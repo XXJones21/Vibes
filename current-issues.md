@@ -1,89 +1,78 @@
 # Current Issues
 
-## HIGH PRIORITY: AetherParticles Migration Plan
-Convert package to module structure:
+## High Priority
 
-1. ✅ **Create Module Structure** 
-   ```
-   Vibes/Modules/AetherParticles/
-   ├── Core/
-   │   ├── System/
-   │   │   └── AetherSystem.swift (RealityKit System implementation)
-   │   ├── AetherParticles.swift (Main API)
-   │   ├── AetherParticlesView.swift (SwiftUI integration)
-   │   └── AetherParticleTypes.swift (Shared types)
-   └── Effects/
-       ├── AetherPresets/
-       │   ├── FirefliesEffect.swift
-       │   ├── GalaxyEffect.swift
-       │   ├── GalaxySplitEffect.swift
-       │   ├── RainEffect.swift
-       │   ├── SmokeEffect.swift
-       │   └── SparklesEffect.swift
-       └── AetherAnimations/
-           └── WelcomeLetterAnimation.swift
-   ```
+### AetherParticles Restructuring (HIGH PRIORITY)
 
-2. ✅ **File Migration Steps** (via Xcode)
-   1. ✅ Create directory structure
-   2. ✅ Copy and rename core files:
-      - ✅ ParticleSystem.swift → Core/AetherParticles.swift
-      - ✅ ParticleTypes.swift → Core/AetherParticleTypes.swift
-      - ✅ AetherSystem.swift → Core/System/AetherSystem.swift
-      - ✅ AetherParticlesView.swift (Added for SwiftUI integration)
-   3. ✅ Copy effects files:
-      - ✅ Presets/ → AetherPresets/ (with standardized ±12.5 unit bounds)
-      - ✅ Animations/ → AetherAnimations/
+#### Current Status
+- Build errors in PulseSystem and NexusSystem
+- Directory structure needs reorganization
+- Access level issues between components
+- Type conversion issues in particle configurations
 
-3. ✅ **Update Namespace**
-   - Core updates complete:
-     - ✅ Removed Core.swift (functionality moved to AetherSystem)
-     - ✅ Updated AetherSystem.swift registration
-     - ✅ AetherParticles.swift updated:
-         - ✅ Removed public access modifiers
-         - ✅ Added Aether prefix to types
-         - ✅ Updated documentation
-     - ✅ AetherParticleTypes.swift updated:
-         - ✅ Removed public access modifiers
-         - ✅ Added Aether prefix to types
-         - ✅ Updated documentation
-     - ✅ AetherParticlesView.swift in place
-   - Effects updates complete:
-     - ✅ AetherPresets/:
-         - ✅ AetherFirefliesEffect
-         - ✅ AetherGalaxyEffect
-         - ✅ AetherGalaxySplitEffect
-         - ✅ AetherRainEffect
-         - ✅ AetherSmokeEffect
-         - ✅ AetherSparklesEffect
-     - ✅ AetherAnimations/:
-         - ✅ AetherWelcomeAnimation
-   - ✅ Namespace Naming Convention:
-     - ✅ Update type names to include "Aether" prefix:
-       - ✅ AetherParticleTypes.swift
-       - ✅ AetherParticles.swift
-       - ✅ Effects files
-     - ✅ Standardize naming across all files:
-       - Types: AetherColor, AetherShape, etc.
-       - Enums: AetherColorMode, AetherState, etc.
-       - Configurations: AetherConfiguration, etc.
+#### Required Changes
 
-4. **Code Adjustments** (Next Steps)
-   - ✅ Remove package-specific declarations
-   - ✅ Update access levels (public → internal where appropriate)
-   - ✅ Adjust file organization to match module structure
-   - ✅ Update any package-dependent paths
-   - ✅ Ensure consistent naming convention across all Aether prefixed types
-   - Implement performance optimizations:
-     - Entity pooling
-     - Batch updates
-     - Memory management
-     - Frame rate optimization
+1. Directory Restructuring:
+```
+AetherParticles/
+├── Core/
+│   └── Aether/
+│       ├── AetherParticles.swift
+│       ├── AetherConfiguration.swift
+│       └── AetherParticleTypes.swift
+├── Systems/
+│   ├── Pulse/
+│   │   ├── PulseSystem.swift
+│   │   └── PulseComponent.swift
+│   └── Nexus/
+│       ├── NexusSystem.swift
+│       └── NexusComponent.swift
+└── Effects/
+    ├── AetherPresets/
+    └── AetherAnimations/
+```
 
-## Current Focus
-- ✅ Fixing RealityKit system registration in AetherSystem.swift
-- ✅ Updating access levels across all files
-- ✅ Verifying namespace consistency
+2. Access Level Updates:
+- Make AetherConfiguration public and accessible to both systems
+- Ensure standardBounds is accessible where needed
+- Update component access levels for proper encapsulation
+
+3. System-Specific Changes:
+
+**PulseSystem (Apple's Approach)**
+- Optimize for small, localized effects
+- Focus on performance with multiple instances
+- Update to use proper type conversions (Float/Double)
+- Maintain compatibility with RealityKit particle system
+
+**NexusSystem (Custom Approach)**
+- Keep existing complex physics capabilities
+- Ensure proper RealityKit System protocol conformance
+- Maintain scene-wide particle management
+- Preserve existing effect quality
+
+4. Integration Points:
+- Both systems should use AetherConfiguration
+- Standardize particle property access
+- Maintain existing preset compatibility
+- Keep SwiftUI integration working
+
+#### Success Criteria
+1. Clean build with no errors
+2. All existing effects working as before
+3. Both systems accessible through AetherParticles class
+4. No loss of functionality in either system
+5. Clear separation of concerns between systems
+6. Proper access to shared configurations
+
+#### Implementation Steps
+1. Create new directory structure
+2. Move files to new locations
+3. Update imports and access levels
+4. Fix type conversion issues
+5. Test each system independently
+6. Verify integration points
+7. Update documentation
 
 ## Platform Availability
 - Several linter errors related to macOS/visionOS availability:
@@ -127,3 +116,21 @@ Convert package to module structure:
 - Optimize performance for multiple simultaneous particle systems
 - Complete conversion of remaining CSS/HTML particle effects
 - Test particle system performance with 25+ AlbumVibes
+
+## Medium Priority
+(existing medium priority issues...)
+
+## Low Priority
+(existing low priority issues...)
+
+## Resolved Issues (January 24, 2024)
+
+- ✅ Fixed Xcode/Cursor sync issues by properly saving project file changes
+- ✅ Resolved folder structure inconsistencies by renaming `Modules` to `TechStacks`
+- ✅ Fixed project file references to match new directory structure
+
+## Current Issues
+
+- ⏳ AetherParticles migration still in progress
+- ⚠️ Need to verify all particle system functionality after reorganization
+- ⚠️ Some import statements may need updating after structure changes

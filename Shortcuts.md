@@ -49,8 +49,8 @@ This command will:
    - current-issues.md for known issues
    - Composer-history.md for project evolution
 2. Analyze the codebase structure:
-   - PulsarSymphony module implementation
-   - VibesParticles package implementation
+   - PulsarSymphony TechStack implementation
+   - AetherParticles TechStack implementation
    - UI/UX components in Views directory
    - Project configuration and dependencies
 3. Review visionOS sample projects for reference patterns:
@@ -77,11 +77,14 @@ This command will:
 2. Update the Project Status section in `README.md` with:
    - A summary paragraph based on current-status.md and current-issues.md
    - A list of current top priorities
-3. Add a new entry to `Composer-history.md`:
+3. Add a new entry at the bottom of `Composer-history.md`:
    - Date-stamped section for today's changes
    - Technical implementation details
    - UI/UX changes and improvements
    - Issues addressed and solutions implemented
+   - New features and enhancements
+   - Any other relevant information
+   - What you were currently working on and then give a brief summary of what you accomplished, what issues you faced, and what you plan to do next.
 
 ### "Do a backup"
 This command will:

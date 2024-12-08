@@ -1,6 +1,5 @@
 import RealityKit
 import Foundation
-import AetherParticles
 
 /// Manages small, synchronized particle effects for album visualizations
 @available(visionOS 2.0, *)
@@ -20,7 +19,10 @@ public class PulseSystem {
     private var emitterComponent: ParticleEmitterComponent
     
     /// The current configuration
-    private var configuration: AetherParticles.ParticleConfiguration
+    private var configuration: AetherConfiguration
+    
+    /// Standard bounds for particle systems
+    private static let standardBounds = AetherParticles.standardBounds
     
     // MARK: - Types
     
@@ -37,7 +39,7 @@ public class PulseSystem {
     // MARK: - Initialization
     
     /// Initialize a new pulse system with the given configuration
-    public init(configuration: AetherParticles.ParticleConfiguration = .pulseDefault) {
+    public init(configuration: AetherConfiguration = .pulseDefault) {
         self._rootEntity = Entity()
         self.configuration = configuration
         self.emitterComponent = ParticleEmitterComponent()
@@ -61,7 +63,7 @@ public class PulseSystem {
     }
     
     /// Update the system with a new configuration
-    public func update(with configuration: AetherParticles.ParticleConfiguration) {
+    public func update(with configuration: AetherConfiguration) {
         self.configuration = configuration
         configure(with: configuration)
         
@@ -72,7 +74,7 @@ public class PulseSystem {
     
     // MARK: - Private Methods
     
-    private func configure(with config: AetherParticles.ParticleConfiguration) {
+    private func configure(with config: AetherConfiguration) {
         emitterComponent.mainEmitter.birthRate = Double(config.birthRate)
         emitterComponent.mainEmitter.color = config.colorConfig
         emitterComponent.mainEmitter.lifeSpan = Double(config.lifetime)
@@ -85,15 +87,15 @@ public class PulseSystem {
 
 // MARK: - Default Configurations
 
-extension AetherParticles.ParticleConfiguration {
+extension AetherConfiguration {
     /// Default configuration for album pulse effects
-    public static var pulseDefault: ParticleConfiguration {
-        ParticleConfiguration(
+    public static var pulseDefault: AetherConfiguration {
+        AetherConfiguration(
             emitterShape: .sphere,
             emitterSize: [0.1, 0.1, 0.1],  // Small, album-sized emitter
             birthRate: 100,
             colorConfig: .constant(.single(.white.withAlphaComponent(0.6))),
-            bounds: AetherParticles.standardBounds,
+            bounds: PulseSystem.standardBounds,
             acceleration: [0, 0.05, 0],
             speed: 0.1,
             lifetime: 1.0

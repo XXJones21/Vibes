@@ -126,7 +126,7 @@
 				DF4515102D05101C005AFB45 /* Views */,
 				DF4515112D05101C005AFB45 /* Models */,
 				DF4515122D05101C005AFB45 /* Components */,
-				DF4515132D05101C005AFB45 /* Modules */,
+				DF4515132D05101C005AFB45 /* TechStacks */,
 				DF4515142D05101C005AFB45 /* Spaces */,
 				DF4515152D05101C005AFB45 /* Preview Content */,
 			);
@@ -173,13 +173,13 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		DF4515132D05101C005AFB45 /* Modules */ = {
+		DF4515132D05101C005AFB45 /* TechStacks */ = {
 			isa = PBXGroup;
 			children = (
 				DFD632BC2D056AEE0092D46B /* AetherParticles */,
 				DF4515162D05101C005AFB45 /* PulsarSymphony */,
 			);
-			path = Modules;
+			path = TechStacks;
 			sourceTree = "<group>";
 		};
 		DF4515142D05101C005AFB45 /* Spaces */ = {

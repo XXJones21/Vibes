@@ -13,11 +13,11 @@ import SwiftUI
 /// - Support for complex animations like the welcome sequence
 /// - Optimized for visionOS spatial experiences
 @available(visionOS 2.0, *)
-class AetherParticles: ObservableObject {
+public class AetherParticles: ObservableObject {
     // MARK: - Properties
     
     /// Standard bounds for all particle systems
-    static let standardBounds = BoundingBox(min: [-12.5, -12.5, -12.5], max: [12.5, 12.5, 12.5])
+    public static let standardBounds = BoundingBox(min: [-12.5, -12.5, -12.5], max: [12.5, 12.5, 12.5])
     
     /// The root entity that hosts the particle emitter
     var rootEntity: Entity { _rootEntity }
