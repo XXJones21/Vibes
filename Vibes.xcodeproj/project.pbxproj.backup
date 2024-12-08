@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF45150C2D05101C005AFB45 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DF45150B2D05101C005AFB45 /* RealityKitContent */; };
+		
+		// App
 		DF1234561B /* VibesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234561 /* VibesApp.swift */; };
+		
+		// Views
 		DF1234562B /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234562 /* AlbumDetailView.swift */; };
 		DF1234563B /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234563 /* AuthorizationView.swift */; };
 		DF1234564B /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234564 /* WelcomeView.swift */; };
@@ -15,70 +20,71 @@
 		DF1234566B /* Gallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234566 /* Gallery.swift */; };
 		DF1234567B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234567 /* ContentView.swift */; };
 		DF1234568B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234568 /* LoadingView.swift */; };
+		
+		// Models
 		DF1234569B /* AlbumModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234569 /* AlbumModels.swift */; };
 		DF1234570B /* ImmersiveSpaceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234570 /* ImmersiveSpaceState.swift */; };
 		DF1234571B /* AudioAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234571 /* AudioAnalyzer.swift */; };
+		
+		// Components
 		DF1234574B /* FadeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234574 /* FadeComponent.swift */; };
 		DF1234575B /* ScrollComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234575 /* ScrollComponent.swift */; };
+		
+		// PulsarSymphony
 		DF1234576B /* MusicKitWrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234576 /* MusicKitWrappers.swift */; };
 		DF1234577B /* PulsarSymphony+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234577 /* PulsarSymphony+Debug.swift */; };
 		DF1234578B /* PulsarSymphony+Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234578 /* PulsarSymphony+Subscription.swift */; };
 		DF1234580B /* PulsarSymphony+Albums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234580 /* PulsarSymphony+Albums.swift */; };
 		DF1234581B /* PulsarSymphony.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234581 /* PulsarSymphony.swift */; };
 		DF1234582B /* PulsarSymphony+Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234582 /* PulsarSymphony+Pagination.swift */; };
+		
+		// Spaces
 		DF1234583B /* WelcomeSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234583 /* WelcomeSpace.swift */; };
+		
+		// Preview Content
 		DF1234584B /* PreviewMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234584 /* PreviewMocks.swift */; };
-		DF45150C2D05101C005AFB45 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DF45150B2D05101C005AFB45 /* RealityKitContent */; };
-		DFD632CE2D056B350092D46B /* SmokeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632CA2D056B350092D46B /* SmokeEffect.swift */; };
-		DFD632CF2D056B350092D46B /* SparklesEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632CB2D056B350092D46B /* SparklesEffect.swift */; };
-		DFD632D02D056B350092D46B /* AetherParticles.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632BF2D056B350092D46B /* AetherParticles.swift */; };
-		DFD632D12D056B350092D46B /* FirefliesEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C62D056B350092D46B /* FirefliesEffect.swift */; };
-		DFD632D22D056B350092D46B /* AetherSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632BD2D056B350092D46B /* AetherSystem.swift */; };
-		DFD632D32D056B350092D46B /* GalaxySplitEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C82D056B350092D46B /* GalaxySplitEffect.swift */; };
-		DFD632D42D056B350092D46B /* RainEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C92D056B350092D46B /* RainEffect.swift */; };
-		DFD632D52D056B350092D46B /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C12D056B350092D46B /* Core.swift */; };
-		DFD632D62D056B350092D46B /* AetherParticleTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C22D056B350092D46B /* AetherParticleTypes.swift */; };
-		DFD632D72D056B350092D46B /* AetherParticlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C02D056B350092D46B /* AetherParticlesView.swift */; };
-		DFD632D82D056B350092D46B /* WelcomeLetterAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C42D056B350092D46B /* WelcomeLetterAnimation.swift */; };
-		DFD632D92D056B350092D46B /* GalaxyEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C72D056B350092D46B /* GalaxyEffect.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DF1234561 /* VibesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibesApp.swift; sourceTree = "<group>"; };
-		DF1234562 /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
-		DF1234563 /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
-		DF1234564 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		DF1234565 /* ImmersiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveView.swift; sourceTree = "<group>"; };
-		DF1234566 /* Gallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gallery.swift; sourceTree = "<group>"; };
-		DF1234567 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		DF1234568 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		DF1234569 /* AlbumModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModels.swift; sourceTree = "<group>"; };
-		DF1234570 /* ImmersiveSpaceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveSpaceState.swift; sourceTree = "<group>"; };
-		DF1234571 /* AudioAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAnalyzer.swift; sourceTree = "<group>"; };
-		DF1234574 /* FadeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeComponent.swift; sourceTree = "<group>"; };
-		DF1234575 /* ScrollComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollComponent.swift; sourceTree = "<group>"; };
-		DF1234576 /* MusicKitWrappers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicKitWrappers.swift; sourceTree = "<group>"; };
-		DF1234577 /* PulsarSymphony+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony+Debug.swift"; sourceTree = "<group>"; };
-		DF1234578 /* PulsarSymphony+Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony+Subscription.swift"; sourceTree = "<group>"; };
-		DF1234580 /* PulsarSymphony+Albums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony+Albums.swift"; sourceTree = "<group>"; };
-		DF1234581 /* PulsarSymphony.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsarSymphony.swift; sourceTree = "<group>"; };
-		DF1234582 /* PulsarSymphony+Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony+Pagination.swift"; sourceTree = "<group>"; };
-		DF1234583 /* WelcomeSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSpace.swift; sourceTree = "<group>"; };
-		DF1234584 /* PreviewMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewMocks.swift; sourceTree = "<group>"; };
 		DF4515062D05101C005AFB45 /* Vibes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vibes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF45150A2D05101C005AFB45 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
-		DFD632BD2D056B350092D46B /* AetherSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSystem.swift; sourceTree = "<group>"; };
-		DFD632BF2D056B350092D46B /* AetherParticles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherParticles.swift; sourceTree = "<group>"; };
-		DFD632C02D056B350092D46B /* AetherParticlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherParticlesView.swift; sourceTree = "<group>"; };
-		DFD632C12D056B350092D46B /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
-		DFD632C22D056B350092D46B /* AetherParticleTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherParticleTypes.swift; sourceTree = "<group>"; };
-		DFD632C42D056B350092D46B /* WelcomeLetterAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeLetterAnimation.swift; sourceTree = "<group>"; };
-		DFD632C62D056B350092D46B /* FirefliesEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirefliesEffect.swift; sourceTree = "<group>"; };
-		DFD632C72D056B350092D46B /* GalaxyEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalaxyEffect.swift; sourceTree = "<group>"; };
-		DFD632C82D056B350092D46B /* GalaxySplitEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalaxySplitEffect.swift; sourceTree = "<group>"; };
-		DFD632C92D056B350092D46B /* RainEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainEffect.swift; sourceTree = "<group>"; };
-		DFD632CA2D056B350092D46B /* SmokeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeEffect.swift; sourceTree = "<group>"; };
-		DFD632CB2D056B350092D46B /* SparklesEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparklesEffect.swift; sourceTree = "<group>"; };
+
+		// App
+		DF1234561 /* VibesApp.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibesApp.swift; sourceTree = "<group>"; };
+
+		// Views
+		DF1234562 /* AlbumDetailView.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlbumDetailView.swift"; sourceTree = "<group>"; };
+		DF1234563 /* AuthorizationView.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthorizationView.swift"; sourceTree = "<group>"; };
+		DF1234564 /* WelcomeView.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WelcomeView.swift"; sourceTree = "<group>"; };
+		
+		DF1234565 /* ImmersiveView.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImmersiveView.swift"; sourceTree = "<group>"; };
+		DF1234566 /* Gallery.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gallery.swift"; sourceTree = "<group>"; };
+		DF1234567 /* ContentView.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView.swift"; sourceTree = "<group>"; };
+		DF1234568 /* LoadingView.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadingView.swift"; sourceTree = "<group>"; };
+
+		// Models
+		DF1234569 /* AlbumModels.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlbumModels.swift"; sourceTree = "<group>"; };
+		DF1234570 /* ImmersiveSpaceState.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImmersiveSpaceState.swift"; sourceTree = "<group>"; };
+		DF1234571 /* AudioAnalyzer.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioAnalyzer.swift"; sourceTree = "<group>"; };
+
+		// Components
+		DF1234574 /* FadeComponent.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FadeComponent.swift"; sourceTree = "<group>"; };
+		DF1234575 /* ScrollComponent.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrollComponent.swift"; sourceTree = "<group>"; };
+
+		// PulsarSymphony
+		DF1234576 /* MusicKitWrappers.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MusicKitWrappers.swift"; sourceTree = "<group>"; };
+		DF1234577 /* PulsarSymphony+Debug.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony+Debug.swift"; sourceTree = "<group>"; };
+		DF1234578 /* PulsarSymphony+Subscription.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony+Subscription.swift"; sourceTree = "<group>"; };
+		DF1234580 /* PulsarSymphony+Albums.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony+Albums.swift"; sourceTree = "<group>"; };
+		DF1234581 /* PulsarSymphony.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony.swift"; sourceTree = "<group>"; };
+		DF1234582 /* PulsarSymphony+Pagination.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony+Pagination.swift"; sourceTree = "<group>"; };
+
+		// Spaces
+		DF1234583 /* WelcomeSpace.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WelcomeSpace.swift"; sourceTree = "<group>"; };
+
+		// Preview Content
+		DF1234584 /* PreviewMocks.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewMocks.swift"; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,26 +116,39 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DF4515082D05101C005AFB45 /* Vibes */ = {
-			isa = PBXGroup;
-			children = (
-				DF1234561 /* VibesApp.swift */,
-				DF4515102D05101C005AFB45 /* Views */,
-				DF4515112D05101C005AFB45 /* Models */,
-				DF4515122D05101C005AFB45 /* Components */,
-				DF4515132D05101C005AFB45 /* Modules */,
-				DF4515142D05101C005AFB45 /* Spaces */,
-				DF4515152D05101C005AFB45 /* Preview Content */,
-			);
-			path = Vibes;
-			sourceTree = "<group>";
-		};
 		DF4515092D05101C005AFB45 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
 				DF45150A2D05101C005AFB45 /* RealityKitContent */,
 			);
 			path = Packages;
+			sourceTree = "<group>";
+		};
+		DF4515082D05101C005AFB45 /* Vibes */ = {
+			isa = PBXGroup;
+			children = (
+				// App
+				DF1234561 /* VibesApp.swift */,
+				
+				// Views
+				DF4515102D05101C005AFB45 /* Views */,
+				
+				// Models
+				DF4515112D05101C005AFB45 /* Models */,
+				
+				// Components
+				DF4515122D05101C005AFB45 /* Components */,
+				
+				// PulsarSymphony
+				DF4515132D05101C005AFB45 /* Modules */,
+				
+				// Spaces
+				DF4515142D05101C005AFB45 /* Spaces */,
+				
+				// Preview Content
+				DF4515152D05101C005AFB45 /* Preview Content */,
+			);
+			path = Vibes;
 			sourceTree = "<group>";
 		};
 		DF4515102D05101C005AFB45 /* Views */ = {
@@ -168,26 +187,9 @@
 		DF4515132D05101C005AFB45 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				DFD632BC2D056AEE0092D46B /* AetherParticles */,
 				DF4515162D05101C005AFB45 /* PulsarSymphony */,
 			);
 			path = Modules;
-			sourceTree = "<group>";
-		};
-		DF4515142D05101C005AFB45 /* Spaces */ = {
-			isa = PBXGroup;
-			children = (
-				DF1234583 /* WelcomeSpace.swift */,
-			);
-			path = Spaces;
-			sourceTree = "<group>";
-		};
-		DF4515152D05101C005AFB45 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				DF1234584 /* PreviewMocks.swift */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		DF4515162D05101C005AFB45 /* PulsarSymphony */ = {
@@ -219,63 +221,20 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		DFD632BC2D056AEE0092D46B /* AetherParticles */ = {
+		DF4515142D05101C005AFB45 /* Spaces */ = {
 			isa = PBXGroup;
 			children = (
-				DFD632C32D056B350092D46B /* Core */,
-				DFD632CD2D056B350092D46B /* Effects */,
+				DF1234583 /* WelcomeSpace.swift */,
 			);
-			path = AetherParticles;
+			path = Spaces;
 			sourceTree = "<group>";
 		};
-		DFD632BE2D056B350092D46B /* System */ = {
+		DF4515152D05101C005AFB45 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				DFD632BD2D056B350092D46B /* AetherSystem.swift */,
+				DF1234584 /* PreviewMocks.swift */,
 			);
-			path = System;
-			sourceTree = "<group>";
-		};
-		DFD632C32D056B350092D46B /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				DFD632BE2D056B350092D46B /* System */,
-				DFD632BF2D056B350092D46B /* AetherParticles.swift */,
-				DFD632C02D056B350092D46B /* AetherParticlesView.swift */,
-				DFD632C12D056B350092D46B /* Core.swift */,
-				DFD632C22D056B350092D46B /* AetherParticleTypes.swift */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		DFD632C52D056B350092D46B /* AetherAnimations */ = {
-			isa = PBXGroup;
-			children = (
-				DFD632C42D056B350092D46B /* WelcomeLetterAnimation.swift */,
-			);
-			path = AetherAnimations;
-			sourceTree = "<group>";
-		};
-		DFD632CC2D056B350092D46B /* AetherPresets */ = {
-			isa = PBXGroup;
-			children = (
-				DFD632C62D056B350092D46B /* FirefliesEffect.swift */,
-				DFD632C72D056B350092D46B /* GalaxyEffect.swift */,
-				DFD632C82D056B350092D46B /* GalaxySplitEffect.swift */,
-				DFD632C92D056B350092D46B /* RainEffect.swift */,
-				DFD632CA2D056B350092D46B /* SmokeEffect.swift */,
-				DFD632CB2D056B350092D46B /* SparklesEffect.swift */,
-			);
-			path = AetherPresets;
-			sourceTree = "<group>";
-		};
-		DFD632CD2D056B350092D46B /* Effects */ = {
-			isa = PBXGroup;
-			children = (
-				DFD632C52D056B350092D46B /* AetherAnimations */,
-				DFD632CC2D056B350092D46B /* AetherPresets */,
-			);
-			path = Effects;
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -350,38 +309,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				// App
 				DF1234561B /* VibesApp.swift in Sources */,
+				
+				// Views
 				DF1234562B /* AlbumDetailView.swift in Sources */,
 				DF1234563B /* AuthorizationView.swift in Sources */,
 				DF1234564B /* WelcomeView.swift in Sources */,
 				DF1234565B /* ImmersiveView.swift in Sources */,
 				DF1234566B /* Gallery.swift in Sources */,
-				DFD632CE2D056B350092D46B /* SmokeEffect.swift in Sources */,
-				DFD632CF2D056B350092D46B /* SparklesEffect.swift in Sources */,
-				DFD632D02D056B350092D46B /* AetherParticles.swift in Sources */,
-				DFD632D12D056B350092D46B /* FirefliesEffect.swift in Sources */,
-				DFD632D22D056B350092D46B /* AetherSystem.swift in Sources */,
-				DFD632D32D056B350092D46B /* GalaxySplitEffect.swift in Sources */,
-				DFD632D42D056B350092D46B /* RainEffect.swift in Sources */,
-				DFD632D52D056B350092D46B /* Core.swift in Sources */,
-				DFD632D62D056B350092D46B /* AetherParticleTypes.swift in Sources */,
-				DFD632D72D056B350092D46B /* AetherParticlesView.swift in Sources */,
-				DFD632D82D056B350092D46B /* WelcomeLetterAnimation.swift in Sources */,
-				DFD632D92D056B350092D46B /* GalaxyEffect.swift in Sources */,
 				DF1234567B /* ContentView.swift in Sources */,
 				DF1234568B /* LoadingView.swift in Sources */,
+				
+				// Models
 				DF1234569B /* AlbumModels.swift in Sources */,
 				DF1234570B /* ImmersiveSpaceState.swift in Sources */,
 				DF1234571B /* AudioAnalyzer.swift in Sources */,
+				
+				// Components
 				DF1234574B /* FadeComponent.swift in Sources */,
 				DF1234575B /* ScrollComponent.swift in Sources */,
+				
+				// PulsarSymphony
 				DF1234576B /* MusicKitWrappers.swift in Sources */,
 				DF1234577B /* PulsarSymphony+Debug.swift in Sources */,
 				DF1234578B /* PulsarSymphony+Subscription.swift in Sources */,
 				DF1234580B /* PulsarSymphony+Albums.swift in Sources */,
 				DF1234581B /* PulsarSymphony.swift in Sources */,
 				DF1234582B /* PulsarSymphony+Pagination.swift in Sources */,
+				
+				// Spaces
 				DF1234583B /* WelcomeSpace.swift in Sources */,
+				
+				// Preview Content
 				DF1234584B /* PreviewMocks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

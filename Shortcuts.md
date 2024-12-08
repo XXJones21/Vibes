@@ -9,7 +9,7 @@ This document contains key phrases that can be used to automate common tasks in 
 > - `Composer-history.md` for project evolution and key decisions
 > - `current-status.md` and `current-issues.md` for latest state
 > - `README.md` for project overview and structure
-> - The MusicService package implementation (visionOS 2.0+ specific)
+> - The PulsarSymphony module implementation (visionOS 2.0+ specific)
 > - UI/UX components in the Views directory
 > - Project configuration and dependencies
 > - Reference all VisionOS sample projects at `/Users/jones/Documents/Sample Apps/VisionOS`, particularly:
@@ -49,7 +49,7 @@ This command will:
    - current-issues.md for known issues
    - Composer-history.md for project evolution
 2. Analyze the codebase structure:
-   - MusicService package implementation
+   - PulsarSymphony module implementation
    - VibesParticles package implementation
    - UI/UX components in Views directory
    - Project configuration and dependencies
