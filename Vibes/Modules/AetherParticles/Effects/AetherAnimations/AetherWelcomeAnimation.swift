@@ -9,10 +9,10 @@ class AetherWelcomeAnimation: ObservableObject {
     private let rootEntity = Entity()
     
     // Individual letter particle systems
-    private var letterSystems: [AetherParticles] = []
+    private var letterSystems: [PulseSystem] = []
     
     // Main particle system for overall effects
-    private var mainSystem: AetherParticles
+    private var mainSystem: NexusSystem
     
     // Center point in scene space
     private let sceneCenter: SIMD3<Float>
@@ -54,15 +54,15 @@ class AetherWelcomeAnimation: ObservableObject {
         )
         
         // Initialize main system at scene center
-        mainSystem = AetherParticles(configuration: .default)
-        mainSystem.rootEntity.position = sceneCenter
-        rootEntity.addChild(mainSystem.rootEntity)
+        mainSystem = NexusSystem()
+        mainSystem.entity.position = sceneCenter
+        rootEntity.addChild(mainSystem.entity)
         
         // Create letter systems around scene center
         for i in 0..<5 {
             let letterSystem = Self.forLetterPosition(i, center: sceneCenter)
             letterSystems.append(letterSystem)
-            rootEntity.addChild(letterSystem.rootEntity)
+            rootEntity.addChild(letterSystem.entity)
         }
     }
     
@@ -106,30 +106,28 @@ class AetherWelcomeAnimation: ObservableObject {
             
         case .globeFormation:
             // Start particles appearing around the user
-            let globeConfig = AetherConfiguration(
-                emitterShape: .sphere,
-                emitterSize: [25, 25, 25],  // Large emission volume around user
+            let globeConfig = PulseConfiguration(
+                shape: .sphere,
+                size: [25, 25, 25],  // Large emission volume around user
                 birthRate: 100,
-                colorConfig: AetherParticles.randomRainbowColor(),
-                bounds: AetherParticles.standardBounds,
+                color: .rainbow,
                 acceleration: [0, 0, 0],  // No initial pull, just appear
                 speed: 0.1,  // Slow, dreamy movement
                 lifetime: 4.0
             )
-            mainSystem.rootEntity.position = sceneCenter
+            mainSystem.entity.position = sceneCenter
             mainSystem.update(with: globeConfig)
             mainSystem.start()
             letterSystems.forEach { $0.stop() }
             
         case .centerPull:
             // Now pull existing particles to center
-            let pullConfig = AetherConfiguration(
-                emitterShape: .sphere,
-                emitterSize: [0, 0, 0],  // No new emission
+            let pullConfig = PulseConfiguration(
+                shape: .sphere,
+                size: [0, 0, 0],  // No new emission
                 birthRate: 0,  // No new particles
-                colorConfig: AetherParticles.randomRainbowColor(),
-                bounds: AetherParticles.standardBounds,
-                acceleration: sceneCenter - mainSystem.rootEntity.position,
+                color: .rainbow,
+                acceleration: sceneCenter - mainSystem.entity.position,
                 speed: 1.0,  // Faster for the pull effect
                 lifetime: 3.0
             )
@@ -140,37 +138,33 @@ class AetherWelcomeAnimation: ObservableObject {
             // Position letter systems around scene center
             for (index, system) in letterSystems.enumerated() {
                 let offset = Self.letterOffsetFromCenter(index)
-                system.rootEntity.position = sceneCenter + offset
-                let galaxyConfig = AetherPreset.galaxySplit.configuration
-                let halfSizeConfig = AetherConfiguration(
-                    emitterShape: galaxyConfig.emitterShape,
-                    emitterSize: [0.05, 0.05, 0.05],
-                    birthRate: galaxyConfig.birthRate * 1.5,
-                    colorConfig: galaxyConfig.colorConfig,
-                    bounds: AetherParticles.standardBounds,
-                    acceleration: galaxyConfig.acceleration,
-                    speed: galaxyConfig.speed,
-                    lifetime: galaxyConfig.lifetime
+                system.entity.position = sceneCenter + offset
+                let galaxyConfig = PulseConfiguration(
+                    shape: .sphere,
+                    size: [0.05, 0.05, 0.05],
+                    birthRate: 150,
+                    color: .evolving(
+                        start: .purple,
+                        end: .blue
+                    ),
+                    acceleration: [0, 0.1, 0],
+                    speed: 0.5,
+                    lifetime: 2.0
                 )
-                system.update(with: halfSizeConfig)
+                system.update(with: galaxyConfig)
                 system.start()
             }
             
         case .stableState:
             // Gentle floating movement with color pulsing
-            let floatingConfig = AetherConfiguration(
-                emitterShape: .sphere,
-                emitterSize: [0.05, 0.05, 0.05],
+            let floatingConfig = PulseConfiguration(
+                shape: .sphere,
+                size: [0.05, 0.05, 0.05],
                 birthRate: 75,
-                colorConfig: .evolving(
-                    start: .single(ParticleEmitterComponent.ParticleEmitter.Color(
-                        red: 0.5, green: 0.0, blue: 0.5, alpha: 0.8
-                    )),
-                    end: .single(ParticleEmitterComponent.ParticleEmitter.Color(
-                        red: 0.3, green: 0.0, blue: 0.8, alpha: 0.6
-                    ))
+                color: .evolving(
+                    start: .purple,
+                    end: .blue
                 ),
-                bounds: AetherParticles.standardBounds,
                 acceleration: [0, 0.05, 0],
                 speed: 0.1,
                 lifetime: 2.0
@@ -182,17 +176,16 @@ class AetherWelcomeAnimation: ObservableObject {
             
         case .finalBurst:
             // Burst from scene center
-            let burstConfig = AetherConfiguration(
-                emitterShape: .sphere,
-                emitterSize: [0.05, 0.05, 0.05],
+            let burstConfig = PulseConfiguration(
+                shape: .sphere,
+                size: [0.05, 0.05, 0.05],
                 birthRate: 300,
-                colorConfig: AetherParticles.randomRainbowColor(),
-                bounds: AetherParticles.standardBounds,
+                color: .rainbow,
                 acceleration: [0, 2.0, 1.0],
                 speed: 2.0,
                 lifetime: 2.0
             )
-            mainSystem.rootEntity.position = sceneCenter
+            mainSystem.entity.position = sceneCenter
             mainSystem.update(with: burstConfig)
             mainSystem.start()
             letterSystems.forEach { $0.stop() }
@@ -208,12 +201,12 @@ class AetherWelcomeAnimation: ObservableObject {
         ]
     }
     
-    private static func forLetterPosition(_ index: Int, center: SIMD3<Float>) -> AetherParticles {
+    private static func forLetterPosition(_ index: Int, center: SIMD3<Float>) -> PulseSystem {
         precondition(index >= 0 && index < 5, "Letter index out of bounds")
         
-        let system = AetherParticles(configuration: AetherPreset.galaxySplit.configuration)
+        let system = PulseSystem()
         let offset = letterOffsetFromCenter(index)
-        system.rootEntity.position = center + offset
+        system.entity.position = center + offset
         return system
     }
 } 

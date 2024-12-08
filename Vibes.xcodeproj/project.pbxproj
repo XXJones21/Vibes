@@ -41,6 +41,11 @@
 		DFD632D82D056B350092D46B /* AetherWelcomeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C42D056B350092D46B /* AetherWelcomeAnimation.swift */; };
 		DFD632D92D056B350092D46B /* AetherGalaxyEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C72D056B350092D46B /* AetherGalaxyEffect.swift */; };
 		DFD632DC2D0576F60092D46B /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DFD632DB2D0576F60092D46B /* RealityKitContent */; };
+		DFD632E02D056B350092D46B /* PulseSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632E12D056B350092D46B /* PulseSystem.swift */; };
+		DFD632E22D056B350092D46B /* PulseComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632E32D056B350092D46B /* PulseComponent.swift */; };
+		DFD632E42D056B350092D46B /* NexusSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632E52D056B350092D46B /* NexusSystem.swift */; };
+		DFD632E62D056B350092D46B /* PulseConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632E72D056B350092D46B /* PulseConfiguration.swift */; };
+		DFD632E82D056B350092D46B /* NexusComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632E92D056B350092D46B /* NexusComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +82,11 @@
 		DFD632C92D056B350092D46B /* AetherRainEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherRainEffect.swift; sourceTree = "<group>"; };
 		DFD632CA2D056B350092D46B /* AetherSmokeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSmokeEffect.swift; sourceTree = "<group>"; };
 		DFD632CB2D056B350092D46B /* AetherSparklesEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSparklesEffect.swift; sourceTree = "<group>"; };
+		DFD632E12D056B350092D46B /* PulseSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseSystem.swift; sourceTree = "<group>"; };
+		DFD632E32D056B350092D46B /* PulseComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseComponent.swift; sourceTree = "<group>"; };
+		DFD632E52D056B350092D46B /* NexusSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NexusSystem.swift; sourceTree = "<group>"; };
+		DFD632E72D056B350092D46B /* PulseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseConfiguration.swift; sourceTree = "<group>"; };
+		DFD632E92D056B350092D46B /* NexusComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NexusComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +240,11 @@
 			isa = PBXGroup;
 			children = (
 				DFD632BD2D056B350092D46B /* AetherSystem.swift */,
+				DFD632E12D056B350092D46B /* PulseSystem.swift */,
+				DFD632E32D056B350092D46B /* PulseComponent.swift */,
+				DFD632E52D056B350092D46B /* NexusSystem.swift */,
+				DFD632E72D056B350092D46B /* PulseConfiguration.swift */,
+				DFD632E92D056B350092D46B /* NexusComponent.swift */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -391,6 +406,11 @@
 				DF1234582B /* PulsarSymphony+Pagination.swift in Sources */,
 				DF1234583B /* WelcomeSpace.swift in Sources */,
 				DF1234584B /* PreviewMocks.swift in Sources */,
+				DFD632E02D056B350092D46B /* PulseSystem.swift in Sources */,
+				DFD632E22D056B350092D46B /* PulseComponent.swift in Sources */,
+				DFD632E42D056B350092D46B /* NexusSystem.swift in Sources */,
+				DFD632E62D056B350092D46B /* PulseConfiguration.swift in Sources */,
+				DFD632E82D056B350092D46B /* NexusComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

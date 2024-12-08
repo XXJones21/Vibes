@@ -1,52 +1,102 @@
 import RealityKit
 import Foundation
+import AetherParticles
 
 /// Manages small, synchronized particle effects for album visualizations
 @available(visionOS 2.0, *)
-class PulseSystem {
-    /// Whether the system has been initialized
-    private(set) static var isInitialized = false
+public class PulseSystem {
+    // MARK: - Public Properties
     
-    /// The root anchor for all pulse emitters
-    private static var rootAnchor = AnchorEntity()
+    /// The root entity that hosts the particle emitter
+    public var entity: Entity { _rootEntity }
+    private let _rootEntity: Entity
     
-    /// Initialize the pulse system
-    static func registerSystem() {
-        guard !isInitialized else { return }
-        isInitialized = true
+    /// The current state of the pulse system
+    private(set) var state: PulseState = .inactive
+    
+    // MARK: - Private Properties
+    
+    /// The main particle emitter component
+    private var emitterComponent: ParticleEmitterComponent
+    
+    /// The current configuration
+    private var configuration: AetherParticles.ParticleConfiguration
+    
+    // MARK: - Types
+    
+    /// Represents the current state of the pulse system
+    public enum PulseState {
+        /// System is not emitting particles
+        case inactive
+        /// System is actively emitting particles
+        case active
+        /// System is in the middle of a state change
+        case transitioning
     }
     
-    /// Cleanup the pulse system
-    static func unregisterSystem() {
-        guard isInitialized else { return }
-        rootAnchor.removeFromParent()
-        isInitialized = false
+    // MARK: - Initialization
+    
+    /// Initialize a new pulse system with the given configuration
+    public init(configuration: AetherParticles.ParticleConfiguration = .pulseDefault) {
+        self._rootEntity = Entity()
+        self.configuration = configuration
+        self.emitterComponent = ParticleEmitterComponent()
+        configure(with: configuration)
     }
     
-    /// Add a pulse emitter to the scene
-    static func addEmitter(to scene: RealityKit.Scene) -> Entity {
-        let emitter = Entity()
-        rootAnchor.addChild(emitter)
-        scene.addAnchor(rootAnchor)
-        return emitter
+    // MARK: - Public Methods
+    
+    /// Start emitting particles
+    public func start() {
+        guard state == .inactive else { return }
+        state = .active
+        _rootEntity.components[ParticleEmitterComponent.self] = emitterComponent
     }
     
-    /// Configure a pulse emitter with specific settings
-    static func configure(_ entity: Entity, with config: PulseConfiguration) {
-        var component = ParticleEmitterComponent()
-        component.emitterShape = config.shape
-        component.emitterShapeSize = config.size
-        component.mainEmitter.birthRate = config.birthRate
-        component.mainEmitter.color = config.color
-        component.mainEmitter.size = config.particleSize
-        component.mainEmitter.lifeSpan = config.lifetime
-        component.mainEmitter.acceleration = config.acceleration
-        component.speed = config.speed
-        entity.components.set(component)
+    /// Stop emitting particles
+    public func stop() {
+        guard state == .active else { return }
+        state = .inactive
+        _rootEntity.components[ParticleEmitterComponent.self] = nil
     }
     
-    /// Remove a pulse emitter from the scene
-    static func removeEmitter(_ entity: Entity) {
-        entity.removeFromParent()
+    /// Update the system with a new configuration
+    public func update(with configuration: AetherParticles.ParticleConfiguration) {
+        self.configuration = configuration
+        configure(with: configuration)
+        
+        if state == .active {
+            _rootEntity.components[ParticleEmitterComponent.self] = emitterComponent
+        }
+    }
+    
+    // MARK: - Private Methods
+    
+    private func configure(with config: AetherParticles.ParticleConfiguration) {
+        emitterComponent.mainEmitter.birthRate = Double(config.birthRate)
+        emitterComponent.mainEmitter.color = config.colorConfig
+        emitterComponent.mainEmitter.lifeSpan = Double(config.lifetime)
+        emitterComponent.mainEmitter.acceleration = config.acceleration
+        emitterComponent.speed = config.speed
+        emitterComponent.emitterShape = config.emitterShape
+        emitterComponent.emitterShapeSize = config.emitterSize
+    }
+}
+
+// MARK: - Default Configurations
+
+extension AetherParticles.ParticleConfiguration {
+    /// Default configuration for album pulse effects
+    public static var pulseDefault: ParticleConfiguration {
+        ParticleConfiguration(
+            emitterShape: .sphere,
+            emitterSize: [0.1, 0.1, 0.1],  // Small, album-sized emitter
+            birthRate: 100,
+            colorConfig: .constant(.single(.white.withAlphaComponent(0.6))),
+            bounds: AetherParticles.standardBounds,
+            acceleration: [0, 0.05, 0],
+            speed: 0.1,
+            lifetime: 1.0
+        )
     }
 } 
