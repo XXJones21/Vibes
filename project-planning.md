@@ -70,8 +70,69 @@ class AlbumManager {
    - Consider hierarchical genre structure (main genres and subgenres)
    - Add genre-based filtering and recommendations
 
+### Phase 3: Music Analysis Testing
+#### Dual Analysis Approach
 
-### Phase 3: Memory & Performance Management
+##### Test A: MusicKit Analysis (Primary)
+- Data Source: MusicKit's native APIs
+- Metrics:
+  - Track metadata and characteristics
+  - Native audio features
+  - Playback state and timing
+- Advantages:
+  - Official API integration
+  - No additional permissions needed
+  - Battery efficient
+  - Reliable data source
+
+##### Test B: AVAudioEngine Analysis (Experimental)
+- Purpose: Enhanced real-time analysis
+- Implementation:
+  - Parallel to MusicKit playback
+  - System audio output capture
+  - Real-time FFT processing
+- Data Collection:
+  - Frequency spectrum analysis
+  - Beat detection verification
+  - Dynamic range monitoring
+- Considerations:
+  - Additional permission requirements
+  - Performance overhead
+  - Battery impact assessment
+
+#### Comparison Metrics
+1. Data Quality:
+   - Accuracy of music analysis
+   - Feature detection reliability
+   - Timing precision
+
+2. System Impact:
+   - CPU utilization
+   - Memory footprint
+   - Battery consumption
+   - Thermal impact
+
+3. User Experience:
+   - Analysis latency
+   - Feature availability
+   - Permission requirements
+   - Cross-device consistency
+
+#### Success Criteria
+- Latency under 50ms
+- CPU usage below 10%
+- 95% feature detection accuracy
+- Consistent performance across tracks
+- Minimal battery impact
+
+#### Integration Path
+1. Implement MusicKit analysis (Test A)
+2. Develop AVAudioEngine prototype (Test B)
+3. Run parallel testing
+4. Compare metrics
+5. Make architecture decision based on results
+
+### Phase 4: Memory & Performance Management
 #### Implementation
 1. Tiered Caching System
 ```swift
@@ -101,7 +162,7 @@ protocol ResourceManageable {
 }
 ```
 
-### Phase 4: Preview & Vibe System Integration (requires VibesEngine)
+### Phase 5: Preview & Vibe System Integration (requires VibesEngine)
 #### Implementation
 1. Preview Manager
 ```swift
@@ -205,5 +266,125 @@ struct HoverableAlbum: View {
    - Study graceful degradation patterns 
 ```
 
+## DocC Documentation System
 
+### Phase 1: Core Documentation Structure
+#### Implementation Steps
+1. Documentation Catalog Setup
+
+```swift
+struct DocCatalog {
+    let modules: [Module]
+    let tutorials: [Tutorial]
+    let articles: [Article]
+    
+    // Core module documentation
+    struct Module {
+        let name: String
+        let symbols: [Symbol]
+        let availability: PlatformAvailability
+    }
+}
+```
+
+2. Symbol Documentation
+```swift
+protocol DocumentationManageable {
+    var category: DocCategory { get }
+    var availability: PlatformAvailability { get }
+    func generateDocumentation() -> Documentation
+}
+
+enum DocCategory {
+    case tutorial
+    case reference
+    case sampleCode
+    case technicalNote
+}
+```
+
+3. Build Integration
+```swift
+struct BuildConfiguration {
+    static let docSettings = [
+        "BUILD_DOCUMENTATION_DURING_BUILD": "YES",
+        "DOCC_EXTRACT_SWIFT_INFO": "YES",
+        "DOCC_GENERATE_SWIFT_INTERFACES": "YES"
+    ]
+}
+```
+
+### Phase 2: Module Documentation
+#### Core Components
+```swift
+class DocumentationBuilder {
+    private var docCache: [String: Documentation]
+    private let preloadThreshold: Int = 10
+    
+    func generateDocs(for component: DocumentationManageable)
+    func updateAvailability(for platform: Platform)
+    func validateLinks()
+}
+
+struct PlatformAvailability {
+    let visionOS: String
+    let minimumVersion: String
+}
+```
+
+### Phase 3: Resource Management
+#### Memory Constraints
+```swift
+struct DocMemoryConstraints {
+    static let maxCachedDocs = 50
+    static let maxPreloadedTutorials = 5
+    static let maxImageSize = 2 * 1024 * 1024 // 2MB
+}
+```
+
+#### Performance Monitoring
+```swift
+class DocPerformanceMonitor {
+    func trackGenerationTime()
+    func monitorCacheUsage()
+    func validateLinks()
+    func optimizeAssets()
+}
+```
+
+### Phase 4: Automation & Integration
+#### Documentation Generation
+```swift
+await withTaskGroup(of: Documentation.self) { group in
+    for component in components {
+        group.addTask { await generateDocs(for: component) }
+    }
+}
+```
+
+### Investigation Tasks
+1. **Documentation Coverage**
+   - Audit current documentation status
+   - Identify critical paths needing docs
+   - Plan tutorial content
+
+2. **Integration Testing**
+   - Test documentation generation
+   - Verify symbol extraction
+   - Check platform availability markers
+
+3. **Asset Management**
+   - Optimize documentation assets
+   - Implement asset caching
+   - Study compression options
+
+4. **Memory Optimization**
+   - Define cache size constraints
+   - Research doc preloading patterns
+   - Study incremental generation
+
+5. **Performance Monitoring**
+   - Design doc generation metrics
+   - Research build time impact
+   - Study caching strategies
 

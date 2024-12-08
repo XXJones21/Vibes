@@ -3,8 +3,12 @@ import MusicKit
 
 @available(visionOS 2.0, *)
 extension PulsarSymphony {
-    /// Debug helper to analyze album metadata
-    public func analyzeAlbum(title: String, artist: String) async throws {
+    /// Analyzes an album's metadata and prints detailed information for debugging purposes
+    /// - Parameters:
+    ///   - title: The title of the album to analyze
+    ///   - artist: The artist name of the album
+    /// - Throws: PulsarError if the album cannot be found or analyzed
+    internal func analyzeAlbum(title: String, artist: String) async throws {
         print("\n🔍 Analyzing album: \(title) by \(artist)")
         
         var request = MusicCatalogSearchRequest(term: "\(title) \(artist)", types: [Album.self])
@@ -15,8 +19,7 @@ extension PulsarSymphony {
             $0.title.localizedCaseInsensitiveContains(title) && 
             $0.artistName.localizedCaseInsensitiveContains(artist)
         }) else {
-            print("❌ Album not found")
-            return
+            throw PulsarError.albumNotFound
         }
         
         print("\n📀 Album Details:")
@@ -59,15 +62,17 @@ extension PulsarSymphony {
         let detailRequest = MusicCatalogResourceRequest<Album>(matching: \.id, equalTo: album.id)
         let detailResponse = try await detailRequest.response()
         
-        if let detailedAlbum = detailResponse.items.first {
-            print("\n💿 Tracks:")
-            if let tracks = detailedAlbum.tracks {
-                for track in tracks {
-                    print("\n🎵 Track: \(track.title)")
-                    print("Duration: \(track.duration ?? 0) seconds")
-                    if let trackPlayParams = track.playParameters {
-                        print("Track Parameters: \(String(describing: trackPlayParams))")
-                    }
+        guard let detailedAlbum = detailResponse.items.first else {
+            throw PulsarError.detailsNotFound
+        }
+        
+        print("\n💿 Tracks:")
+        if let tracks = detailedAlbum.tracks {
+            for track in tracks {
+                print("\n🎵 Track: \(track.title)")
+                print("Duration: \(track.duration?.formatted() ?? "Unknown")")
+                if let trackPlayParams = track.playParameters {
+                    print("Track Parameters: \(String(describing: trackPlayParams))")
                 }
             }
         }

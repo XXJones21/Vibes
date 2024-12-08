@@ -4,15 +4,33 @@ import AVFAudio
 import SwiftUI
 
 @available(visionOS 2.0, *)
+internal struct PlaybackState {
+    internal var isPlaying: Bool
+    internal var currentTime: TimeInterval
+    internal var duration: TimeInterval
+    internal var volume: Float
+    
+    public init(isPlaying: Bool = false,
+         currentTime: TimeInterval = 0,
+         duration: TimeInterval = 0,
+         volume: Float = 1.0) {
+        self.isPlaying = isPlaying
+        self.currentTime = currentTime
+        self.duration = duration
+        self.volume = volume
+    }
+}
+
+@available(visionOS 2.0, *)
 @MainActor
 public class PulsarSymphony: ObservableObject, PulsarSymphonyProtocol {
-    @Published public var isPlaying = false
-    @Published public var canPlaySpatialAudio = true
-    @Published public var isAuthorized = false
-    @Published public var error: Error?
+    @Published internal var isPlaying = false
+    @Published internal var canPlaySpatialAudio = true
+    @Published internal var isAuthorized = false
+    @Published internal var error: Error?
     
-    public let player = ApplicationMusicPlayer.shared
-    public let audioEngine = AVAudioEngine()
+    internal let player = ApplicationMusicPlayer.shared
+    internal let audioEngine = AVAudioEngine()
     internal var albumCache: [PulsarCategory: [Album]] = [:]
     internal var paginationStates: [PulsarCategory: PaginationState] = [:]
     

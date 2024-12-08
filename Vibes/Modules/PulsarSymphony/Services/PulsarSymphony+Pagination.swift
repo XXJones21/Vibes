@@ -19,6 +19,13 @@ struct PaginationState {
 
 @available(visionOS 2.0, *)
 extension PulsarSymphony {
+    internal struct LoadState {
+        var albums: [Album] = []
+        var hasMore = true
+        var isLoading = false
+        var nextOffset = 0
+    }
+    
     func loadMoreContent(for category: PulsarCategory) async throws -> [Album] {
         guard let state = paginationStates[category] else {
             throw PulsarError.albumFetchFailed

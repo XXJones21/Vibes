@@ -3,6 +3,36 @@ import MusicKit
 import SwiftUI
 
 @available(visionOS 2.0, *)
+public enum MusicGenre {
+    case pop
+    case rock
+    case jazz
+    case classical
+    case electronic
+    case hiphop
+    case other
+    
+    public var description: String {
+        switch self {
+        case .pop:
+            return "Pop"
+        case .rock:
+            return "Rock"
+        case .jazz:
+            return "Jazz"
+        case .classical:
+            return "Classical"
+        case .electronic:
+            return "Electronic"
+        case .hiphop:
+            return "Hip Hop"
+        case .other:
+            return "Other"
+        }
+    }
+}
+
+@available(visionOS 2.0, *)
 public enum PulsarCategory: String, CaseIterable, Comparable {
     case recentlyPlayed = "Recently Played"
     case topCharts = "Top Charts"
@@ -24,6 +54,8 @@ public enum PulsarError: LocalizedError {
     case audioSessionSetupFailed(Error)
     case audioEngineSetupFailed(Error)
     case albumFetchFailed
+    case albumNotFound
+    case detailsNotFound
     case headTrackingNotAvailable
     case artworkURLNotFound
     
@@ -43,6 +75,10 @@ public enum PulsarError: LocalizedError {
             return "Failed to setup audio engine: \(error.localizedDescription)"
         case .albumFetchFailed:
             return "Failed to fetch album details"
+        case .albumNotFound:
+            return "Album not found in Apple Music catalog"
+        case .detailsNotFound:
+            return "Could not fetch detailed album information"
         case .headTrackingNotAvailable:
             return "Head tracking is not available on this device"
         case .artworkURLNotFound:

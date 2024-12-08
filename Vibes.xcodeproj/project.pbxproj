@@ -8,20 +8,88 @@
 
 /* Begin PBXBuildFile section */
 		DF45150C2D05101C005AFB45 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DF45150B2D05101C005AFB45 /* RealityKitContent */; };
+		
+		// App
+		DF1234561B /* VibesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234561 /* VibesApp.swift */; };
+		
+		// Views
+		DF1234562B /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234562 /* AlbumDetailView.swift */; };
+		DF1234563B /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234563 /* AuthorizationView.swift */; };
+		DF1234564B /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234564 /* WelcomeView.swift */; };
+		DF1234565B /* ImmersiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234565 /* ImmersiveView.swift */; };
+		DF1234566B /* Gallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234566 /* Gallery.swift */; };
+		DF1234567B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234567 /* ContentView.swift */; };
+		DF1234568B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234568 /* LoadingView.swift */; };
+		
+		// Models
+		DF1234569B /* AlbumModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234569 /* AlbumModels.swift */; };
+		DF1234570B /* ImmersiveSpaceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234570 /* ImmersiveSpaceState.swift */; };
+		DF1234571B /* AudioAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234571 /* AudioAnalyzer.swift */; };
+		DF1234572B /* AlbumCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234572 /* AlbumCategory.swift */; };
+		DF1234573B /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234573 /* Types.swift */; };
+		
+		// Components
+		DF1234574B /* FadeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234574 /* FadeComponent.swift */; };
+		DF1234575B /* ScrollComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234575 /* ScrollComponent.swift */; };
+		
+		// PulsarSymphony
+		DF1234576B /* MusicKitWrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234576 /* MusicKitWrappers.swift */; };
+		DF1234577B /* PulsarSymphony+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234577 /* PulsarSymphony+Debug.swift */; };
+		DF1234578B /* PulsarSymphony+Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234578 /* PulsarSymphony+Subscription.swift */; };
+		DF1234580B /* PulsarSymphony+Albums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234580 /* PulsarSymphony+Albums.swift */; };
+		DF1234581B /* PulsarSymphony.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234581 /* PulsarSymphony.swift */; };
+		DF1234582B /* PulsarSymphony+Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234582 /* PulsarSymphony+Pagination.swift */; };
+		
+		// Spaces
+		DF1234583B /* WelcomeSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234583 /* WelcomeSpace.swift */; };
+		
+		// Preview Content
+		DF1234584B /* PreviewMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234584 /* PreviewMocks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DF4515062D05101C005AFB45 /* Vibes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vibes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF45150A2D05101C005AFB45 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
-/* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		DFEE61EA2D0518CA00BA104D /* Vibes */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Vibes;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
+		// App
+		DF1234561 /* VibesApp.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibesApp.swift; sourceTree = "<group>"; };
+
+		// Views
+		DF1234562 /* AlbumDetailView.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlbumDetailView.swift"; sourceTree = "<group>"; };
+		DF1234563 /* AuthorizationView.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthorizationView.swift"; sourceTree = "<group>"; };
+		DF1234564 /* WelcomeView.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WelcomeView.swift"; sourceTree = "<group>"; };
+		
+		DF1234565 /* ImmersiveView.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImmersiveView.swift"; sourceTree = "<group>"; };
+		DF1234566 /* Gallery.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gallery.swift"; sourceTree = "<group>"; };
+		DF1234567 /* ContentView.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView.swift"; sourceTree = "<group>"; };
+		DF1234568 /* LoadingView.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadingView.swift"; sourceTree = "<group>"; };
+
+		// Models
+		DF1234569 /* AlbumModels.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlbumModels.swift"; sourceTree = "<group>"; };
+		DF1234570 /* ImmersiveSpaceState.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImmersiveSpaceState.swift"; sourceTree = "<group>"; };
+		DF1234571 /* AudioAnalyzer.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioAnalyzer.swift"; sourceTree = "<group>"; };
+		DF1234572 /* AlbumCategory.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlbumCategory.swift"; sourceTree = "<group>"; };
+		DF1234573 /* Types.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Types.swift"; sourceTree = "<group>"; };
+
+		// Components
+		DF1234574 /* FadeComponent.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FadeComponent.swift"; sourceTree = "<group>"; };
+		DF1234575 /* ScrollComponent.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrollComponent.swift"; sourceTree = "<group>"; };
+
+		// PulsarSymphony
+		DF1234576 /* MusicKitWrappers.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MusicKitWrappers.swift"; sourceTree = "<group>"; };
+		DF1234577 /* PulsarSymphony+Debug.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony+Debug.swift"; sourceTree = "<group>"; };
+		DF1234578 /* PulsarSymphony+Subscription.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony+Subscription.swift"; sourceTree = "<group>"; };
+		DF1234580 /* PulsarSymphony+Albums.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony+Albums.swift"; sourceTree = "<group>"; };
+		DF1234581 /* PulsarSymphony.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony.swift"; sourceTree = "<group>"; };
+		DF1234582 /* PulsarSymphony+Pagination.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony+Pagination.swift"; sourceTree = "<group>"; };
+
+		// Spaces
+		DF1234583 /* WelcomeSpace.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WelcomeSpace.swift"; sourceTree = "<group>"; };
+
+		// Preview Content
+		DF1234584 /* PreviewMocks.swift */ = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewMocks.swift"; sourceTree = "<group>"; };
+
+/* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		DF4515032D05101C005AFB45 /* Frameworks */ = {
@@ -38,7 +106,7 @@
 		DF4514FD2D05101C005AFB45 = {
 			isa = PBXGroup;
 			children = (
-				DFEE61EA2D0518CA00BA104D /* Vibes */,
+				DF4515082D05101C005AFB45 /* Vibes */,
 				DF4515092D05101C005AFB45 /* Packages */,
 				DF4515072D05101C005AFB45 /* Products */,
 			);
@@ -60,6 +128,121 @@
 			path = Packages;
 			sourceTree = "<group>";
 		};
+		DF4515082D05101C005AFB45 /* Vibes */ = {
+			isa = PBXGroup;
+			children = (
+				// App
+				DF1234561 /* VibesApp.swift */,
+				
+				// Views
+				DF4515102D05101C005AFB45 /* Views */,
+				
+				// Models
+				DF4515112D05101C005AFB45 /* Models */,
+				
+				// Components
+				DF4515122D05101C005AFB45 /* Components */,
+				
+				// PulsarSymphony
+				DF4515132D05101C005AFB45 /* Modules */,
+				
+				// Spaces
+				DF4515142D05101C005AFB45 /* Spaces */,
+				
+				// Preview Content
+				DF4515152D05101C005AFB45 /* Preview Content */,
+			);
+			path = Vibes;
+			sourceTree = "<group>";
+		};
+		DF4515102D05101C005AFB45 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DF1234562 /* AlbumDetailView.swift */,
+				DF1234563 /* AuthorizationView.swift */,
+				DF1234564 /* WelcomeView.swift */,
+				DF1234565 /* ImmersiveView.swift */,
+				DF1234566 /* Gallery.swift */,
+				DF1234567 /* ContentView.swift */,
+				DF1234568 /* LoadingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DF4515112D05101C005AFB45 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DF1234569 /* AlbumModels.swift */,
+				DF1234570 /* ImmersiveSpaceState.swift */,
+				DF1234571 /* AudioAnalyzer.swift */,
+				DF1234572 /* AlbumCategory.swift */,
+				DF1234573 /* Types.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DF4515122D05101C005AFB45 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				DF1234574 /* FadeComponent.swift */,
+				DF1234575 /* ScrollComponent.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		DF4515132D05101C005AFB45 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				DF4515162D05101C005AFB45 /* PulsarSymphony */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		DF4515162D05101C005AFB45 /* PulsarSymphony */ = {
+			isa = PBXGroup;
+			children = (
+				DF4515172D05101C005AFB45 /* Models */,
+				DF4515182D05101C005AFB45 /* Services */,
+			);
+			path = PulsarSymphony;
+			sourceTree = "<group>";
+		};
+		DF4515172D05101C005AFB45 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DF1234576 /* MusicKitWrappers.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DF4515182D05101C005AFB45 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				DF1234577 /* PulsarSymphony+Debug.swift */,
+				DF1234578 /* PulsarSymphony+Subscription.swift */,
+				DF1234580 /* PulsarSymphony+Albums.swift */,
+				DF1234581 /* PulsarSymphony.swift */,
+				DF1234582 /* PulsarSymphony+Pagination.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		DF4515142D05101C005AFB45 /* Spaces */ = {
+			isa = PBXGroup;
+			children = (
+				DF1234583 /* WelcomeSpace.swift */,
+			);
+			path = Spaces;
+			sourceTree = "<group>";
+		};
+		DF4515152D05101C005AFB45 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				DF1234584 /* PreviewMocks.swift */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +257,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				DFEE61EA2D0518CA00BA104D /* Vibes */,
 			);
 			name = Vibes;
 			packageProductDependencies = (
@@ -135,6 +315,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				// App
+				DF1234561B /* VibesApp.swift in Sources */,
+				
+				// Views
+				DF1234562B /* AlbumDetailView.swift in Sources */,
+				DF1234563B /* AuthorizationView.swift in Sources */,
+				DF1234564B /* WelcomeView.swift in Sources */,
+				DF1234565B /* ImmersiveView.swift in Sources */,
+				DF1234566B /* Gallery.swift in Sources */,
+				DF1234567B /* ContentView.swift in Sources */,
+				DF1234568B /* LoadingView.swift in Sources */,
+				
+				// Models
+				DF1234569B /* AlbumModels.swift in Sources */,
+				DF1234570B /* ImmersiveSpaceState.swift in Sources */,
+				DF1234571B /* AudioAnalyzer.swift in Sources */,
+				DF1234572B /* AlbumCategory.swift in Sources */,
+				DF1234573B /* Types.swift in Sources */,
+				
+				// Components
+				DF1234574B /* FadeComponent.swift in Sources */,
+				DF1234575B /* ScrollComponent.swift in Sources */,
+				
+				// PulsarSymphony
+				DF1234576B /* MusicKitWrappers.swift in Sources */,
+				DF1234577B /* PulsarSymphony+Debug.swift in Sources */,
+				DF1234578B /* PulsarSymphony+Subscription.swift in Sources */,
+				DF1234580B /* PulsarSymphony+Albums.swift in Sources */,
+				DF1234581B /* PulsarSymphony.swift in Sources */,
+				DF1234582B /* PulsarSymphony+Pagination.swift in Sources */,
+				
+				// Spaces
+				DF1234583B /* WelcomeSpace.swift in Sources */,
+				
+				// Preview Content
+				DF1234584B /* PreviewMocks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,8 +367,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Vibes/Preview Content\"";
 				DEVELOPMENT_TEAM = AS9PH6XDN4;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Vibes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -177,8 +393,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Vibes/Preview Content\"";
 				DEVELOPMENT_TEAM = AS9PH6XDN4;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Vibes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
