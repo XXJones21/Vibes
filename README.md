@@ -1,8 +1,16 @@
-# Vibes - Spatial Audio Music Player
+# Vibes
 
-A visionOS music player app that creates immersive spatial audio experiences.
+A visionOS music visualization app that creates immersive spatial audio experiences.
 
 ## Project Status
+As of December 8, 2023:
+The project is undergoing a major restructuring phase, migrating from the MusicService package to a modular PulsarSymphony implementation. Core functionality has been successfully moved to the new module structure, and view integration is in progress. The focus is on maintaining a clean separation of concerns while ensuring smooth integration with visionOS features.
+
+### Current Priorities:
+1. Complete view updates to use PulsarSymphony module
+2. Resolve remaining linter errors in view integration
+3. Test and verify module integration
+4. Address platform availability requirements
 
 ## Current State
 The welcome animation has been significantly improved with standardized particle system bounds and more natural transitions. Particles now spawn around the user and flow smoothly between phases. Core functionality is maintained with better consistency, though some platform availability issues need addressing.
