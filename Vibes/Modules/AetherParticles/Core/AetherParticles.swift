@@ -34,6 +34,9 @@ class AetherParticles: ObservableObject {
     /// The current configuration of the particle system
     private(set) var configuration: AetherConfiguration
     
+    /// Whether this is a large-scale effect that needs NexusSystem
+    private let isLargeScale: Bool
+    
     // MARK: - Types
     
     /// Represents the current state of the particle system
@@ -260,19 +263,37 @@ class AetherParticles: ObservableObject {
     // MARK: - Initialization
     
     /// Creates a new AetherParticles system with the specified configuration
-    init(configuration: AetherConfiguration = .default) {
+    /// - Parameters:
+    ///   - configuration: The configuration for the particle system
+    ///   - isLargeScale: Whether this is a large-scale effect that needs NexusSystem (default: false)
+    init(configuration: AetherConfiguration = .default, isLargeScale: Bool = false) {
         self.configuration = configuration
+        self.isLargeScale = isLargeScale
         self._rootEntity = Entity()
         self.emitterComponent = ParticleEmitterComponent()
         
         setupEmitter()
+        
+        // Add appropriate component based on scale
+        if isLargeScale {
+            let nexusComponent = NexusComponent(
+                colorConfig: configuration.colorConfig,
+                physicsParams: .default
+            )
+            _rootEntity.components.set(nexusComponent)
+        } else {
+            let pulseComponent = PulseComponent(
+                colorConfig: configuration.colorConfig
+            )
+            _rootEntity.components.set(pulseComponent)
+        }
     }
     
     // MARK: - Methods
     
     /// Creates a particle system with a specific preset configuration
-    static func withPreset(_ preset: AetherPreset) -> AetherParticles {
-        AetherParticles(configuration: preset.configuration)
+    static func withPreset(_ preset: AetherPreset, isLargeScale: Bool = false) -> AetherParticles {
+        AetherParticles(configuration: preset.configuration, isLargeScale: isLargeScale)
     }
     
     /// Starts the particle system
@@ -294,6 +315,17 @@ class AetherParticles: ObservableObject {
     func update(with configuration: AetherConfiguration) {
         self.configuration = configuration
         setupEmitter()
+        
+        // Update component based on scale
+        if isLargeScale {
+            var nexusComponent = _rootEntity.components[NexusComponent.self] ?? NexusComponent()
+            nexusComponent.colorConfig = configuration.colorConfig
+            _rootEntity.components.set(nexusComponent)
+        } else {
+            var pulseComponent = _rootEntity.components[PulseComponent.self] ?? PulseComponent()
+            pulseComponent.colorConfig = configuration.colorConfig
+            _rootEntity.components.set(pulseComponent)
+        }
     }
     
     // MARK: - Private Methods
@@ -392,7 +424,8 @@ extension AetherParticles {
     static func forLetterPosition(_ index: Int) -> AetherParticles {
         precondition(index >= 0 && index < letterPositions.count, "Letter index out of bounds")
         
-        let system = AetherParticles(configuration: AetherPreset.galaxySplit.configuration)
+        // Letter animations are large-scale effects
+        let system = AetherParticles(configuration: AetherPreset.galaxySplit.configuration, isLargeScale: true)
         system._rootEntity.position = letterPositions[index]
         return system
     }

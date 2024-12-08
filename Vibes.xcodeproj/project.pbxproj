@@ -29,18 +29,18 @@
 		DF1234583B /* WelcomeSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234583 /* WelcomeSpace.swift */; };
 		DF1234584B /* PreviewMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234584 /* PreviewMocks.swift */; };
 		DF45150C2D05101C005AFB45 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DF45150B2D05101C005AFB45 /* RealityKitContent */; };
-		DFD632CE2D056B350092D46B /* SmokeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632CA2D056B350092D46B /* SmokeEffect.swift */; };
-		DFD632CF2D056B350092D46B /* SparklesEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632CB2D056B350092D46B /* SparklesEffect.swift */; };
+		DFD632CE2D056B350092D46B /* AetherSmokeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632CA2D056B350092D46B /* AetherSmokeEffect.swift */; };
+		DFD632CF2D056B350092D46B /* AetherSparklesEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632CB2D056B350092D46B /* AetherSparklesEffect.swift */; };
 		DFD632D02D056B350092D46B /* AetherParticles.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632BF2D056B350092D46B /* AetherParticles.swift */; };
-		DFD632D12D056B350092D46B /* FirefliesEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C62D056B350092D46B /* FirefliesEffect.swift */; };
+		DFD632D12D056B350092D46B /* AetherFirefliesEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C62D056B350092D46B /* AetherFirefliesEffect.swift */; };
 		DFD632D22D056B350092D46B /* AetherSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632BD2D056B350092D46B /* AetherSystem.swift */; };
-		DFD632D32D056B350092D46B /* GalaxySplitEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C82D056B350092D46B /* GalaxySplitEffect.swift */; };
-		DFD632D42D056B350092D46B /* RainEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C92D056B350092D46B /* RainEffect.swift */; };
-		DFD632D52D056B350092D46B /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C12D056B350092D46B /* Core.swift */; };
+		DFD632D32D056B350092D46B /* AetherGalaxySplitEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C82D056B350092D46B /* AetherGalaxySplitEffect.swift */; };
+		DFD632D42D056B350092D46B /* AetherRainEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C92D056B350092D46B /* AetherRainEffect.swift */; };
 		DFD632D62D056B350092D46B /* AetherParticleTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C22D056B350092D46B /* AetherParticleTypes.swift */; };
 		DFD632D72D056B350092D46B /* AetherParticlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C02D056B350092D46B /* AetherParticlesView.swift */; };
-		DFD632D82D056B350092D46B /* WelcomeLetterAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C42D056B350092D46B /* WelcomeLetterAnimation.swift */; };
-		DFD632D92D056B350092D46B /* GalaxyEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C72D056B350092D46B /* GalaxyEffect.swift */; };
+		DFD632D82D056B350092D46B /* AetherWelcomeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C42D056B350092D46B /* AetherWelcomeAnimation.swift */; };
+		DFD632D92D056B350092D46B /* AetherGalaxyEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632C72D056B350092D46B /* AetherGalaxyEffect.swift */; };
+		DFD632DC2D0576F60092D46B /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DFD632DB2D0576F60092D46B /* RealityKitContent */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,19 +66,17 @@
 		DF1234583 /* WelcomeSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSpace.swift; sourceTree = "<group>"; };
 		DF1234584 /* PreviewMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewMocks.swift; sourceTree = "<group>"; };
 		DF4515062D05101C005AFB45 /* Vibes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vibes.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF45150A2D05101C005AFB45 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		DFD632BD2D056B350092D46B /* AetherSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSystem.swift; sourceTree = "<group>"; };
 		DFD632BF2D056B350092D46B /* AetherParticles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherParticles.swift; sourceTree = "<group>"; };
 		DFD632C02D056B350092D46B /* AetherParticlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherParticlesView.swift; sourceTree = "<group>"; };
-		DFD632C12D056B350092D46B /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
 		DFD632C22D056B350092D46B /* AetherParticleTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherParticleTypes.swift; sourceTree = "<group>"; };
-		DFD632C42D056B350092D46B /* WelcomeLetterAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeLetterAnimation.swift; sourceTree = "<group>"; };
-		DFD632C62D056B350092D46B /* FirefliesEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirefliesEffect.swift; sourceTree = "<group>"; };
-		DFD632C72D056B350092D46B /* GalaxyEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalaxyEffect.swift; sourceTree = "<group>"; };
-		DFD632C82D056B350092D46B /* GalaxySplitEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalaxySplitEffect.swift; sourceTree = "<group>"; };
-		DFD632C92D056B350092D46B /* RainEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainEffect.swift; sourceTree = "<group>"; };
-		DFD632CA2D056B350092D46B /* SmokeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeEffect.swift; sourceTree = "<group>"; };
-		DFD632CB2D056B350092D46B /* SparklesEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparklesEffect.swift; sourceTree = "<group>"; };
+		DFD632C42D056B350092D46B /* AetherWelcomeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherWelcomeAnimation.swift; sourceTree = "<group>"; };
+		DFD632C62D056B350092D46B /* AetherFirefliesEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherFirefliesEffect.swift; sourceTree = "<group>"; };
+		DFD632C72D056B350092D46B /* AetherGalaxyEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherGalaxyEffect.swift; sourceTree = "<group>"; };
+		DFD632C82D056B350092D46B /* AetherGalaxySplitEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherGalaxySplitEffect.swift; sourceTree = "<group>"; };
+		DFD632C92D056B350092D46B /* AetherRainEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherRainEffect.swift; sourceTree = "<group>"; };
+		DFD632CA2D056B350092D46B /* AetherSmokeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSmokeEffect.swift; sourceTree = "<group>"; };
+		DFD632CB2D056B350092D46B /* AetherSparklesEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSparklesEffect.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFD632DC2D0576F60092D46B /* RealityKitContent in Frameworks */,
 				DF45150C2D05101C005AFB45 /* RealityKitContent in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,7 +126,6 @@
 		DF4515092D05101C005AFB45 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				DF45150A2D05101C005AFB45 /* RealityKitContent */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -242,7 +240,6 @@
 				DFD632BE2D056B350092D46B /* System */,
 				DFD632BF2D056B350092D46B /* AetherParticles.swift */,
 				DFD632C02D056B350092D46B /* AetherParticlesView.swift */,
-				DFD632C12D056B350092D46B /* Core.swift */,
 				DFD632C22D056B350092D46B /* AetherParticleTypes.swift */,
 			);
 			path = Core;
@@ -251,7 +248,7 @@
 		DFD632C52D056B350092D46B /* AetherAnimations */ = {
 			isa = PBXGroup;
 			children = (
-				DFD632C42D056B350092D46B /* WelcomeLetterAnimation.swift */,
+				DFD632C42D056B350092D46B /* AetherWelcomeAnimation.swift */,
 			);
 			path = AetherAnimations;
 			sourceTree = "<group>";
@@ -259,12 +256,12 @@
 		DFD632CC2D056B350092D46B /* AetherPresets */ = {
 			isa = PBXGroup;
 			children = (
-				DFD632C62D056B350092D46B /* FirefliesEffect.swift */,
-				DFD632C72D056B350092D46B /* GalaxyEffect.swift */,
-				DFD632C82D056B350092D46B /* GalaxySplitEffect.swift */,
-				DFD632C92D056B350092D46B /* RainEffect.swift */,
-				DFD632CA2D056B350092D46B /* SmokeEffect.swift */,
-				DFD632CB2D056B350092D46B /* SparklesEffect.swift */,
+				DFD632C62D056B350092D46B /* AetherFirefliesEffect.swift */,
+				DFD632C72D056B350092D46B /* AetherGalaxyEffect.swift */,
+				DFD632C82D056B350092D46B /* AetherGalaxySplitEffect.swift */,
+				DFD632C92D056B350092D46B /* AetherRainEffect.swift */,
+				DFD632CA2D056B350092D46B /* AetherSmokeEffect.swift */,
+				DFD632CB2D056B350092D46B /* AetherSparklesEffect.swift */,
 			);
 			path = AetherPresets;
 			sourceTree = "<group>";
@@ -272,10 +269,18 @@
 		DFD632CD2D056B350092D46B /* Effects */ = {
 			isa = PBXGroup;
 			children = (
+				DFD632DD2D058A2F0092D46B /* AetherVisualizers */,
 				DFD632C52D056B350092D46B /* AetherAnimations */,
 				DFD632CC2D056B350092D46B /* AetherPresets */,
 			);
 			path = Effects;
+			sourceTree = "<group>";
+		};
+		DFD632DD2D058A2F0092D46B /* AetherVisualizers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AetherVisualizers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,6 +301,7 @@
 			name = Vibes;
 			packageProductDependencies = (
 				DF45150B2D05101C005AFB45 /* RealityKitContent */,
+				DFD632DB2D0576F60092D46B /* RealityKitContent */,
 			);
 			productName = Vibes;
 			productReference = DF4515062D05101C005AFB45 /* Vibes.app */;
@@ -325,6 +331,9 @@
 			);
 			mainGroup = DF4514FD2D05101C005AFB45;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DFD632DA2D0576F60092D46B /* XCLocalSwiftPackageReference "Packages/RealityKitContent" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DF4515072D05101C005AFB45 /* Products */;
 			projectDirPath = "";
@@ -356,18 +365,17 @@
 				DF1234564B /* WelcomeView.swift in Sources */,
 				DF1234565B /* ImmersiveView.swift in Sources */,
 				DF1234566B /* Gallery.swift in Sources */,
-				DFD632CE2D056B350092D46B /* SmokeEffect.swift in Sources */,
-				DFD632CF2D056B350092D46B /* SparklesEffect.swift in Sources */,
+				DFD632CE2D056B350092D46B /* AetherSmokeEffect.swift in Sources */,
+				DFD632CF2D056B350092D46B /* AetherSparklesEffect.swift in Sources */,
 				DFD632D02D056B350092D46B /* AetherParticles.swift in Sources */,
-				DFD632D12D056B350092D46B /* FirefliesEffect.swift in Sources */,
+				DFD632D12D056B350092D46B /* AetherFirefliesEffect.swift in Sources */,
 				DFD632D22D056B350092D46B /* AetherSystem.swift in Sources */,
-				DFD632D32D056B350092D46B /* GalaxySplitEffect.swift in Sources */,
-				DFD632D42D056B350092D46B /* RainEffect.swift in Sources */,
-				DFD632D52D056B350092D46B /* Core.swift in Sources */,
+				DFD632D32D056B350092D46B /* AetherGalaxySplitEffect.swift in Sources */,
+				DFD632D42D056B350092D46B /* AetherRainEffect.swift in Sources */,
 				DFD632D62D056B350092D46B /* AetherParticleTypes.swift in Sources */,
 				DFD632D72D056B350092D46B /* AetherParticlesView.swift in Sources */,
-				DFD632D82D056B350092D46B /* WelcomeLetterAnimation.swift in Sources */,
-				DFD632D92D056B350092D46B /* GalaxyEffect.swift in Sources */,
+				DFD632D82D056B350092D46B /* AetherWelcomeAnimation.swift in Sources */,
+				DFD632D92D056B350092D46B /* AetherGalaxyEffect.swift in Sources */,
 				DF1234567B /* ContentView.swift in Sources */,
 				DF1234568B /* LoadingView.swift in Sources */,
 				DF1234569B /* AlbumModels.swift in Sources */,
@@ -583,8 +591,19 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		DFD632DA2D0576F60092D46B /* XCLocalSwiftPackageReference "Packages/RealityKitContent" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/RealityKitContent;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		DF45150B2D05101C005AFB45 /* RealityKitContent */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RealityKitContent;
+		};
+		DFD632DB2D0576F60092D46B /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityKitContent;
 		};

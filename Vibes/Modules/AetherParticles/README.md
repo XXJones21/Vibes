@@ -20,10 +20,13 @@ AetherParticles provides a high-level interface for creating immersive particle 
 AetherParticles/
 ├── Core/
 │   ├── System/
-│   │   └── AetherSystem.swift       # RealityKit System implementation
-│   ├── AetherParticles.swift        # Main API
-│   ├── AetherParticlesView.swift    # SwiftUI integration
-│   └── AetherParticleTypes.swift    # Shared types
+│   │   ├── NexusSystem.swift       # Large-scale immersive effects system
+│   │   ├── NexusComponent.swift    # Component for complex particle behavior
+│   │   ├── PulseSystem.swift       # Album visualization system
+│   │   └── PulseComponent.swift    # Component for synchronized effects
+│   ├── AetherParticles.swift       # Main API
+│   ├── AetherParticlesView.swift   # SwiftUI integration
+│   └── AetherParticleTypes.swift   # Shared types
 └── Effects/
     ├── AetherPresets/
     │   ├── AetherFirefliesEffect.swift     # Floating, glowing particles
@@ -36,59 +39,105 @@ AetherParticles/
         └── AetherWelcomeAnimation.swift    # Welcome sequence animation
 ```
 
+## System Architecture
+
+AetherParticles uses two specialized systems for different visualization needs:
+
+1. **NexusSystem**: For large-scale, immersive effects
+   - Complex particle physics and interactions
+   - Used for welcome sequence and ambient effects
+   - Handles scene-wide particle behaviors
+
+2. **PulseSystem**: For album visualizations
+   - Optimized for multiple small, synchronized effects
+   - Perfect for album artwork enhancement
+   - Efficient batch updates
+
 ## Usage
 
-### Basic Setup
+### System Registration
+
+Register both systems at app launch:
 
 ```swift
-import RealityKit
-
-// Create a particle system with default configuration
-let particles = AetherParticles()
-
-// Add to your RealityKit scene
-myScene.addChild(particles.rootEntity)
-
-// Start emitting particles
-particles.start()
+if #available(visionOS 2.0, *) {
+    // Register NexusSystem for large-scale immersive effects
+    NexusSystem.registerSystem()
+    // Register PulseSystem for album visualizations
+    PulseSystem.registerSystem()
+}
 ```
 
-### Using Presets
+### Creating Effects
+
+#### Large-Scale Effects
 
 ```swift
-// Create a particle system with a preset
-let galaxyParticles = AetherParticles.withPreset(.galaxy)
-let fireflies = AetherParticles.withPreset(.fireflies)
-
-// Custom configuration
-let config = AetherConfiguration(
-    emitterShape: .sphere,
-    emitterSize: [2, 2, 2],
-    birthRate: 100,
-    colorConfig: .constant(.single(.white)),
-    bounds: AetherParticles.standardBounds,
-    acceleration: [0, 0.05, 0],
-    speed: 0.1,
-    lifetime: 2.0
+// Create a galaxy effect for immersive spaces
+let galaxyEffect = AetherParticles(
+    configuration: .galaxy,
+    isLargeScale: true  // Uses NexusSystem
 )
 
-particles.update(with: config)
+// Add to your RealityKit scene
+myScene.addChild(galaxyEffect.rootEntity)
+
+// Start emitting particles
+galaxyEffect.start()
 ```
 
-### Welcome Animation
+#### Album Visualizations
 
 ```swift
-// Create the welcome animation
-let welcomeAnimation = AetherWelcomeAnimation(content: myRealityView) {
-    print("Animation complete!")
+// Create a subtle effect for album artwork
+let albumEffect = AetherParticles(
+    configuration: .sparkles,
+    isLargeScale: false  // Uses PulseSystem
+)
+
+// Add to your RealityKit scene
+albumArtworkEntity.addChild(albumEffect.rootEntity)
+
+// Start emitting particles
+albumEffect.start()
+```
+
+### Using SwiftUI
+
+```swift
+// Large-scale ambient effect
+AetherParticlesView(
+    preset: .galaxy,
+    isLargeScale: true
+) { state in
+    print("Effect state changed to: \(state)")
 }
 
-// Add to your scene
-myScene.addChild(welcomeAnimation.entity)
-
-// Start the animation sequence
-welcomeAnimation.start()
+// Album artwork effect
+AetherParticlesView(
+    preset: .sparkles,
+    isLargeScale: false
+) { state in
+    print("Album effect state: \(state)")
+}
 ```
+
+## Performance Guidelines
+
+1. **System Choice**
+   - Use NexusSystem for scene-wide effects
+   - Use PulseSystem for localized effects
+   - Don't mix systems unnecessarily
+
+2. **Particle Counts**
+   - NexusSystem: Up to 10,000 particles
+   - PulseSystem: Up to 1,000 particles per emitter
+   - Monitor performance with large particle counts
+
+3. **Update Frequency**
+   - Batch updates when possible
+   - Use appropriate update intervals
+   - Consider distance-based updates
 
 ## Requirements
 
@@ -107,11 +156,6 @@ welcomeAnimation.start()
    - Use standardized bounds (±12.5 units)
    - Batch particle updates when possible
    - Consider entity pooling for complex effects
-
-3. **Animation Timing**
-   - Follow UX specifications for durations
-   - Use smooth transitions between phases
-   - Test performance with different particle counts
 
 ## Known Issues
 

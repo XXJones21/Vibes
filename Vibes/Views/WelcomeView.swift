@@ -1,6 +1,5 @@
 import SwiftUI
 import RealityKit
-import VibesParticles
 
 @available(visionOS 2.0, *)
 struct WelcomeView: View {
@@ -9,7 +8,7 @@ struct WelcomeView: View {
     @State private var showTagline = false
     @State private var showParticles = false
     @State private var showTitle = false
-    @State private var animation: WelcomeLetterAnimation?
+    @State private var animation: AetherWelcomeAnimation?
     
     var body: some View {
         ZStack {
@@ -48,7 +47,7 @@ struct WelcomeView: View {
                 // Particle animation using RealityView
                 RealityView { content in
                     // Create animation with proper coordinate space
-                    let letterAnimation = WelcomeLetterAnimation(content: content) {
+                    let letterAnimation = AetherWelcomeAnimation(content: content) {
                         // Animation complete callback
                         withAnimation(.easeOut(duration: 0.7)) {
                             opacity = 0
