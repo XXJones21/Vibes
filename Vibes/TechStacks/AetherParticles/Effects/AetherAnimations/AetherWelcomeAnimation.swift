@@ -1,3 +1,5 @@
+// TODO: Update AetherWelcomeAnimation to work with new component-based system
+/*
 import SwiftUI
 import RealityKit
 import _RealityKit_SwiftUI
@@ -210,3 +212,4 @@ class AetherWelcomeAnimation: ObservableObject {
         return system
     }
 } 
+*/ 

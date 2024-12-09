@@ -1,4 +1,5 @@
 import SwiftUI
+import RealityKit
 
 @available(visionOS 2.0, *)
 struct Gallery: View {

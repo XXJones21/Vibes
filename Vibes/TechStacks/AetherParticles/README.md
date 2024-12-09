@@ -9,6 +9,7 @@ AetherParticles provides a high-level interface for creating immersive particle 
 ## Features
 
 - Music-reactive particle behaviors
+- Component-based architecture for better lifecycle management
 - Physically accurate effects (galaxy formations, fluid dynamics)
 - Shared physics engine for consistent behaviors
 - Preset configurations for different moods
@@ -21,11 +22,9 @@ AetherParticles provides a high-level interface for creating immersive particle 
 AetherParticles/
 ├── Core/
 │   ├── System/
-│   │   ├── NexusSystem.swift       # Large-scale immersive effects system
-│   │   ├── NexusComponent.swift    # Component for complex particle behavior
-│   │   ├── PulseSystem.swift       # Album visualization system
-│   │   ├── PulseComponent.swift    # Component for synchronized effects
-│   │   └── AetherPhysics.swift     # Shared physics calculations
+│   │   ├── NexusComponent.swift    # Component for large-scale effects
+│   │   └── PulseComponent.swift    # Component for album visualizations
+│   ├── AetherPhysics.swift         # Shared physics calculations
 │   ├── AetherParticles.swift       # Main API
 │   ├── AetherParticlesView.swift   # SwiftUI integration
 │   └── AetherParticleTypes.swift   # Shared types
@@ -41,28 +40,30 @@ AetherParticles/
         └── AetherWelcomeAnimation.swift    # Welcome sequence animation
 ```
 
-## System Architecture
+## Component Architecture
 
-AetherParticles uses three main components for different visualization needs:
+AetherParticles uses a component-based architecture for better lifecycle management and performance:
 
-1. **NexusSystem**: For large-scale, immersive effects
+1. **NexusComponent**: For large-scale, immersive effects
    - Complex particle physics and interactions
    - Used for welcome sequence and ambient effects
    - Handles scene-wide particle behaviors
    - Supports up to 10,000 particles
+   - Automatic lifecycle management
 
-2. **PulseSystem**: For album visualizations
+2. **PulseComponent**: For album visualizations
    - Optimized for multiple small, synchronized effects
    - Perfect for album artwork enhancement
    - Efficient batch updates
    - Up to 1,000 particles per emitter
+   - Proper cleanup on removal
 
 3. **AetherPhysics**: Shared physics engine
    - Wave effects for oscillating motion
    - Swirl effects for circular patterns
    - Attraction effects for gravitational behavior
    - Spiral effects for galaxy formations
-   - Used by both Nexus and Pulse systems
+   - Used by both components
 
 ## Physics Implementation
 
@@ -101,15 +102,12 @@ Functions should stay in presets when they:
 ```swift
 // Create a physically accurate galaxy effect
 let galaxyEffect = AetherParticles(
-    configuration: .galaxy,
-    isLargeScale: true  // Uses NexusSystem
+    preset: .galaxy,
+    isLargeScale: true  // Uses NexusComponent
 )
 
 // Add to your RealityKit scene
 myScene.addChild(galaxyEffect.rootEntity)
-
-// Start emitting particles
-galaxyEffect.start()
 ```
 
 ### Using SwiftUI
@@ -126,14 +124,14 @@ AetherParticlesView(
 
 ## Performance Guidelines
 
-1. **System Choice**
-   - Use NexusSystem for scene-wide effects
-   - Use PulseSystem for localized effects
+1. **Component Choice**
+   - Use NexusComponent for scene-wide effects
+   - Use PulseComponent for localized effects
    - Share physics calculations through AetherPhysics
 
 2. **Particle Counts**
-   - NexusSystem: Up to 10,000 particles
-   - PulseSystem: Up to 1,000 particles per emitter
+   - NexusComponent: Up to 10,000 particles
+   - PulseComponent: Up to 1,000 particles per emitter
    - Monitor performance with large particle counts
 
 3. **Physics Optimization**
@@ -149,10 +147,10 @@ AetherParticlesView(
 
 ## Best Practices
 
-1. **Memory Management**
-   - Stop particle systems when not in view
-   - Use appropriate particle counts
-   - Monitor memory usage with large particle counts
+1. **Component Lifecycle**
+   - Components are automatically registered and unregistered
+   - Proper cleanup happens on component removal
+   - Monitor component state changes
 
 2. **Performance**
    - Use standardized bounds (±12.5 units)
@@ -175,4 +173,12 @@ See [current-issues.md](../../current-issues.md) for current known issues and th
 3. Document all public APIs
 4. Test on device when possible
 5. Follow SwiftUI and RealityKit best practices
+
+## Documentation
+
+Full DocC documentation coming soon. This will include:
+- Detailed component lifecycle management
+- Performance optimization guides
+- Physics implementation details
+- Best practices for custom effects
 ``` 

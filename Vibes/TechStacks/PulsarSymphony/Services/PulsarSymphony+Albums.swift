@@ -4,6 +4,16 @@ import SwiftUI
 
 @available(visionOS 2.0, *)
 extension PulsarSymphony {
+    // MARK: - Constants
+    
+    enum Constants {
+        /// Number of albums to display per row in the gallery
+        static let albumsPerRow = 5
+        
+        /// Number of items to fetch per page in API requests
+        static let pageSize = 25
+    }
+    
     // MARK: - Album Management
     
     public func fetchAlbums(category: PulsarCategory) async throws -> [AlbumRepresentable] {

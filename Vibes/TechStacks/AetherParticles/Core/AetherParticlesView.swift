@@ -102,7 +102,7 @@ public final class AetherParticlesView: View, ObservableObject {
             content.add(self.particles.rootEntity)
         } update: { content in
             // Update configuration if needed
-            self.particles.update(with: configuration)
+            self.particles.update(with: self.configuration)
         }
         .task {
             // Start particles when view appears
@@ -110,7 +110,7 @@ public final class AetherParticlesView: View, ObservableObject {
         }
         .onDisappear {
             // Stop particles when view disappears
-            particles.stop()
+            self.particles.stop()
         }
     }
     

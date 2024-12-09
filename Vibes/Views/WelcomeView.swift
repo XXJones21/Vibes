@@ -5,10 +5,8 @@ import RealityKit
 struct WelcomeView: View {
     let onComplete: () -> Void
     @State private var opacity = 0.0
-    @State private var showTagline = false
-    @State private var showParticles = false
-    @State private var showTitle = false
-    @State private var animation: AetherWelcomeAnimation?
+    @State private var showFireflies = false
+    @State private var showGalaxy = false
     
     var body: some View {
         ZStack {
@@ -21,72 +19,51 @@ struct WelcomeView: View {
             )
             .ignoresSafeArea()
             
-            VStack(spacing: 40) {
-                if showTitle {
-                    Text("VIBES")
-                        .font(.system(size: 60, weight: .bold))
-                        .foregroundStyle(
-                            LinearGradient(
-                                colors: [.purple, .blue],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .transition(.scale.combined(with: .opacity))
-                }
-                
-                if showTagline {
-                    Text("Experience Music in a New Dimension")
-                        .font(.title2)
-                        .foregroundStyle(.secondary)
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
-                }
+            if showFireflies {
+                AetherParticlesView(preset: .fireflies)
+                    .opacity(opacity)
             }
             
-            if showParticles {
-                // Particle animation using RealityView
-                RealityView { content in
-                    // Create animation with proper coordinate space
-                    let letterAnimation = AetherWelcomeAnimation(content: content) {
-                        // Animation complete callback
-                        withAnimation(.easeOut(duration: 0.7)) {
-                            opacity = 0
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                                onComplete()
-                            }
-                        }
-                    }
-                    animation = letterAnimation
-                    content.add(letterAnimation.entity)
-                    letterAnimation.start()
-                } update: { content in
-                    if let animation = animation {
-                        switch animation.currentPhase {
-                        case .textFormation:
-                            withAnimation(.easeIn(duration: 0.7)) {
-                                showTitle = true
-                            }
-                        case .stableState:
-                            withAnimation(.easeOut(duration: 0.7)) {
-                                showTagline = true
-                            }
-                        default:
-                            break
-                        }
-                    }
-                }
+            if showGalaxy {
+                AetherParticlesView(preset: .galaxy, isLargeScale: true)
+                    .opacity(opacity)
             }
         }
-        .opacity(opacity)
         .onAppear {
-            // Initial fade in
-            withAnimation(.easeOut(duration: 1.0)) {
+            // First effect: Fireflies
+            showFireflies = true
+            withAnimation(.easeIn(duration: 2.0)) {
                 opacity = 1.0
             }
             
-            // Start particle animation
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                showParticles = true
+            // After 5 seconds, fade out fireflies
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                withAnimation(.easeOut(duration: 2.0)) {
+                    opacity = 0.0
+                }
+                
+                // Start galaxy effect after fireflies fade out
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    showFireflies = false
+                    showGalaxy = true
+                    
+                    // Fade in galaxy
+                    withAnimation(.easeIn(duration: 2.0)) {
+                        opacity = 1.0
+                    }
+                    
+                    // After 6 seconds of galaxy, fade out
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
+                        withAnimation(.easeOut(duration: 2.0)) {
+                            opacity = 0.0
+                        }
+                        
+                        // Complete the welcome sequence
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            onComplete()
+                        }
+                    }
+                }
             }
         }
     }
