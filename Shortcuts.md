@@ -98,6 +98,34 @@ This command will:
 3. Commit the changes using the generated message
 4. Push the changes to the main branch
 
+### "Convert to Aether"
+This command will:
+1. Read and analyze provided particle simulation source (WebGL/JS/HTML/CSS or text prompt)
+2. Generate summary report:
+   - Core particle behaviors and effects
+   - Unique characteristics
+   - Potential PulseSymphony integration points
+   - Performance considerations
+3. Platform Compatibility Analysis:
+   - visionOS performance evaluation
+   - Memory and battery impact assessment
+   - Required hardware capabilities check
+   - Alternative implementation suggestions if needed
+4. Create implementation outline:
+   - Map existing behaviors to AetherPhysics functions
+   - Identify new physics functions needed
+   - List required particle system components
+   - Define music reactivity integration points
+5. Generate appropriate Aether preset:
+   - AetherPreset: For standalone effects
+   - AetherVisualizer: For music-reactive visualizations
+   - AetherAnimation: For complex animated sequences
+6. Create implementation files:
+   - Add new preset/visualizer/animation file
+   - Add any required physics functions
+   - Include performance optimization notes
+   - Document music reactivity hooks
+
 ## Format for Adding New Shortcuts
 ```
 ### "Your key phrase here"

@@ -71,34 +71,34 @@
 		DF1234583 /* WelcomeSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSpace.swift; sourceTree = "<group>"; };
 		DF1234584 /* PreviewMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewMocks.swift; sourceTree = "<group>"; };
 		DF4515062D05101C005AFB45 /* Vibes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vibes.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DFD632BD2D056B350092D46B /* AetherSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSystem.swift; sourceTree = "<group>"; };
-		DFD632BF2D056B350092D46B /* AetherParticles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherParticles.swift; sourceTree = "<group>"; };
-		DFD632C02D056B350092D46B /* AetherParticlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherParticlesView.swift; sourceTree = "<group>"; };
-		DFD632C22D056B350092D46B /* AetherParticleTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherParticleTypes.swift; sourceTree = "<group>"; };
-		DFD632C42D056B350092D46B /* AetherWelcomeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherWelcomeAnimation.swift; sourceTree = "<group>"; };
-		DFD632C62D056B350092D46B /* AetherFirefliesEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherFirefliesEffect.swift; sourceTree = "<group>"; };
-		DFD632C72D056B350092D46B /* AetherGalaxyEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherGalaxyEffect.swift; sourceTree = "<group>"; };
-		DFD632C82D056B350092D46B /* AetherGalaxySplitEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherGalaxySplitEffect.swift; sourceTree = "<group>"; };
-		DFD632C92D056B350092D46B /* AetherRainEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherRainEffect.swift; sourceTree = "<group>"; };
-		DFD632CA2D056B350092D46B /* AetherSmokeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSmokeEffect.swift; sourceTree = "<group>"; };
-		DFD632CB2D056B350092D46B /* AetherSparklesEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSparklesEffect.swift; sourceTree = "<group>"; };
-		DFD632E12D056B350092D46B /* PulseSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseSystem.swift; sourceTree = "<group>"; };
-		DFD632E32D056B350092D46B /* PulseComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseComponent.swift; sourceTree = "<group>"; };
-		DFD632E52D056B350092D46B /* NexusSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NexusSystem.swift; sourceTree = "<group>"; };
-		DFD632E72D056B350092D46B /* PulseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseConfiguration.swift; sourceTree = "<group>"; };
-		DFD632E92D056B350092D46B /* NexusComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NexusComponent.swift; sourceTree = "<group>"; };
+		DFD632BD2D056B350092D46B /* AetherSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AetherSystem.swift; path = AetherSystem.swift; sourceTree = "<group>"; };
+		DFD632BF2D056B350092D46B /* AetherParticles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AetherParticles.swift; path = AetherParticles.swift; sourceTree = "<group>"; };
+		DFD632C02D056B350092D46B /* AetherParticlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AetherParticlesView.swift; path = AetherParticlesView.swift; sourceTree = "<group>"; };
+		DFD632C22D056B350092D46B /* AetherParticleTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AetherParticleTypes.swift; path = AetherParticleTypes.swift; sourceTree = "<group>"; };
+		DFD632C42D056B350092D46B /* AetherWelcomeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AetherWelcomeAnimation.swift; path = AetherWelcomeAnimation.swift; sourceTree = "<group>"; };
+		DFD632C62D056B350092D46B /* AetherFirefliesEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AetherFirefliesEffect.swift; path = AetherFirefliesEffect.swift; sourceTree = "<group>"; };
+		DFD632C72D056B350092D46B /* AetherGalaxyEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AetherGalaxyEffect.swift; path = AetherGalaxyEffect.swift; sourceTree = "<group>"; };
+		DFD632C82D056B350092D46B /* AetherGalaxySplitEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AetherGalaxySplitEffect.swift; path = AetherGalaxySplitEffect.swift; sourceTree = "<group>"; };
+		DFD632C92D056B350092D46B /* AetherRainEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AetherRainEffect.swift; path = AetherRainEffect.swift; sourceTree = "<group>"; };
+		DFD632CA2D056B350092D46B /* AetherSmokeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AetherSmokeEffect.swift; path = AetherSmokeEffect.swift; sourceTree = "<group>"; };
+		DFD632CB2D056B350092D46B /* AetherSparklesEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AetherSparklesEffect.swift; path = AetherSparklesEffect.swift; sourceTree = "<group>"; };
+		DFD632E12D056B350092D46B /* PulseSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PulseSystem.swift; path = PulseSystem.swift; sourceTree = "<group>"; };
+		DFD632E32D056B350092D46B /* PulseComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PulseComponent.swift; path = PulseComponent.swift; sourceTree = "<group>"; };
+		DFD632E52D056B350092D46B /* NexusSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NexusSystem.swift; path = NexusSystem.swift; sourceTree = "<group>"; };
+		DFD632E72D056B350092D46B /* PulseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PulseConfiguration.swift; path = PulseConfiguration.swift; sourceTree = "<group>"; };
+		DFD632E92D056B350092D46B /* NexusComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NexusComponent.swift; path = NexusComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		DF4515032D05101C005AFB45 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DFD632DC2D0576F60092D46B /* RealityKitContent in Frameworks */,
-				DF45150C2D05101C005AFB45 /* RealityKitContent in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+			DF4515032D05101C005AFB45 /* Frameworks */ = {
+				isa = PBXFrameworksBuildPhase;
+				buildActionMask = 2147483647;
+				files = (
+					DFD632DC2D0576F60092D46B /* RealityKitContent in Frameworks */,
+					DF45150C2D05101C005AFB45 /* RealityKitContent in Frameworks */,
+				);
+				runOnlyForDeploymentPostprocessing = 0;
+			};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -384,7 +384,6 @@
 				DFD632CF2D056B350092D46B /* AetherSparklesEffect.swift in Sources */,
 				DFD632D02D056B350092D46B /* AetherParticles.swift in Sources */,
 				DFD632D12D056B350092D46B /* AetherFirefliesEffect.swift in Sources */,
-				DFD632D22D056B350092D46B /* AetherSystem.swift in Sources */,
 				DFD632D32D056B350092D46B /* AetherGalaxySplitEffect.swift in Sources */,
 				DFD632D42D056B350092D46B /* AetherRainEffect.swift in Sources */,
 				DFD632D62D056B350092D46B /* AetherParticleTypes.swift in Sources */,

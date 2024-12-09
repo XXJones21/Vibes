@@ -19,28 +19,18 @@ class NexusSystem: System {
     }
     
     /// Initialize the system
-    required init(scene: Scene) { }
-    
-    /// Register the nexus particle system with RealityKit.
-    /// This should be called when your app launches.
-    static func registerSystem() {
-        guard !isRegistered else { return }
+    required init(scene: Scene) {
+        guard !Self.isRegistered else { return }
         
         if #available(visionOS 2.0, *) {
             do {
-                try RealityKit.Scene.registerSystem(Self.self)
-                isRegistered = true
+                try scene.registerSystem(Self.self)
+                Self.isRegistered = true
+                print("NexusSystem: Successfully registered with scene")
             } catch {
-                print("Failed to register NexusSystem: \(error)")
+                print("NexusSystem: Failed to register - \(error)")
             }
         }
-    }
-    
-    /// Unregister the nexus particle system.
-    /// This should be called when your app is terminating.
-    static func unregisterSystem() {
-        guard isRegistered else { return }
-        isRegistered = false
     }
     
     /// Update the system - called every frame
@@ -50,32 +40,39 @@ class NexusSystem: System {
         lastUpdateTime = currentTime
         
         // Update existing particles
-        for nexusEntity in context.entities(matching: Self.nexusQuery, updatingSystemWhen: .rendering) {
-            guard let emitter = nexusEntity.components[ParticleEmitterComponent.self] else { continue }
+        for entity in context.scene.performQuery(Self.nexusQuery) {
+            guard let emitter = entity.components[ParticleEmitterComponent.self] else { continue }
             
             // Update particle behavior based on nexus settings
-            if let nexusComponent = nexusEntity.components[NexusComponent.self] {
-                updateNexusEmitter(emitter, with: nexusComponent, deltaTime: deltaTime)
+            if let nexusComponent = entity.components[NexusComponent.self] {
+                updateNexusEmitter(entity: entity, emitter: emitter, with: nexusComponent, deltaTime: deltaTime)
             }
-            
-            // Apply updated emitter
-            nexusEntity.components[ParticleEmitterComponent.self] = emitter
         }
     }
     
-    private func updateNexusEmitter(_ emitter: ParticleEmitterComponent, with nexus: NexusComponent, deltaTime: TimeInterval) {
-        // Update particle behavior based on nexus component
-        // This is where we implement complex physics, interactions, etc.
-        
-        // Example: Update birth rate based on music intensity
-        emitter.mainEmitter.birthRate = nexus.baseBirthRate * nexus.intensity
-        
-        // Example: Update particle velocities for swirling effect
-        let swirl = SIMD3<Float>(
-            cos(Float(lastUpdateTime)) * nexus.intensity,
-            sin(Float(lastUpdateTime)) * nexus.intensity,
-            0
+    private func updateNexusEmitter(entity: Entity, emitter: ParticleEmitterComponent, with nexus: NexusComponent, deltaTime: TimeInterval) {
+        // Create new configuration with current settings
+        let newConfig = ParticleEmitterComponent.ParticleEmitter(
+            birthRate: nexus.baseBirthRate * nexus.intensity,
+            size: nexus.baseSize,
+            color: nexus.colorConfig,
+            lifetime: nexus.baseLifetime,
+            velocity: nexus.baseVelocity
         )
-        emitter.mainEmitter.acceleration = nexus.baseAcceleration + swirl
+        
+        // Apply physics based on component settings
+        let motion = AetherPhysics.spiral(
+            at: lastUpdateTime,
+            intensity: nexus.intensity,
+            inwardPull: nexus.physicsParams.centerAttraction
+        )
+        
+        newConfig.acceleration = nexus.baseAcceleration + motion
+        
+        // Create new emitter with updated config
+        let updatedEmitter = ParticleEmitterComponent(from: newConfig)
+        
+        // Apply updated emitter
+        entity.components[ParticleEmitterComponent.self] = updatedEmitter
     }
 } 
