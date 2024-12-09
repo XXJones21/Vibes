@@ -22,7 +22,7 @@ public class PulseSystem {
     private var configuration: AetherConfiguration
     
     /// Standard bounds for particle systems
-    private static let standardBounds = AetherParticles.standardBounds
+    internal static let standardBounds = AetherParticles.standardBounds
     
     // MARK: - Types
     
@@ -75,7 +75,7 @@ public class PulseSystem {
     // MARK: - Private Methods
     
     private func configure(with config: AetherConfiguration) {
-        emitterComponent.mainEmitter.birthRate = Double(config.birthRate)
+        emitterComponent.mainEmitter.birthRate = Float(config.birthRate)
         emitterComponent.mainEmitter.color = config.colorConfig
         emitterComponent.mainEmitter.lifeSpan = Double(config.lifetime)
         emitterComponent.mainEmitter.acceleration = config.acceleration

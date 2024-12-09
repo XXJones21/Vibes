@@ -29,7 +29,6 @@
 		DF1234583B /* WelcomeSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234583 /* WelcomeSpace.swift */; };
 		DF1234584B /* PreviewMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234584 /* PreviewMocks.swift */; };
 		DF45150C2D05101C005AFB45 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DF45150B2D05101C005AFB45 /* RealityKitContent */; };
-		DFAD88212D06AE2C00D42A8E /* AetherPhysics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAD88202D06AE2C00D42A8E /* AetherPhysics.swift */; };
 		DFD4438C2D06A4CC00E3EEE9 /* AetherConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD4438B2D06A4CC00E3EEE9 /* AetherConfiguration.swift */; };
 		DFD632CE2D056B350092D46B /* AetherSmokeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632CA2D056B350092D46B /* AetherSmokeEffect.swift */; };
 		DFD632CF2D056B350092D46B /* AetherSparklesEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632CB2D056B350092D46B /* AetherSparklesEffect.swift */; };
@@ -72,7 +71,6 @@
 		DF1234583 /* WelcomeSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSpace.swift; sourceTree = "<group>"; };
 		DF1234584 /* PreviewMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewMocks.swift; sourceTree = "<group>"; };
 		DF4515062D05101C005AFB45 /* Vibes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vibes.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DFAD88202D06AE2C00D42A8E /* AetherPhysics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherPhysics.swift; sourceTree = "<group>"; };
 		DFD4438B2D06A4CC00E3EEE9 /* AetherConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherConfiguration.swift; sourceTree = "<group>"; };
 		DFD632BD2D056B350092D46B /* AetherSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSystem.swift; sourceTree = "<group>"; };
 		DFD632BF2D056B350092D46B /* AetherParticles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherParticles.swift; sourceTree = "<group>"; };
@@ -89,7 +87,7 @@
 		DFD632E32D056B350092D46B /* PulseComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseComponent.swift; sourceTree = "<group>"; };
 		DFD632E52D056B350092D46B /* NexusSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NexusSystem.swift; path = Vibes/TechStacks/AetherParticles/Core/System/NexusSystem.swift; sourceTree = SOURCE_ROOT; };
 		DFD632E72D056B350092D46B /* PulseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseConfiguration.swift; sourceTree = "<group>"; };
-		DFD632E92D056B350092D46B /* NexusComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NexusComponent.swift; path = Vibes/TechStacks/AetherParticles/Core/System/NexusComponent.swift; sourceTree = SOURCE_ROOT; };
+		DFD632E92D056B350092D46B /* NexusComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NexusComponent.swift; path = Core/System/NexusComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,7 +253,6 @@
 		DFD632C32D056B350092D46B /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				DFAD88202D06AE2C00D42A8E /* AetherPhysics.swift */,
 				DFD4438B2D06A4CC00E3EEE9 /* AetherConfiguration.swift */,
 				DFD632BE2D056B350092D46B /* System */,
 				DFD632BF2D056B350092D46B /* AetherParticles.swift */,
@@ -387,7 +384,6 @@
 				DF1234566B /* Gallery.swift in Sources */,
 				DFD632CE2D056B350092D46B /* AetherSmokeEffect.swift in Sources */,
 				DFD632CF2D056B350092D46B /* AetherSparklesEffect.swift in Sources */,
-				DFAD88212D06AE2C00D42A8E /* AetherPhysics.swift in Sources */,
 				DFD632D02D056B350092D46B /* AetherParticles.swift in Sources */,
 				DFD632D12D056B350092D46B /* AetherFirefliesEffect.swift in Sources */,
 				DFD632D32D056B350092D46B /* AetherGalaxySplitEffect.swift in Sources */,

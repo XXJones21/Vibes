@@ -3,7 +3,7 @@ import Foundation
 
 /// A RealityKit System that manages large-scale particle effects and immersive visualizations
 @available(visionOS 2.0, *)
-class NexusSystem: System {
+public class NexusSystem: System {
     /// Query to find all nexus particle emitters
     private static let nexusQuery = EntityQuery(where: .has(NexusComponent.self))
     
@@ -11,42 +11,55 @@ class NexusSystem: System {
     private var lastUpdateTime: TimeInterval = 0
     
     /// Whether the system has been registered
-    private(set) static var isRegistered = false
+    @MainActor
+    public private(set) static var isRegistered = false
     
     /// System dependencies
-    static var dependencies: [SystemDependency] {
+    public static var dependencies: [SystemDependency] {
         []
     }
     
     /// Initialize the system
-    required init(scene: Scene) {
-        guard !Self.isRegistered else { return }
+    public required init(scene: Scene) {
+        print("NexusSystem: Initialized")
+    }
+    
+    /// Register the Nexus particle system with RealityKit.
+    /// This should be called when setting up your immersive space.
+    @MainActor
+    public static func registerSystem(in scene: Scene) {
+        guard !isRegistered else { return }
         
         if #available(visionOS 2.0, *) {
-            do {
-                try scene.registerSystem(Self.self)
-                Self.isRegistered = true
-                print("NexusSystem: Successfully registered with scene")
-            } catch {
-                print("NexusSystem: Failed to register - \(error)")
-            }
+            scene.registerSystem(Self.self)
+            isRegistered = true
+            print("NexusSystem: Successfully registered")
         }
     }
     
+    /// Unregister the Nexus particle system.
+    /// This should be called when closing your immersive space.
+    @MainActor
+    public static func unregisterSystem(from scene: Scene) {
+        guard isRegistered else { return }
+        scene.unregisterSystem(Self.self)
+        isRegistered = false
+        print("NexusSystem: Successfully unregistered")
+    }
+    
     /// Update the system - called every frame
-    func update(context: SceneUpdateContext) {
+    public func update(context: SceneUpdateContext) {
         let currentTime = Date().timeIntervalSinceReferenceDate
         let deltaTime = lastUpdateTime > 0 ? currentTime - lastUpdateTime : 0
         lastUpdateTime = currentTime
         
         // Update existing particles
         for entity in context.scene.performQuery(Self.nexusQuery) {
-            guard let emitter = entity.components[ParticleEmitterComponent.self] else { continue }
+            guard let emitter = entity.components[ParticleEmitterComponent.self],
+                  let nexusComponent = entity.components[NexusComponent.self] else { continue }
             
             // Update particle behavior based on nexus settings
-            if let nexusComponent = entity.components[NexusComponent.self] {
-                updateNexusEmitter(entity: entity, emitter: emitter, with: nexusComponent, deltaTime: deltaTime)
-            }
+            updateNexusEmitter(entity: entity, emitter: emitter, with: nexusComponent, deltaTime: deltaTime)
         }
     }
     
