@@ -6,7 +6,7 @@ This document contains key phrases that can be used to automate common tasks in 
 
 > Please review all markdown documents, the codebase, and the contents in the MVP folder to familiarize yourself with the project. Pay special attention to:
 > - This is a visionOS-only project (requires visionOS 2.0+ for Dolby Atmos support)
-> - `Composer-history.md` for project evolution and key decisions
+> - `Support/History` directory for project evolution and key decisions
 > - `current-status.md` and `current-issues.md` for latest state
 > - `README.md` for project overview and structure
 > - The PulsarSymphony module implementation (visionOS 2.0+ specific)
@@ -47,7 +47,8 @@ This command will:
    - README.md for project overview
    - current-status.md for latest state
    - current-issues.md for known issues
-   - Composer-history.md for project evolution
+   - Support/History/composer-history-overview.md for project overview
+   - Support/History directory for chronological project evolution
 2. Analyze the codebase structure:
    - PulsarSymphony TechStack implementation
    - AetherParticles TechStack implementation
@@ -77,14 +78,18 @@ This command will:
 2. Update the Project Status section in `README.md` with:
    - A summary paragraph based on current-status.md and current-issues.md
    - A list of current top priorities
-3. Add a new entry at the bottom of `Composer-history.md`:
-   - Date-stamped section for today's changes
-   - Technical implementation details
-   - UI/UX changes and improvements
-   - Issues addressed and solutions implemented
-   - New features and enhancements
-   - Any other relevant information
-   - What you were currently working on and then give a brief summary of what you accomplished, what issues you faced, and what you plan to do next.
+3. Create new dated entry files in `Support/History`:
+   - Create a new file with format: YYYY-MM-DD-[description].md
+   - If multiple entries for the day, use: YYYY-MM-DD-[description]-log-[number].md
+   - If entry is too long, split into: YYYY-MM-DD-[description]-part-[number].md
+   - Include in each file:
+     - Date-stamped section for today's changes
+     - Technical implementation details
+     - UI/UX changes and improvements
+     - Issues addressed and solutions implemented
+     - New features and enhancements
+     - Any other relevant information
+     - Summary of accomplishments, issues faced, and next steps
 
 ### "Do a backup"
 This command will:
