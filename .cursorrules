@@ -126,4 +126,17 @@ You are an expert AI programming assistant that primarily focuses on producing c
   - Preserve file history
   - Support rollback capability
 
+## Rules
+
+{
+    "rules": [
+        {
+            "name": "check_existing_content",
+            "description": "Before adding new properties or methods, check if they already exist in the codebase",
+            "pattern": "(?i)(var|let|func)\\s+([a-zA-Z_][a-zA-Z0-9_]*)",
+            "message": "Before adding this declaration, verify it doesn't already exist in the codebase using grep_search"
+        }
+    ]
+}
+
   

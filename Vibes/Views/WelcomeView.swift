@@ -9,26 +9,33 @@ struct WelcomeView: View {
     @State private var showGalaxy = false
     
     var body: some View {
-        ZStack {
-            // Background gradient
-            RadialGradient(
-                gradient: Gradient(colors: [Color.purple.opacity(0.3), Color.black]),
-                center: .center,
-                startRadius: 0,
-                endRadius: 400
-            )
-            .ignoresSafeArea()
-            
-            if showFireflies {
-                AetherParticlesView(preset: .fireflies)
-                    .opacity(opacity)
-            }
-            
-            if showGalaxy {
-                AetherParticlesView(preset: .galaxy, isLargeScale: true)
-                    .opacity(opacity)
+        GeometryReader { geometry in
+            ZStack {
+                // Background gradient
+                RadialGradient(
+                    gradient: Gradient(colors: [Color.purple.opacity(0.3), Color.black]),
+                    center: .center,
+                    startRadius: 0,
+                    endRadius: 400
+                )
+                .ignoresSafeArea()
+                
+                if showFireflies {
+                    AetherParticlesView(preset: .fireflies)
+                        .opacity(opacity)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .contentShape(.rect)
+                }
+                
+                if showGalaxy {
+                    AetherParticlesView(preset: .galaxy, isLargeScale: true)
+                        .opacity(opacity)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .contentShape(.rect)
+                }
             }
         }
+        .ignoresSafeArea()
         .onAppear {
             // First effect: Fireflies
             showFireflies = true
