@@ -3,7 +3,15 @@
 A visionOS music visualization app that creates immersive spatial audio experiences.
 
 ## Project Status
-The project is undergoing a major particle system migration, moving from a custom AetherSystem to a hybrid approach using both RealityKit particles and specialized custom systems. Recent updates include package dependency resolution, implementation of PulseSystem and NexusSystem, and optimization for visionOS 2.0+ with Dolby Atmos support.
+
+## Current Focus
+Working on improving AetherParticles visibility and coordinate space handling. Recent updates include proper coordinate space conversion using RealityKit's content.convert system, fixed entity positioning and scaling, and improved debug visualization. Next steps involve testing visibility across different scenarios and implementing performance monitoring.
+
+## Top Priorities
+1. Test AetherParticles visibility in different view sizes and scenarios
+2. Implement performance monitoring for particle systems
+3. Add proper cleanup handling for particle systems
+4. Verify coordinate space conversion in edge cases
 
 ### Current Priorities
 1. Complete particle system conversion and optimization
@@ -14,13 +22,6 @@ The project is undergoing a major particle system migration, moving from a custo
 
 ## Current State
 The module structure has been finalized with standardized naming (Aether prefix) and proper access levels. Core functionality and effects are organized into clear categories (Core, Presets, Animations) with consistent patterns. All public declarations have been reviewed and adjusted to appropriate access levels.
-
-## Top Priorities
-1. Fix platform availability errors in AetherParticles module
-2. Optimize particle system performance
-3. Verify animation timing and transitions
-4. Implement performance improvements
-5. Test with increased particle counts
 
 ### Current Progress (December 7, 2023)
 Fixed particle system visibility issues by implementing correct RealityKit particle properties. Updated documentation with proper API usage and best practices. The welcome animation's particle system has been corrected with proper lifetime and size configurations.
