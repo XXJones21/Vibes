@@ -29,7 +29,8 @@
 		DF1234583B /* WelcomeSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234583 /* WelcomeSpace.swift */; };
 		DF1234584B /* PreviewMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234584 /* PreviewMocks.swift */; };
 		DF45150C2D05101C005AFB45 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DF45150B2D05101C005AFB45 /* RealityKitContent */; };
-		DFAD88212D06AE2C00D42A8E /* AetherPhysics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAD88202D06AE2C00D42A8E /* AetherPhysics.swift */; };
+		DF64441D2D0778920095CF79 /* NexusComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF64441C2D0778920095CF79 /* NexusComponent.swift */; };
+		DF64441F2D0778C20095CF79 /* AetherPhysics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF64441E2D0778C20095CF79 /* AetherPhysics.swift */; };
 		DFD4438C2D06A4CC00E3EEE9 /* AetherConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD4438B2D06A4CC00E3EEE9 /* AetherConfiguration.swift */; };
 		DFD632CE2D056B350092D46B /* AetherSmokeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632CA2D056B350092D46B /* AetherSmokeEffect.swift */; };
 		DFD632CF2D056B350092D46B /* AetherSparklesEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632CB2D056B350092D46B /* AetherSparklesEffect.swift */; };
@@ -46,7 +47,6 @@
 		DFD632E22D056B350092D46B /* PulseComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632E32D056B350092D46B /* PulseComponent.swift */; };
 		DFD632E42D056B350092D46B /* NexusSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632E52D056B350092D46B /* NexusSystem.swift */; };
 		DFD632E62D056B350092D46B /* PulseConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632E72D056B350092D46B /* PulseConfiguration.swift */; };
-		DFD632E82D056B350092D46B /* NexusComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632E92D056B350092D46B /* NexusComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,9 +72,11 @@
 		DF1234583 /* WelcomeSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSpace.swift; sourceTree = "<group>"; };
 		DF1234584 /* PreviewMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewMocks.swift; sourceTree = "<group>"; };
 		DF4515062D05101C005AFB45 /* Vibes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vibes.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DFAD88202D06AE2C00D42A8E /* AetherPhysics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherPhysics.swift; sourceTree = "<group>"; };
+		DF64441C2D0778920095CF79 /* NexusComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NexusComponent.swift; sourceTree = "<group>"; };
+		DF64441E2D0778C20095CF79 /* AetherPhysics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherPhysics.swift; sourceTree = "<group>"; };
+		DF6444202D077A8B0095CF79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF6444222D077D7A0095CF79 /* Vibes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vibes.entitlements; sourceTree = "<group>"; };
 		DFD4438B2D06A4CC00E3EEE9 /* AetherConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherConfiguration.swift; sourceTree = "<group>"; };
-		DFD632BD2D056B350092D46B /* AetherSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherSystem.swift; sourceTree = "<group>"; };
 		DFD632BF2D056B350092D46B /* AetherParticles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherParticles.swift; sourceTree = "<group>"; };
 		DFD632C02D056B350092D46B /* AetherParticlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherParticlesView.swift; sourceTree = "<group>"; };
 		DFD632C22D056B350092D46B /* AetherParticleTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherParticleTypes.swift; sourceTree = "<group>"; };
@@ -89,7 +91,6 @@
 		DFD632E32D056B350092D46B /* PulseComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseComponent.swift; sourceTree = "<group>"; };
 		DFD632E52D056B350092D46B /* NexusSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NexusSystem.swift; path = Vibes/TechStacks/AetherParticles/Core/System/NexusSystem.swift; sourceTree = SOURCE_ROOT; };
 		DFD632E72D056B350092D46B /* PulseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseConfiguration.swift; sourceTree = "<group>"; };
-		DFD632E92D056B350092D46B /* NexusComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NexusComponent.swift; path = Vibes/TechStacks/AetherParticles/Core/System/NexusComponent.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +126,7 @@
 		DF4515082D05101C005AFB45 /* Vibes */ = {
 			isa = PBXGroup;
 			children = (
+				DF6444222D077D7A0095CF79 /* Vibes.entitlements */,
 				DF1234561 /* VibesApp.swift */,
 				DF4515102D05101C005AFB45 /* Views */,
 				DF4515112D05101C005AFB45 /* Models */,
@@ -132,6 +134,7 @@
 				DF4515132D05101C005AFB45 /* TechStacks */,
 				DF4515142D05101C005AFB45 /* Spaces */,
 				DF4515152D05101C005AFB45 /* Preview Content */,
+				DF6444202D077A8B0095CF79 /* Info.plist */,
 			);
 			path = Vibes;
 			sourceTree = "<group>";
@@ -242,12 +245,11 @@
 		DFD632BE2D056B350092D46B /* System */ = {
 			isa = PBXGroup;
 			children = (
-				DFD632BD2D056B350092D46B /* AetherSystem.swift */,
+				DF64441C2D0778920095CF79 /* NexusComponent.swift */,
 				DFD632E12D056B350092D46B /* PulseSystem.swift */,
 				DFD632E32D056B350092D46B /* PulseComponent.swift */,
 				DFD632E52D056B350092D46B /* NexusSystem.swift */,
 				DFD632E72D056B350092D46B /* PulseConfiguration.swift */,
-				DFD632E92D056B350092D46B /* NexusComponent.swift */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -255,7 +257,7 @@
 		DFD632C32D056B350092D46B /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				DFAD88202D06AE2C00D42A8E /* AetherPhysics.swift */,
+				DF64441E2D0778C20095CF79 /* AetherPhysics.swift */,
 				DFD4438B2D06A4CC00E3EEE9 /* AetherConfiguration.swift */,
 				DFD632BE2D056B350092D46B /* System */,
 				DFD632BF2D056B350092D46B /* AetherParticles.swift */,
@@ -387,9 +389,10 @@
 				DF1234566B /* Gallery.swift in Sources */,
 				DFD632CE2D056B350092D46B /* AetherSmokeEffect.swift in Sources */,
 				DFD632CF2D056B350092D46B /* AetherSparklesEffect.swift in Sources */,
-				DFAD88212D06AE2C00D42A8E /* AetherPhysics.swift in Sources */,
+				DF64441F2D0778C20095CF79 /* AetherPhysics.swift in Sources */,
 				DFD632D02D056B350092D46B /* AetherParticles.swift in Sources */,
 				DFD632D12D056B350092D46B /* AetherFirefliesEffect.swift in Sources */,
+				DF64441D2D0778920095CF79 /* NexusComponent.swift in Sources */,
 				DFD632D32D056B350092D46B /* AetherGalaxySplitEffect.swift in Sources */,
 				DFD632D42D056B350092D46B /* AetherRainEffect.swift in Sources */,
 				DFD632D62D056B350092D46B /* AetherParticleTypes.swift in Sources */,
@@ -415,7 +418,6 @@
 				DFD632E22D056B350092D46B /* PulseComponent.swift in Sources */,
 				DFD632E42D056B350092D46B /* NexusSystem.swift in Sources */,
 				DFD632E62D056B350092D46B /* PulseConfiguration.swift in Sources */,
-				DFD632E82D056B350092D46B /* NexusComponent.swift in Sources */,
 				DFD4438C2D06A4CC00E3EEE9 /* AetherConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,6 +430,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Vibes/Preview Content\"";
@@ -440,8 +443,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.joshuajones.Vibes;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joshjones.vibes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -454,6 +458,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Vibes/Preview Content\"";
@@ -466,8 +471,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.joshuajones.Vibes;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joshjones.vibes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

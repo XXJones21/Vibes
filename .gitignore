@@ -18,6 +18,17 @@ DerivedData/
 *.dSYM.zip
 *.dSYM
 
+# Project specific
+References/
+Support/
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
+*.xcodeproj/project.xcworkspace/*
+!*.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+!*.xcodeproj/project.xcworkspace/xcshareddata/
+
 # Swift Package Manager
 .build/
 .swiftpm/
