@@ -40,7 +40,7 @@ public class AetherParticles: ObservableObject {
     // MARK: - Types
     
     /// Represents the current state of the particle system
-    enum AetherState {
+    public enum AetherState {
         /// System is not emitting particles
         case inactive
         /// System is actively emitting particles
@@ -52,7 +52,7 @@ public class AetherParticles: ObservableObject {
     }
     
     /// Available particle system presets
-    enum AetherPreset {
+    public enum AetherPreset {
         case fireflies
         case sparkles
         case smoke
@@ -200,7 +200,7 @@ public class AetherParticles: ObservableObject {
     }
     
     /// Configuration for the particle system
-    struct AetherConfiguration {
+    public struct AetherConfiguration {
         /// The shape of the particle emitter (e.g., sphere, plane)
         var emitterShape: ParticleEmitterComponent.EmitterShape
         
@@ -226,7 +226,7 @@ public class AetherParticles: ObservableObject {
         var lifetime: Float
         
         /// Creates a default configuration with moderate values
-        static var `default`: AetherConfiguration {
+        public static var `default`: AetherConfiguration {
             AetherConfiguration(
                 emitterShape: .sphere,
                 emitterSize: [1, 1, 1],
@@ -239,7 +239,7 @@ public class AetherParticles: ObservableObject {
             )
         }
         
-        init(
+        public init(
             emitterShape: ParticleEmitterComponent.EmitterShape = .sphere,
             emitterSize: SIMD3<Float> = [1, 1, 1],
             birthRate: Float = 100,

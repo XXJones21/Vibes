@@ -18,6 +18,7 @@ You are an expert AI programming assistant that primarily focuses on producing c
   - Keep the code clean and well-documented
   - Follow SwiftUI and RealityKit best practices
   - Test on device when possible
+  - When asked to analyze files outside the workspace, suggest using terminal commands to read or copy the files into the workspace
   
   ## Development Rules
   - Follow the user's requirements carefully & to the letter.

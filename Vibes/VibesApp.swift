@@ -7,12 +7,12 @@ struct VibesApp: App {
     @StateObject private var musicService = PulsarSymphony()
     
     init() {
-        // Register particle systems
+        // Register particle components
         if #available(visionOS 2.0, *) {
-            // Register NexusSystem for large-scale immersive effects
-            NexusSystem.registerSystem()
-            // Register PulseSystem for album visualizations
-            PulseSystem.registerSystem()
+            // Register NexusComponent for large-scale immersive effects
+            NexusComponent.registerComponent()
+            // Register PulseComponent for album visualizations
+            PulseComponent.registerComponent()
         }
     }
     

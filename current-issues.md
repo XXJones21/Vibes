@@ -9,6 +9,9 @@
 - Directory structure needs reorganization
 - Access level issues between components
 - Type conversion issues in particle configurations
+- ⚠️ NEW: NexusSystem has incorrect RealityKit System registration (Scene.registerSystem/unregisterSystem not found)
+- ⚠️ NEW: Inconsistency between PulseSystem (standalone) and NexusSystem (RealityKit System) approaches
+- ⚠️ NEW: AetherPhysics moved to Core level but some imports may need updating
 
 #### Required Changes
 
@@ -16,10 +19,10 @@
 ```
 AetherParticles/
 ├── Core/
-│   └── Aether/
-│       ├── AetherParticles.swift
-│       ├── AetherConfiguration.swift
-│       └── AetherParticleTypes.swift
+│   ├── AetherPhysics.swift        # Moved here
+│   ├── AetherParticles.swift
+│   ├── AetherConfiguration.swift
+│   └── AetherParticleTypes.swift
 ├── Systems/
 │   ├── Pulse/
 │   │   ├── PulseSystem.swift
@@ -36,6 +39,7 @@ AetherParticles/
 - Make AetherConfiguration public and accessible to both systems
 - Ensure standardBounds is accessible where needed
 - Update component access levels for proper encapsulation
+- ⚠️ NEW: Verify AetherPhysics access levels after Core move
 
 3. System-Specific Changes:
 
@@ -47,7 +51,9 @@ AetherParticles/
 
 **NexusSystem (Custom Approach)**
 - Keep existing complex physics capabilities
-- Ensure proper RealityKit System protocol conformance
+- ⚠️ NEW: Fix RealityKit System registration issues
+- ⚠️ NEW: Implement correct Scene-based system registration
+- ⚠️ NEW: Consider performance implications of System vs standalone
 - Maintain scene-wide particle management
 - Preserve existing effect quality
 
@@ -56,6 +62,7 @@ AetherParticles/
 - Standardize particle property access
 - Maintain existing preset compatibility
 - Keep SwiftUI integration working
+- ⚠️ NEW: Ensure AetherPhysics properly integrated with both systems
 
 #### Success Criteria
 1. Clean build with no errors
@@ -64,15 +71,18 @@ AetherParticles/
 4. No loss of functionality in either system
 5. Clear separation of concerns between systems
 6. Proper access to shared configurations
+7. ⚠️ NEW: Verified performance with large-scale particle simulations
 
 #### Implementation Steps
-1. Create new directory structure
-2. Move files to new locations
+1. ✅ Create new directory structure
+2. ✅ Move files to new locations
 3. Update imports and access levels
 4. Fix type conversion issues
 5. Test each system independently
 6. Verify integration points
 7. Update documentation
+8. ⚠️ NEW: Fix NexusSystem registration
+9. ⚠️ NEW: Performance testing with both systems
 
 ## Platform Availability
 - Several linter errors related to macOS/visionOS availability:
@@ -83,6 +93,7 @@ AetherParticles/
   - RealityViewContent
   - Point3D
 - Need to verify and update availability attributes
+- ⚠️ NEW: Scene.registerSystem availability needs verification
 
 ## Animation System
 - Animation timing needs verification against UX specs

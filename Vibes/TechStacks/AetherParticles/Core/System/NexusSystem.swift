@@ -4,48 +4,48 @@ import Foundation
 /// A RealityKit System that manages large-scale particle effects and immersive visualizations
 @available(visionOS 2.0, *)
 public class NexusSystem: System {
+    // MARK: - Static Properties
+    
     /// Query to find all nexus particle emitters
     private static let nexusQuery = EntityQuery(where: .has(NexusComponent.self))
-    
-    /// Last update timestamp for delta time calculation
-    private var lastUpdateTime: TimeInterval = 0
     
     /// Whether the system has been registered
     @MainActor
     public private(set) static var isRegistered = false
     
     /// System dependencies
-    public static var dependencies: [SystemDependency] {
-        []
-    }
+    public static var dependencies: [SystemDependency] { [] }
+    
+    /// Last update timestamp for delta time calculation
+    private var lastUpdateTime: TimeInterval = 0
+    
+    // MARK: - Initialization
     
     /// Initialize the system
     public required init(scene: Scene) {
         print("NexusSystem: Initialized")
     }
     
-    /// Register the Nexus particle system with RealityKit.
-    /// This should be called when setting up your immersive space.
+    // MARK: - System Registration
+    
+    /// Register the Nexus particle system.
+    /// This is automatically called when a NexusComponent is created.
     @MainActor
-    public static func registerSystem(in scene: Scene) {
+    public static func registerSystem() {
         guard !isRegistered else { return }
-        
-        if #available(visionOS 2.0, *) {
-            scene.registerSystem(Self.self)
-            isRegistered = true
-            print("NexusSystem: Successfully registered")
-        }
+        isRegistered = true
+        print("NexusSystem: Successfully registered")
     }
     
     /// Unregister the Nexus particle system.
-    /// This should be called when closing your immersive space.
     @MainActor
-    public static func unregisterSystem(from scene: Scene) {
+    public static func unregisterSystem() {
         guard isRegistered else { return }
-        scene.unregisterSystem(Self.self)
         isRegistered = false
         print("NexusSystem: Successfully unregistered")
     }
+    
+    // MARK: - Update
     
     /// Update the system - called every frame
     public func update(context: SceneUpdateContext) {
@@ -59,19 +59,20 @@ public class NexusSystem: System {
                   let nexusComponent = entity.components[NexusComponent.self] else { continue }
             
             // Update particle behavior based on nexus settings
-            updateNexusEmitter(entity: entity, emitter: emitter, with: nexusComponent, deltaTime: deltaTime)
+            updateNexusEmitter(entity: entity, emitter: emitter, nexus: nexusComponent, deltaTime: deltaTime)
         }
     }
     
-    private func updateNexusEmitter(entity: Entity, emitter: ParticleEmitterComponent, with nexus: NexusComponent, deltaTime: TimeInterval) {
+    // MARK: - Private Methods
+    
+    private func updateNexusEmitter(entity: Entity, emitter: ParticleEmitterComponent, nexus: NexusComponent, deltaTime: TimeInterval) {
         // Create new configuration with current settings
-        let newConfig = ParticleEmitterComponent.ParticleEmitter(
-            birthRate: nexus.baseBirthRate * nexus.intensity,
-            size: nexus.baseSize,
-            color: nexus.colorConfig,
-            lifetime: nexus.baseLifetime,
-            velocity: nexus.baseVelocity
-        )
+        var newEmitter = emitter
+        newEmitter.mainEmitter.birthRate = nexus.baseBirthRate * nexus.intensity
+        newEmitter.mainEmitter.size = nexus.baseSize
+        newEmitter.mainEmitter.color = nexus.colorConfig
+        newEmitter.mainEmitter.lifeSpan = Double(nexus.baseLifetime)
+        newEmitter.speed = nexus.baseVelocity
         
         // Apply physics based on component settings
         let motion = AetherPhysics.spiral(
@@ -80,12 +81,9 @@ public class NexusSystem: System {
             inwardPull: nexus.physicsParams.centerAttraction
         )
         
-        newConfig.acceleration = nexus.baseAcceleration + motion
-        
-        // Create new emitter with updated config
-        let updatedEmitter = ParticleEmitterComponent(from: newConfig)
+        newEmitter.mainEmitter.acceleration = nexus.baseAcceleration + motion
         
         // Apply updated emitter
-        entity.components[ParticleEmitterComponent.self] = updatedEmitter
+        entity.components[ParticleEmitterComponent.self] = newEmitter
     }
 } 

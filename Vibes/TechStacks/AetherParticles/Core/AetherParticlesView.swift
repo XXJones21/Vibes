@@ -1,70 +1,155 @@
 import SwiftUI
 import RealityKit
+import Combine
 
-/// A SwiftUI view that wraps an AetherParticles system for easy integration into SwiftUI views.
-/// 
-/// This view provides a convenient way to add ethereal particle effects to your visionOS app.
-/// It handles the RealityKit integration and lifecycle management of the particle system.
-///
-/// Example usage:
-/// ```swift
-/// AetherParticlesView(preset: .fireflies) { state in
-///     print("Particle state changed to: \(state)")
-/// }
-/// ```
+/// A SwiftUI view that wraps AetherParticles for use in both 2D and volumetric contexts
 @available(visionOS 2.0, *)
-public struct AetherParticlesView: View {
-    @StateObject private var aetherParticles: AetherParticles
-    private let onStateChange: ((AetherParticles.ParticleState) -> Void)?
+public final class AetherParticlesView: View, ObservableObject {
+    // MARK: - Type Aliases
     
-    /// Creates a new AetherParticles view with a custom configuration
+    /// Re-export types from AetherParticles for convenience
+    public typealias State = AetherParticles.AetherState
+    public typealias Preset = AetherParticles.AetherPreset
+    
+    // MARK: - Properties
+    
+    /// The particle system instance
+    private let particles: AetherParticles
+    
+    /// Whether this is a large-scale effect using NexusSystem
+    private let isLargeScale: Bool
+    
+    /// The current configuration
+    private var configuration: AetherParticles.AetherConfiguration
+    
+    /// Callback for state changes
+    private var stateChanged: ((State) -> Void)?
+    
+    /// The current state of the particle system
+    @Published private(set) var state: State = .inactive
+    
+    // MARK: - Initialization
+    
+    /// Initialize with a preset configuration
     /// - Parameters:
-    ///   - configuration: The configuration for the particle system
-    ///   - onStateChange: Optional callback for state changes
+    ///   - preset: The particle effect preset to use
+    ///   - isLargeScale: Whether this is a large-scale effect using NexusSystem (default: false)
+    ///   - physicsParams: Physics parameters for NexusSystem effects (ignored if not large-scale)
+    ///   - stateChanged: Optional callback for state changes
     public init(
-        configuration: AetherParticles.ParticleConfiguration = .default,
-        onStateChange: ((AetherParticles.ParticleState) -> Void)? = nil
+        preset: Preset,
+        isLargeScale: Bool = false,
+        physicsParams: NexusPhysicsParams = .default,
+        stateChanged: ((State) -> Void)? = nil
     ) {
-        _aetherParticles = StateObject(wrappedValue: AetherParticles(configuration: configuration))
-        self.onStateChange = onStateChange
+        self.isLargeScale = isLargeScale
+        self.stateChanged = stateChanged
+        
+        // Get configuration from preset
+        let config = preset.configuration
+        self.configuration = config
+        
+        // Create particle system
+        self.particles = AetherParticles(
+            configuration: config,
+            isLargeScale: isLargeScale
+        )
+        
+        // Update physics params if using NexusSystem
+        if isLargeScale {
+            updatePhysicsParams(physicsParams)
+        }
+        
+        // Setup state observation
+        setupStateObservation()
     }
     
-    /// Creates a new AetherParticles view with a preset configuration
+    /// Initialize with a custom configuration
     /// - Parameters:
-    ///   - preset: The preset configuration to use
-    ///   - onStateChange: Optional callback for state changes
+    ///   - configuration: Custom particle system configuration
+    ///   - isLargeScale: Whether this is a large-scale effect using NexusSystem (default: false)
+    ///   - physicsParams: Physics parameters for NexusSystem effects (ignored if not large-scale)
+    ///   - stateChanged: Optional callback for state changes
     public init(
-        preset: AetherParticles.ParticlePreset,
-        onStateChange: ((AetherParticles.ParticleState) -> Void)? = nil
+        configuration: AetherParticles.AetherConfiguration,
+        isLargeScale: Bool = false,
+        physicsParams: NexusPhysicsParams = .default,
+        stateChanged: ((State) -> Void)? = nil
     ) {
-        _aetherParticles = StateObject(wrappedValue: .withPreset(preset))
-        self.onStateChange = onStateChange
+        self.configuration = configuration
+        self.isLargeScale = isLargeScale
+        self.stateChanged = stateChanged
+        
+        // Create particle system
+        self.particles = AetherParticles(
+            configuration: configuration,
+            isLargeScale: isLargeScale
+        )
+        
+        // Update physics params if using NexusSystem
+        if isLargeScale {
+            updatePhysicsParams(physicsParams)
+        }
+        
+        // Setup state observation
+        setupStateObservation()
     }
+    
+    // MARK: - View Body
     
     public var body: some View {
         RealityView { content in
-            content.add(aetherParticles.rootEntity)
-        }
-        .onChange(of: aetherParticles.state) { _, newState in
-            onStateChange?(newState)
+            content.add(self.particles.rootEntity)
+        } update: { content in
+            // Update configuration if needed
+            self.particles.update(with: configuration)
         }
         .task {
-            aetherParticles.start()
+            // Start particles when view appears
+            self.particles.start()
+        }
+        .onDisappear {
+            // Stop particles when view disappears
+            particles.stop()
         }
     }
     
-    /// Starts the particle system
-    public func start() {
-        aetherParticles.start()
+    // MARK: - Private Methods
+    
+    /// Setup state change observation
+    private func setupStateObservation() {
+        // Observe particle system state
+        if let publisher = self.particles.objectWillChange as? ObservableObjectPublisher {
+            publisher.sink { [weak self] _ in
+                guard let self = self else { return }
+                let newState = self.particles.state
+                if newState != state {
+                    state = newState
+                    stateChanged?(newState)
+                }
+            }
+        }
     }
     
-    /// Stops the particle system
-    public func stop() {
-        aetherParticles.stop()
+    /// Update the particle system configuration
+    private func updateConfiguration() {
+        particles.update(with: configuration)
     }
     
-    /// Updates the particle system configuration
-    public func update(with configuration: AetherParticles.ParticleConfiguration) {
-        aetherParticles.update(with: configuration)
+    /// Update physics parameters for NexusSystem
+    private func updatePhysicsParams(_ params: NexusPhysicsParams) {
+        guard isLargeScale,
+              let entity = particles.rootEntity.components[NexusComponent.self] else { return }
+        
+        // Update physics parameters
+        var component = entity
+        component.physicsParams = params
+        particles.rootEntity.components[NexusComponent.self] = component
     }
+}
+
+// MARK: - Preview
+
+#Preview {
+    AetherParticlesView(preset: .galaxy)
 } 

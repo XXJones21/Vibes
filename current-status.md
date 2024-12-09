@@ -1,5 +1,27 @@
 # Current Status
 
+## Latest Updates (December 9, 2023)
+
+- Moved AetherPhysics to Core level
+- Analyzed NexusSystem vs AetherSystem architecture
+- Found registration pattern improvements needed
+- Started Scene API integration fixes
+
+## In Progress
+
+- NexusSystem registration pattern update
+- Component lifecycle management improvements
+- System architecture documentation
+- Migration guidelines development
+
+## Next Steps
+
+1. Fix Scene API integration in NexusSystem
+2. Update component registration patterns
+3. Implement proper system cleanup
+4. Complete architecture documentation
+5. Add migration guidelines
+
 ## December 8, 2023
 - Completed migration of MusicService to PulsarSymphony module structure
 - Successfully moved and updated core types in MusicKitWrappers.swift
