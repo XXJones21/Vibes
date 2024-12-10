@@ -74,15 +74,6 @@ public class NexusSystem: System {
         newEmitter.mainEmitter.lifeSpan = Double(nexus.baseLifetime)
         newEmitter.speed = nexus.baseVelocity
         
-        // Apply physics based on component settings
-        let motion = AetherPhysics.spiral(
-            at: lastUpdateTime,
-            intensity: nexus.intensity,
-            inwardPull: nexus.physicsParams.centerAttraction
-        )
-        
-        newEmitter.mainEmitter.acceleration = nexus.baseAcceleration + motion
-        
         // Apply updated emitter
         entity.components[ParticleEmitterComponent.self] = newEmitter
     }

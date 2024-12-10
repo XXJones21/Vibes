@@ -43,4 +43,12 @@ enum AetherPhysics {
         let inward = SIMD3<Float>(0, -inwardPull * intensity, 0)
         return baseSwirl + inward
     }
+    
+    // MARK: - Pulse Effects
+    static func pulse(at time: TimeInterval,
+                     frequency: Float = 1.0,
+                     amplitude: Float = 0.05) -> SIMD3<Float> {
+        let pulseMotion = sin(Float(time) * frequency * 2 * .pi)
+        return SIMD3<Float>(0, amplitude * pulseMotion, 0)
+    }
 } 

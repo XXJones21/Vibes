@@ -138,7 +138,7 @@ public struct AetherParticlesView: View {
     // MARK: - Type Aliases
     
     /// Re-export types from AetherParticles for convenience
-    public typealias State = AetherParticles.AetherState
+    public typealias AetherState = AetherParticles.AetherState
     public typealias Preset = AetherParticles.AetherPreset
     
     // MARK: - Properties
@@ -152,8 +152,9 @@ public struct AetherParticlesView: View {
         preset: Preset,
         isLargeScale: Bool = false,
         physicsParams: NexusPhysicsParams = .default,
-        stateChanged: ((State) -> Void)? = nil
+        stateChanged: ((AetherState) -> Void)? = nil
     ) {
+        print("🎨 Using preset: \(preset)")
         _state = StateObject(wrappedValue: AetherParticlesState(
             preset: preset,
             isLargeScale: isLargeScale,
@@ -167,7 +168,7 @@ public struct AetherParticlesView: View {
         configuration: AetherParticles.AetherConfiguration,
         isLargeScale: Bool = false,
         physicsParams: NexusPhysicsParams = .default,
-        stateChanged: ((State) -> Void)? = nil
+        stateChanged: ((AetherState) -> Void)? = nil
     ) {
         _state = StateObject(wrappedValue: AetherParticlesState(
             configuration: configuration,
@@ -184,7 +185,6 @@ public struct AetherParticlesView: View {
             RealityView { content in
                 // 1. SETUP ENTITY & COMPONENTS
                 let entity = Entity()
-                entity.components.set(state.rootEntity.components[ParticleEmitterComponent.self] ?? ParticleEmitterComponent())
                 
                 // 2. ADD TO CONTENT
                 content.add(entity)
@@ -210,24 +210,25 @@ public struct AetherParticlesView: View {
                 particleEntity.position = entity.position
                 entity.addChild(particleEntity)
                 
-                // Debug visuals last
-                if state.isLargeScale {
-                    addDebugSphere(to: entity)
-                } else {
-                    addDebugCube(to: entity)
-                }
+                // Add debug visualization
+                let debugEntity = ModelEntity(
+                    mesh: .generateBox(size: [0.05, 0.05, 0.05]),
+                    materials: [UnlitMaterial(color: .blue.withAlphaComponent(0.5))]
+                )
+                debugEntity.position = particleEntity.position
+                entity.addChild(debugEntity)
                 
             } update: { content in
-                // 1. UPDATE COMPONENTS
-                if let emitter = state.rootEntity.components[ParticleEmitterComponent.self] {
-                    content.entities.first?.components.set(emitter)
-                }
+                guard let entity = content.entities.first else { return }
                 
-                // 2. UPDATE BOUNDS
+                // Update bounds
                 updateBounds(content, with: geometry.size.vector)
                 
-                // 3. UPDATE STATE
-                state.update()
+                // Print entity position for debugging
+                print("🎯 Entity position: \(entity.position)")
+                if let debugEntity = entity.children.first(where: { $0 is ModelEntity }) {
+                    print("📍 Debug visual position: \(debugEntity.position)")
+                }
             }
         }
         .task {
@@ -238,48 +239,27 @@ public struct AetherParticlesView: View {
         }
     }
     
-    // MARK: - Private Methods
-    
     private func updateBounds(_ content: RealityViewContent, with geometryVector: SIMD3<Double>) {
         guard let entity = content.entities.first else { return }
         
-        // 1. Convert coordinates
+        // Convert coordinates
         let viewSize = content.convert(
             Size3D(vector: geometryVector),
             from: .local,
             to: entity
         )
         
-        // 2. Create bounds
+        // Create bounds
         let boundingBox = BoundingBox(
             min: -abs(viewSize) / 2.5,
             max: abs(viewSize) / 2.5
         )
         
-        // 3. Re-center if needed
+        // Re-center if needed
         if !boundingBox.contains(entity.position) {
             let height = boundingBox.min.y + boundingBox.max.y * 0.5
             entity.position = [0, height, 0]
-            entity.orientation = simd_quatf(angle: 0, axis: [0, 1, 0])
         }
-    }
-    
-    private func addDebugCube(to entity: Entity) {
-        let cube = ModelEntity(
-            mesh: .generateBox(size: [0.1, 0.1, 0.1]),
-            materials: [SimpleMaterial(color: .blue, isMetallic: false)]
-        )
-        cube.position = .zero
-        entity.addChild(cube)
-    }
-    
-    private func addDebugSphere(to entity: Entity) {
-        let sphere = ModelEntity(
-            mesh: .generateSphere(radius: 0.05),
-            materials: [SimpleMaterial(color: .purple, isMetallic: true)]
-        )
-        sphere.position = .zero
-        entity.addChild(sphere)
     }
 }
 

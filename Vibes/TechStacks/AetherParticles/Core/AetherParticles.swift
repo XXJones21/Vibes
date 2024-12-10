@@ -63,16 +63,18 @@ public class AetherParticles: ObservableObject {
         var configuration: AetherConfiguration {
             switch self {
             case .fireflies:
+                let blueColor = ParticleEmitterComponent.ParticleEmitter.Color(
+                    red: 0.0,
+                    green: 0.0,
+                    blue: 1.0,
+                    alpha: 0.8  // Keep some transparency for glow effect
+                )
+                
                 return AetherConfiguration(
                     emitterShape: .sphere,
                     emitterSize: [2, 2, 2],
                     birthRate: 500,
-                    colorConfig: .constant(.single(ParticleEmitterComponent.ParticleEmitter.Color(
-                        red: 1.0,
-                        green: 1.0,
-                        blue: 1.0,
-                        alpha: 1.0
-                    ))),
+                    colorConfig: .constant(.single(blueColor)),
                     bounds: BoundingBox(min: [-12.5, -12.5, -12.5], max: [12.5, 12.5, 12.5]),
                     acceleration: [0, 0.05, 0],
                     speed: 0.1,
@@ -80,26 +82,17 @@ public class AetherParticles: ObservableObject {
                 )
                 
             case .galaxy:
-                let purpleColor = ParticleEmitterComponent.ParticleEmitter.Color(
-                    red: 0.5,
+                let redColor = ParticleEmitterComponent.ParticleEmitter.Color(
+                    red: 1.0,
                     green: 0.0,
-                    blue: 0.5,
+                    blue: 0.0,
                     alpha: 0.8
-                )
-                let blueColor = ParticleEmitterComponent.ParticleEmitter.Color(
-                    red: 0.0,
-                    green: 0.0,
-                    blue: 1.0,
-                    alpha: 0.6
                 )
                 return AetherConfiguration(
                     emitterShape: .sphere,
                     emitterSize: [6, 6, 6],
                     birthRate: 150,
-                    colorConfig: .evolving(
-                        start: .single(purpleColor),
-                        end: .single(blueColor)
-                    ),
+                    colorConfig: .constant(.single(redColor)),
                     bounds: BoundingBox(min: [-12.5, -12.5, -12.5], max: [12.5, 12.5, 12.5]),
                     acceleration: [0, 0.1, -0.5],
                     speed: 0.3,
@@ -273,20 +266,6 @@ public class AetherParticles: ObservableObject {
         self.emitterComponent = ParticleEmitterComponent()
         
         setupEmitter()
-        
-        // Add appropriate component based on scale
-        if isLargeScale {
-            let nexusComponent = NexusComponent(
-                colorConfig: configuration.colorConfig,
-                physicsParams: .default
-            )
-            _rootEntity.components.set(nexusComponent)
-        } else {
-            let pulseComponent = PulseComponent(
-                colorConfig: configuration.colorConfig
-            )
-            _rootEntity.components.set(pulseComponent)
-        }
     }
     
     // MARK: - Methods
@@ -298,48 +277,58 @@ public class AetherParticles: ObservableObject {
     
     /// Starts the particle system
     func start() {
-        guard state == .inactive else { return }
+        print("🎵 Particle System: Starting")
+        print("🎵 Current State: \(state)")
         state = .active
-        emitterComponent.mainEmitter.birthRate = configuration.birthRate
         updateEmitter()
     }
     
     /// Stops the particle system and clears all particles
     func stop() {
+        print("🎵 Particle System: Stopping")
+        print("🎵 Final State: \(state)")
         state = .inactive
-        emitterComponent.mainEmitter.birthRate = 0
         updateEmitter()
     }
     
     /// Updates the configuration of the particle system
     func update(with configuration: AetherConfiguration) {
+        print("🎵 Particle System: Updating")
+        print("🎵 State Before Update: \(state)")
         self.configuration = configuration
-        setupEmitter()
-        
-        // Update component based on scale
-        if isLargeScale {
-            var nexusComponent = _rootEntity.components[NexusComponent.self] ?? NexusComponent()
-            nexusComponent.colorConfig = configuration.colorConfig
-            _rootEntity.components.set(nexusComponent)
-        } else {
-            var pulseComponent = _rootEntity.components[PulseComponent.self] ?? PulseComponent()
-            pulseComponent.colorConfig = configuration.colorConfig
-            _rootEntity.components.set(pulseComponent)
-        }
+        updateEmitter()
     }
     
     // MARK: - Private Methods
     
     private func setupEmitter() {
+        print("🎯 Setting up emitter with configuration")
+        
+        // Create and configure the particle emitter
+        var emitterComponent = ParticleEmitterComponent()
+        
         // Configure emitter shape and size
         emitterComponent.emitterShape = configuration.emitterShape
         emitterComponent.emitterShapeSize = configuration.emitterSize
         
         // Configure particle appearance
         emitterComponent.mainEmitter.color = configuration.colorConfig
-        emitterComponent.mainEmitter.birthRate = 0  // Start inactive
-        emitterComponent.mainEmitter.size = 0.05  // Set particle size to about quarter size (5cm diameter)
-        emitterComponent.mainEmitter.lifeSpan = Double(configuration.lifetime)  // Set lifetime
+        emitterComponent.mainEmitter.birthRate = 0  // Always start with zero birth rate
+        emitterComponent.mainEmitter.size = 0.1  // Larger size for better visibility
+        emitterComponent.mainEmitter.lifeSpan = Double(configuration.lifetime)
+        emitterComponent.mainEmitter.isLightingEnabled = false  // Disable lighting for glow
+        
+        // Debug check emitter state
+        print("🔍 Debug - Initial Emitter State:")
+        print("   - Component isEmitting: \(emitterComponent.isEmitting)")
+        print("   - Simulation State: \(emitterComponent.simulationState)")
+        print("   - birthRate: \(emitterComponent.mainEmitter.birthRate)")
+        print("   - color: \(emitterComponent.mainEmitter.color)")
+        print("   - size: \(emitterComponent.mainEmitter.size)")
+        print("   - lifeSpan: \(emitterComponent.mainEmitter.lifeSpan)")
+        
+        // Explicitly enable emission
+        emitterComponent.isEmitting = true
         
         // Configure movement
         emitterComponent.mainEmitter.acceleration = configuration.acceleration
@@ -348,12 +337,101 @@ public class AetherParticles: ObservableObject {
         // Add to root entity
         _rootEntity.components.set(emitterComponent)
         
+        // Verify emitter state after setting
+        if let verifyEmitter = _rootEntity.components[ParticleEmitterComponent.self] {
+            print("🔍 Debug - Emitter State After Setting:")
+            print("   - Component isEmitting: \(verifyEmitter.isEmitting)")
+            print("   - Simulation State: \(verifyEmitter.simulationState)")
+            print("   - birthRate: \(verifyEmitter.mainEmitter.birthRate)")
+            print("   - color: \(verifyEmitter.mainEmitter.color)")
+        } else {
+            print("⚠️ Warning - Failed to retrieve ParticleEmitterComponent after setting")
+        }
+        
+        // Add appropriate system component based on scale
+        if isLargeScale {
+            print("🌌 Setting up NexusComponent")
+            var nexusComponent = NexusComponent(
+                colorConfig: configuration.colorConfig,
+                physicsParams: .default
+            )
+            nexusComponent.intensity = 0.0  // Always start with zero intensity
+            _rootEntity.components.set(nexusComponent)
+        } else {
+            print("✨ Setting up PulseComponent")
+            var pulseComponent = PulseComponent(
+                colorConfig: configuration.colorConfig
+            )
+            pulseComponent.intensity = 0.0  // Always start with zero intensity
+            _rootEntity.components.set(pulseComponent)
+        }
+        
         // Position within bounds
         _rootEntity.position = [0, 0, 0]
+        
+        // Set initial state
+        state = .inactive
     }
     
     private func updateEmitter() {
+        print("🔄 Updating emitter...")
+        
+        // Debug check before update
+        if let beforeEmitter = _rootEntity.components[ParticleEmitterComponent.self] {
+            print("🔍 Debug - Emitter State Before Update:")
+            print("   - Component isEmitting: \(beforeEmitter.isEmitting)")
+            print("   - Simulation State: \(beforeEmitter.simulationState)")
+            print("   - birthRate: \(beforeEmitter.mainEmitter.birthRate)")
+        }
+        
+        // Update emitter component
+        emitterComponent.mainEmitter.birthRate = state == .active ? configuration.birthRate : 0
+        emitterComponent.mainEmitter.color = configuration.colorConfig
+        emitterComponent.mainEmitter.acceleration = configuration.acceleration
+        emitterComponent.speed = configuration.speed
+        emitterComponent.isEmitting = true  // Ensure emission is enabled
+        
+        print("🎢 Birth Rate: \(emitterComponent.mainEmitter.birthRate) (State: \(state))")
+        print("🎨 Color: \(emitterComponent.mainEmitter.color)")
+        print("⚡️ Speed: \(emitterComponent.speed)")
+        
+        // Update on root entity
         _rootEntity.components.set(emitterComponent)
+        print("🔄 Updated EmitterComponent on root entity")
+        
+        // Verify emitter state after update
+        if let updatedEmitter = _rootEntity.components[ParticleEmitterComponent.self] {
+            print("✅ EmitterComponent verified - Birth Rate: \(updatedEmitter.mainEmitter.birthRate)")
+            print("   - Component isEmitting: \(updatedEmitter.isEmitting)")
+            print("   - Simulation State: \(updatedEmitter.simulationState)")
+            print("   - color: \(updatedEmitter.mainEmitter.color)")
+        } else {
+            print("❌ EmitterComponent not found after update!")
+        }
+        
+        // Direct intensity update on existing component
+        if isLargeScale {
+            if var component = _rootEntity.components[NexusComponent.self] {
+                print("🌌 NexusComponent before update - intensity: \(component.intensity)")
+                component.intensity = state == .active ? 1.0 : 0.0
+                _rootEntity.components.set(component)
+                print("🌌 NexusComponent after update - intensity: \(component.intensity)")
+            } else {
+                print("❌ NexusComponent not found!")
+            }
+        } else {
+            if var component = _rootEntity.components[PulseComponent.self] {
+                print("✨ PulseComponent before update - intensity: \(component.intensity)")
+                component.intensity = state == .active ? 1.0 : 0.0
+                _rootEntity.components.set(component)
+                print("✨ PulseComponent after update - intensity: \(component.intensity)")
+            } else {
+                print("❌ PulseComponent not found!")
+            }
+        }
+        
+        // Verify all components
+        print("📋 Current components: \(_rootEntity.components.map { type(of: $0) })")
     }
     
     // Helper for rainbow colors

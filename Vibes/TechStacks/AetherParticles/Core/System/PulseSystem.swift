@@ -3,102 +3,79 @@ import Foundation
 
 /// Manages small, synchronized particle effects for album visualizations
 @available(visionOS 2.0, *)
-public class PulseSystem {
-    // MARK: - Public Properties
+public class PulseSystem: System {
+    // MARK: - Static Properties
     
-    /// The root entity that hosts the particle emitter
-    public var entity: Entity { _rootEntity }
-    private let _rootEntity: Entity
+    /// Query to find all pulse particle emitters
+    private static let pulseQuery = EntityQuery(where: .has(PulseComponent.self))
     
-    /// The current state of the pulse system
-    private(set) var state: PulseState = .inactive
+    /// Whether the system has been registered
+    @MainActor
+    public private(set) static var isRegistered = false
     
-    // MARK: - Private Properties
+    /// System dependencies
+    public static var dependencies: [SystemDependency] { [] }
     
-    /// The main particle emitter component
-    private var emitterComponent: ParticleEmitterComponent
+    // MARK: - Properties
     
-    /// The current configuration
-    private var configuration: AetherConfiguration
-    
-    /// Standard bounds for particle systems
-    internal static let standardBounds = AetherParticles.standardBounds
-    
-    // MARK: - Types
-    
-    /// Represents the current state of the pulse system
-    public enum PulseState {
-        /// System is not emitting particles
-        case inactive
-        /// System is actively emitting particles
-        case active
-        /// System is in the middle of a state change
-        case transitioning
-    }
+    /// Last update timestamp for delta time calculation
+    private var lastUpdateTime: TimeInterval = 0
     
     // MARK: - Initialization
     
-    /// Initialize a new pulse system with the given configuration
-    public init(configuration: AetherConfiguration = .pulseDefault) {
-        self._rootEntity = Entity()
-        self.configuration = configuration
-        self.emitterComponent = ParticleEmitterComponent()
-        configure(with: configuration)
+    /// Initialize the system
+    public required init(scene: Scene) {
+        print("PulseSystem: Initialized")
     }
     
-    // MARK: - Public Methods
+    // MARK: - System Registration
     
-    /// Start emitting particles
-    public func start() {
-        guard state == .inactive else { return }
-        state = .active
-        _rootEntity.components[ParticleEmitterComponent.self] = emitterComponent
+    /// Register the Pulse particle system.
+    /// This is automatically called when a PulseComponent is created.
+    @MainActor
+    public static func registerSystem() {
+        guard !isRegistered else { return }
+        isRegistered = true
+        print("PulseSystem: Successfully registered")
     }
     
-    /// Stop emitting particles
-    public func stop() {
-        guard state == .active else { return }
-        state = .inactive
-        _rootEntity.components[ParticleEmitterComponent.self] = nil
+    /// Unregister the Pulse particle system.
+    @MainActor
+    public static func unregisterSystem() {
+        guard isRegistered else { return }
+        isRegistered = false
+        print("PulseSystem: Successfully unregistered")
     }
     
-    /// Update the system with a new configuration
-    public func update(with configuration: AetherConfiguration) {
-        self.configuration = configuration
-        configure(with: configuration)
+    // MARK: - Update
+    
+    /// Update the system - called every frame
+    public func update(context: SceneUpdateContext) {
+        let currentTime = Date().timeIntervalSinceReferenceDate
+        let deltaTime = lastUpdateTime > 0 ? currentTime - lastUpdateTime : 0
+        lastUpdateTime = currentTime
         
-        if state == .active {
-            _rootEntity.components[ParticleEmitterComponent.self] = emitterComponent
+        // Update existing particles
+        for entity in context.scene.performQuery(Self.pulseQuery) {
+            guard let emitter = entity.components[ParticleEmitterComponent.self],
+                  let pulseComponent = entity.components[PulseComponent.self] else { continue }
+            
+            // Update particle behavior based on pulse settings
+            updatePulseEmitter(entity: entity, emitter: emitter, pulse: pulseComponent, deltaTime: deltaTime)
         }
     }
     
     // MARK: - Private Methods
     
-    private func configure(with config: AetherConfiguration) {
-        emitterComponent.mainEmitter.birthRate = Float(config.birthRate)
-        emitterComponent.mainEmitter.color = config.colorConfig
-        emitterComponent.mainEmitter.lifeSpan = Double(config.lifetime)
-        emitterComponent.mainEmitter.acceleration = config.acceleration
-        emitterComponent.speed = config.speed
-        emitterComponent.emitterShape = config.emitterShape
-        emitterComponent.emitterShapeSize = config.emitterSize
-    }
-}
-
-// MARK: - Default Configurations
-
-extension AetherConfiguration {
-    /// Default configuration for album pulse effects
-    public static var pulseDefault: AetherConfiguration {
-        AetherConfiguration(
-            emitterShape: .sphere,
-            emitterSize: [0.1, 0.1, 0.1],  // Small, album-sized emitter
-            birthRate: 100,
-            colorConfig: .constant(.single(.white.withAlphaComponent(0.6))),
-            bounds: PulseSystem.standardBounds,
-            acceleration: [0, 0.05, 0],
-            speed: 0.1,
-            lifetime: 1.0
-        )
+    private func updatePulseEmitter(entity: Entity, emitter: ParticleEmitterComponent, pulse: PulseComponent, deltaTime: TimeInterval) {
+        // Create new configuration with current settings
+        var newEmitter = emitter
+        newEmitter.mainEmitter.birthRate = pulse.baseBirthRate * pulse.intensity
+        newEmitter.mainEmitter.size = pulse.baseSize
+        newEmitter.mainEmitter.color = pulse.colorConfig
+        newEmitter.mainEmitter.lifeSpan = Double(pulse.baseLifetime)
+        
+        // Apply updated emitter
+        entity.components[ParticleEmitterComponent.self] = newEmitter
     }
 } 
