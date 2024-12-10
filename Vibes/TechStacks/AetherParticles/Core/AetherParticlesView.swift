@@ -210,25 +210,11 @@ public struct AetherParticlesView: View {
                 particleEntity.position = entity.position
                 entity.addChild(particleEntity)
                 
-                // Add debug visualization
-                let debugEntity = ModelEntity(
-                    mesh: .generateBox(size: [0.05, 0.05, 0.05]),
-                    materials: [UnlitMaterial(color: .blue.withAlphaComponent(0.5))]
-                )
-                debugEntity.position = particleEntity.position
-                entity.addChild(debugEntity)
-                
             } update: { content in
                 guard let entity = content.entities.first else { return }
                 
                 // Update bounds
                 updateBounds(content, with: geometry.size.vector)
-                
-                // Print entity position for debugging
-                print("🎯 Entity position: \(entity.position)")
-                if let debugEntity = entity.children.first(where: { $0 is ModelEntity }) {
-                    print("📍 Debug visual position: \(debugEntity.position)")
-                }
             }
         }
         .task {
