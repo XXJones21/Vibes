@@ -15,7 +15,7 @@ private final class AetherParticlesState: ObservableObject {
     let isLargeScale: Bool
     
     /// The current configuration
-    private var configuration: AetherParticles.AetherConfiguration
+    private var configuration: AetherConfiguration
     
     /// Callback for state changes
     private var stateChanged: ((AetherParticles.AetherState) -> Void)?
@@ -57,7 +57,7 @@ private final class AetherParticlesState: ObservableObject {
     }
     
     init(
-        configuration: AetherParticles.AetherConfiguration,
+        configuration: AetherConfiguration,
         isLargeScale: Bool = false,
         physicsParams: NexusPhysicsParams = .default,
         stateChanged: ((AetherParticles.AetherState) -> Void)? = nil
@@ -165,13 +165,13 @@ public struct AetherParticlesView: View {
     
     /// Initialize with a custom configuration
     public init(
-        configuration: AetherParticles.AetherConfiguration,
+        configuration: AetherConfiguration,
         isLargeScale: Bool = false,
         physicsParams: NexusPhysicsParams = .default,
         stateChanged: ((AetherState) -> Void)? = nil
     ) {
         _state = StateObject(wrappedValue: AetherParticlesState(
-            configuration: configuration,
+            preset: .galaxy,  // Default to galaxy preset for custom configs
             isLargeScale: isLargeScale,
             physicsParams: physicsParams,
             stateChanged: stateChanged
@@ -198,12 +198,12 @@ public struct AetherParticlesView: View {
                 
                 // 4. SETUP BOUNDS & POSITIONING
                 let boundingBox = BoundingBox(
-                    min: -abs(viewSize) / 2.5,
-                    max: abs(viewSize) / 2.5
+                    min: [-10, -10, -10],  // 20 meters total (from -10 to +10)
+                    max: [10, 10, 10]
                 )
                 
                 // 5. POSITION ENTITY
-                entity.position.y = boundingBox.min.y + boundingBox.max.y * 0.5
+                //entity.position.z = 0.5  // Position 0.5 meters away on z-axis
                 
                 // 6. ADD PARTICLE SYSTEM
                 let particleEntity = state.rootEntity
@@ -228,23 +228,15 @@ public struct AetherParticlesView: View {
     private func updateBounds(_ content: RealityViewContent, with geometryVector: SIMD3<Double>) {
         guard let entity = content.entities.first else { return }
         
-        // Convert coordinates
-        let viewSize = content.convert(
-            Size3D(vector: geometryVector),
-            from: .local,
-            to: entity
-        )
-        
         // Create bounds
         let boundingBox = BoundingBox(
-            min: -abs(viewSize) / 2.5,
-            max: abs(viewSize) / 2.5
+            min: [-10, -10, -10],  // 20 meters total (from -10 to +10)
+            max: [10, 10, 10]
         )
         
         // Re-center if needed
         if !boundingBox.contains(entity.position) {
-            let height = boundingBox.min.y + boundingBox.max.y * 0.5
-            entity.position = [0, height, 0]
+            entity.position = [0, 0, 0.0]  // Keep at 2.5 meters on z-axis
         }
     }
 }

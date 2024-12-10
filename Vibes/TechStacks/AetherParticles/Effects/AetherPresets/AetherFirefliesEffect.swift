@@ -1,99 +1,68 @@
 import RealityKit
 import Foundation
+import SwiftUI
 
 /// A particle effect that creates floating, glowing particles reminiscent of fireflies.
-/// Features rainbow color transitions, pulsing glow, and organic jellyfish-like movement.
+/// Perfect for creating a magical, ethereal atmosphere.
 @available(visionOS 2.0, *)
-struct AetherFirefliesEffect: EffectsProvider {
+struct AetherFirefliesEffect {
     // MARK: - Constants
     
     /// Base colors for the rainbow transition
-    private static let rainbowColors: [ParticleEmitterComponent.ParticleEmitter.Color] = [
-        .init(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.8),  // Red
-        .init(red: 1.0, green: 0.5, blue: 0.0, alpha: 0.8),  // Orange
-        .init(red: 1.0, green: 1.0, blue: 0.0, alpha: 0.8),  // Yellow
-        .init(red: 0.0, green: 1.0, blue: 0.0, alpha: 0.8),  // Green
-        .init(red: 0.0, green: 0.0, blue: 1.0, alpha: 0.8),  // Blue
-        .init(red: 0.5, green: 0.0, blue: 1.0, alpha: 0.8)   // Purple
+    private static let rainbowColors: [(Color, Color)] = [
+        (.red, .orange),
+        (.orange, .yellow),
+        (.yellow, .green),
+        (.green, .blue),
+        (.blue, .purple),
+        (.purple, .red)
     ]
     
-    /// Movement parameters
-    private static let movementParams = MovementParams(
-        baseSpeed: 0.1,
-        wanderStrength: 0.05,
-        pulseFrequency: 0.5,
-        pulseAmplitude: 0.02
-    )
+    /// Pulse parameters for glow effect
+    private static let pulseFrequency: Float = 0.5  // Slower pulse
+    private static let pulseAmplitude: Float = 0.3  // Moderate glow variation
     
-    // MARK: - EffectsProvider Implementation
-    
-    static var configuration: AetherConfiguration {
-        AetherConfiguration(
+    /// Creates a configuration for the fireflies effect
+    static func makeConfiguration() -> AetherConfiguration {
+        // Get pulse motion for glow intensity
+        let pulseMotion = AetherPhysics.pulse(
+            at: Date().timeIntervalSinceReferenceDate,
+            frequency: pulseFrequency,
+            amplitude: pulseAmplitude
+        )
+        
+        // Use y component of pulse for glow intensity
+        let glowIntensity = 0.8 + pulseMotion.y  // Base alpha 0.8 + pulse
+        
+        // Pick a random pair of colors to transition between
+        let (startSwiftUIColor, endSwiftUIColor) = rainbowColors.randomElement()!
+        
+        // Convert SwiftUI colors to particle colors
+        let startColor = ParticleEmitterComponent.ParticleEmitter.Color(startSwiftUIColor)
+        let endColor = ParticleEmitterComponent.ParticleEmitter.Color(endSwiftUIColor)
+        
+        // Create evolving color configuration
+        let startColorValue = ParticleEmitterComponent.ParticleEmitter.ParticleColor.ColorValue.single(startColor)
+        let endColorValue = ParticleEmitterComponent.ParticleEmitter.ParticleColor.ColorValue.single(endColor)
+        let evolvingColor = ParticleEmitterComponent.ParticleEmitter.ParticleColor.evolving(
+            start: startColorValue,
+            end: endColorValue
+        )
+        
+        return AetherConfiguration(
             emitterShape: .sphere,
             emitterSize: [2, 2, 2],
             birthRate: 500,
-            colorConfig: .evolving(
-                start: rainbowColors[0],
-                end: rainbowColors[1]
-            ),
+            colorConfig: evolvingColor,
             bounds: AetherParticles.standardBounds,
-            acceleration: calculateAcceleration(),
-            speed: movementParams.baseSpeed,
-            lifetime: 4.0  // Longer lifetime for smoother transitions
+            // Gentle floating movement
+            acceleration: [
+                Float.random(in: -0.01...0.01),  // Tiny x force
+                Float.random(in: -0.01...0.01),  // Tiny y force
+                Float.random(in: -0.01...0.01)   // Tiny z force
+            ],
+            speed: 0.05,  // Very slow, drifting movement
+            lifetime: 6.0  // Longer lifetime for smoother transitions
         )
     }
-    
-    static var physicsParams: AetherPhysicsParams {
-        .init(
-            wanderStrength: movementParams.wanderStrength,
-            pulseFrequency: movementParams.pulseFrequency,
-            pulseAmplitude: movementParams.pulseAmplitude
-        )
-    }
-    
-    static var animationSequence: AetherAnimationSequence? {
-        // Create color transition sequence
-        let colorSequence = AetherAnimationSequence(
-            duration: 10.0,
-            repeats: true,
-            keyframes: createColorKeyframes()
-        )
-        
-        return colorSequence
-    }
-    
-    // MARK: - Private Helpers
-    
-    private static func calculateAcceleration() -> SIMD3<Float> {
-        // Add slight upward drift with random horizontal movement
-        let randomX = Float.random(in: -0.02...0.02)
-        let randomZ = Float.random(in: -0.02...0.02)
-        return [randomX, 0.01, randomZ]
-    }
-    
-    private static func createColorKeyframes() -> [AetherAnimationSequence.Keyframe] {
-        var keyframes: [AetherAnimationSequence.Keyframe] = []
-        let stepDuration = 2.0  // Time between color transitions
-        
-        for (index, color) in rainbowColors.enumerated() {
-            let nextColor = rainbowColors[(index + 1) % rainbowColors.count]
-            
-            let keyframe = AetherAnimationSequence.Keyframe(
-                time: Double(index) * stepDuration,
-                value: .color(start: color, end: nextColor)
-            )
-            keyframes.append(keyframe)
-        }
-        
-        return keyframes
-    }
-}
-
-// MARK: - Supporting Types
-
-private struct MovementParams {
-    let baseSpeed: Float
-    let wanderStrength: Float
-    let pulseFrequency: Float
-    let pulseAmplitude: Float
 } 

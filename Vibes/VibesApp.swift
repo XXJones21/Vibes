@@ -13,9 +13,6 @@ struct VibesApp: App {
             NexusComponent.registerComponent()
             // Register PulseComponent for album visualizations
             PulseComponent.registerComponent()
-            
-            // Register standard particle effects
-            EffectsRegistry.shared.registerStandardPresets()
         }
     }
     

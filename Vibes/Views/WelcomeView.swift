@@ -43,8 +43,8 @@ struct WelcomeView: View {
                 opacity = 1.0
             }
             
-            // After 5 seconds, fade out fireflies
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            // After 10 seconds, fade out fireflies
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
                 withAnimation(.easeOut(duration: 2.0)) {
                     opacity = 0.0
                 }
@@ -59,8 +59,8 @@ struct WelcomeView: View {
                         opacity = 1.0
                     }
                     
-                    // After 6 seconds of galaxy, fade out
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
+                    // After 10 seconds of galaxy, fade out
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
                         withAnimation(.easeOut(duration: 2.0)) {
                             opacity = 0.0
                         }

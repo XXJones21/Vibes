@@ -4,6 +4,24 @@ A visionOS music visualization app that creates immersive spatial audio experien
 
 ## Project Status
 
+## Current Progress (December 9, 2023)
+The AetherParticles module has undergone significant improvements in its motion system. We've resolved issues with component overrides that were affecting particle behaviors, ensuring that each effect (galaxy and fireflies) now maintains its distinct characteristics. The core system has been updated to properly respect individual effect configurations, with improved component integration and debug logging in place.
+
+### Top Priorities
+1. Verify distinct particle behaviors in different scenarios
+2. Monitor component state management and performance
+3. Enhance debug visualization capabilities
+4. Gradually reintroduce complex physics features
+5. Optimize performance for large-scale effects
+
+### Recent Achievements
+- Fixed particle motion override issues in component systems
+- Improved effect configuration inheritance
+- Enhanced debug logging for better troubleshooting
+- Simplified effect implementations for better stability
+
+See `current-status.md` for detailed progress and `current-issues.md` for known issues.
+
 ## Current Focus
 Working on improving AetherParticles visibility and coordinate space handling. Recent updates include proper coordinate space conversion using RealityKit's content.convert system, fixed entity positioning and scaling, and improved debug visualization. Next steps involve testing visibility across different scenarios and implementing performance monitoring.
 
