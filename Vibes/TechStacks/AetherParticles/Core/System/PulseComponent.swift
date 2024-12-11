@@ -30,4 +30,12 @@ public struct PulseComponent: Component {
             PulseSystem.registerSystem()
         }
     }
+    
+    public mutating func didAddToEntity(_ entity: Entity) {
+        // Safety check: Remove NexusComponent if it exists
+        if entity.components[NexusComponent.self] != nil {
+            entity.components.remove(NexusComponent.self)
+            print("🎵 PulseComponent: Removed existing NexusComponent")
+        }
+    }
 } 

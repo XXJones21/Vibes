@@ -44,6 +44,14 @@ public struct NexusComponent: Component {
             NexusSystem.registerSystem()
         }
     }
+    
+    public mutating func didAddToEntity(_ entity: Entity) {
+        // Safety check: Remove PulseComponent if it exists
+        if entity.components[PulseComponent.self] != nil {
+            entity.components.remove(PulseComponent.self)
+            print("🎵 NexusComponent: Removed existing PulseComponent")
+        }
+    }
 }
 
 /// Physics parameters for complex nexus behavior

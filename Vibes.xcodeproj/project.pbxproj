@@ -31,8 +31,6 @@
 		DF45150C2D05101C005AFB45 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DF45150B2D05101C005AFB45 /* RealityKitContent */; };
 		DF64441D2D0778920095CF79 /* NexusComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF64441C2D0778920095CF79 /* NexusComponent.swift */; };
 		DF64441F2D0778C20095CF79 /* AetherPhysics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF64441E2D0778C20095CF79 /* AetherPhysics.swift */; };
-		DF6444252D07E0B90095CF79 /* EffectsRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6444242D07E0B90095CF79 /* EffectsRegistry.swift */; };
-		DF6444262D07E0B90095CF79 /* EffectsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6444232D07E0B90095CF79 /* EffectsProvider.swift */; };
 		DFD4438C2D06A4CC00E3EEE9 /* AetherConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD4438B2D06A4CC00E3EEE9 /* AetherConfiguration.swift */; };
 		DFD632CE2D056B350092D46B /* AetherSmokeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632CA2D056B350092D46B /* AetherSmokeEffect.swift */; };
 		DFD632CF2D056B350092D46B /* AetherSparklesEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD632CB2D056B350092D46B /* AetherSparklesEffect.swift */; };
@@ -78,8 +76,6 @@
 		DF64441E2D0778C20095CF79 /* AetherPhysics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherPhysics.swift; sourceTree = "<group>"; };
 		DF6444202D077A8B0095CF79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF6444222D077D7A0095CF79 /* Vibes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vibes.entitlements; sourceTree = "<group>"; };
-		DF6444232D07E0B90095CF79 /* EffectsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsProvider.swift; sourceTree = "<group>"; };
-		DF6444242D07E0B90095CF79 /* EffectsRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsRegistry.swift; sourceTree = "<group>"; };
 		DFD4438B2D06A4CC00E3EEE9 /* AetherConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherConfiguration.swift; sourceTree = "<group>"; };
 		DFD632BF2D056B350092D46B /* AetherParticles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherParticles.swift; sourceTree = "<group>"; };
 		DFD632C02D056B350092D46B /* AetherParticlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherParticlesView.swift; sourceTree = "<group>"; };
@@ -295,8 +291,6 @@
 		DFD632CD2D056B350092D46B /* Effects */ = {
 			isa = PBXGroup;
 			children = (
-				DF6444232D07E0B90095CF79 /* EffectsProvider.swift */,
-				DF6444242D07E0B90095CF79 /* EffectsRegistry.swift */,
 				DFD632DD2D058A2F0092D46B /* AetherVisualizers */,
 				DFD632C52D056B350092D46B /* AetherAnimations */,
 				DFD632CC2D056B350092D46B /* AetherPresets */,
@@ -405,8 +399,6 @@
 				DFD632D72D056B350092D46B /* AetherParticlesView.swift in Sources */,
 				DFD632D82D056B350092D46B /* AetherWelcomeAnimation.swift in Sources */,
 				DFD632D92D056B350092D46B /* AetherGalaxyEffect.swift in Sources */,
-				DF6444252D07E0B90095CF79 /* EffectsRegistry.swift in Sources */,
-				DF6444262D07E0B90095CF79 /* EffectsProvider.swift in Sources */,
 				DF1234567B /* ContentView.swift in Sources */,
 				DF1234568B /* LoadingView.swift in Sources */,
 				DF1234569B /* AlbumModels.swift in Sources */,
