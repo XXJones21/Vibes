@@ -7,13 +7,8 @@ struct VibesApp: App {
     @StateObject private var musicService = PulsarSymphony()
     
     init() {
-        // Register particle components
-        if #available(visionOS 2.0, *) {
-            // Register NexusComponent for large-scale immersive effects
-            NexusComponent.registerComponent()
-            // Register PulseComponent for album visualizations
-            PulseComponent.registerComponent()
-        }
+        // No need to register components manually with PulseParticles
+        // The system handles registration automatically when effects are created
     }
     
     var body: some SwiftUI.Scene {

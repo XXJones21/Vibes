@@ -1,136 +1,168 @@
-# Current Issues (December 9, 2023)
+# Current Issues
 
-## AetherParticles Module
+## Resolved (2024-12-12)
+- ✅ Fixed FirefliesEffect implementation issues
+- ✅ Corrected ParticleEmitter API usage
+- ✅ Resolved duplicate configuration files
+- ✅ Fixed entity property access patterns
 
-### 🔴 HIGH PRIORITY: Factory Pattern Implementation
-Implementation plan to resolve duplicate ParticleEmitterComponent issue:
+## Active Issues
+1. Performance Testing Needed
+   - Particle system behavior on device
+   - Memory usage patterns
+   - Frame rate impact
 
-1. **Step 1: Create Factory Class**
-```swift
-@available(visionOS 2.0, *)
-final class AetherParticlesFactory {
-    static func create(preset: AetherParticles.AetherPreset, isLargeScale: Bool) -> AetherParticles {
-        let config = preset.configuration
-        return AetherParticles(configuration: config, isLargeScale: isLargeScale)
-    }
-}
-```
+2. Integration Verification
+   - Music reactivity with new implementation
+   - Effect transitions
+   - Configuration persistence
 
-2. **Step 2: Modify AetherParticlesView**
-```swift
-@available(visionOS 2.0, *)
-public struct AetherParticlesView: View {
-    @StateObject private var state: AetherParticlesState
-    
-    public init(preset: Preset, isLargeScale: Bool = false) {
-        let particles = AetherParticlesFactory.create(preset: preset, isLargeScale: isLargeScale)
-        _state = StateObject(wrappedValue: AetherParticlesState(particles: particles))
-    }
-}
-```
+3. Documentation
+   - Updated architecture diagrams needed
+   - Performance optimization guidelines
+   - New configuration patterns
 
-3. **Step 3: Update AetherParticles Setup**
-```swift
-@available(visionOS 2.0, *)
-final class AetherParticles {
-    private func setupEmitter() {
-        // 1. Create base emitter
-        let emitter = createBaseEmitter()
-        _rootEntity.components.set(emitter)
+## High Priority
+1. Particle System Property Updates (⚠️ Critical)
+   - **Issue**: Current `applyTo` implementation is inefficient and causes performance issues
+     - Creates new emitter instances unnecessarily
+     - Updates all properties every frame
+     - Poor component lifecycle management
+   
+   **Implementation Plan**:
+   1. ✅ Property Separation (Day 1) - COMPLETED
+      - ✅ Split PulseEffect properties into static/dynamic
+        ```swift
+        public struct PulseStaticProperties {
+            let emitterShape: EmitterShape
+            let emitterSize: SIMD3<Float>
+            let speed: Float
+            let lifetime: Float
+        }
+
+        public struct PulseDynamicProperties {
+            var birthRate: Float
+            var color: PulseColor
+            var acceleration: SIMD3<Float>
+        }
+        ```
+      - ✅ Created new protocol methods for each type
+        ```swift
+        protocol PulseEffect {
+            func applyStaticProperties(_ particleSystem: ParticleEmitterComponent)
+            func updateDynamicProperties(_ particleSystem: ParticleEmitterComponent, deltaTime: Float)
+        }
+        ```
+      - ✅ Added property observer system with dirty state tracking
+      - ✅ Updated DefaultPulseEffect to use new system
+
+   2. ✅ Component Management (Day 1-2) - COMPLETED
+      - ✅ Implemented proper component reuse in PulseParticles
+      - ✅ Added dirty state tracking
+      - ✅ Created property observer system
+        ```swift
+        // Property observation system
+        public protocol PropertyObserver: AnyObject {
+            func propertyDidChange(_ keyPath: AnyKeyPath)
+        }
         
-        // 2. Add behavior component
-        if isLargeScale {
-            setupNexusComponent(with: configuration)
-        } else {
-            setupPulseComponent(with: configuration)
+        @propertyWrapper
+        public struct Observable<T> {
+            private var value: T
+            private weak var observer: PropertyObserver?
+            
+            public var wrappedValue: T {
+                get { value }
+                set {
+                    value = newValue
+                    observer?.propertyDidChange(keyPath)
+                }
+            }
         }
-    }
-    
-    private func createBaseEmitter() -> ParticleEmitterComponent {
-        var emitter = ParticleEmitterComponent()
-        // Configure base emitter properties
-        return emitter
-    }
-    
-    private func setupNexusComponent(with config: AetherConfiguration) {
-        var nexus = NexusComponent(colorConfig: config.colorConfig)
-        // Configure nexus properties from base config
-        _rootEntity.components.set(nexus)
-    }
-    
-    private func setupPulseComponent(with config: AetherConfiguration) {
-        var pulse = PulseComponent(colorConfig: config.colorConfig)
-        // Configure pulse properties from base config
-        _rootEntity.components.set(pulse)
-    }
-}
-```
+        ```
 
-4. **Step 4: Update Component Behavior**
-```swift
-@available(visionOS 2.0, *)
-public struct NexusComponent: Component {
-    public mutating func didAddToEntity(_ entity: Entity) {
-        // Only modify particle behavior, don't create new emitter
-        if let emitter = entity.components[ParticleEmitterComponent.self] {
-            updateEmitterBehavior(emitter)
+   3. ✅ Update System (Day 2) - COMPLETED
+      - ✅ Modified update loop for efficiency with BatchUpdateManager
+        ```swift
+        private class BatchUpdateManager {
+            private let batchSize: Int = 10
+            private let updateInterval: TimeInterval = 1.0 / 60.0
+            
+            func addUpdate(_ particleSystem: ParticleEmitterComponent, 
+                          update: @escaping () -> Void) {
+                pendingUpdates.append((particleSystem, update))
+            }
+            
+            func processBatch(currentTime: TimeInterval) {
+                // Process updates in batches of 10
+                let batch = pendingUpdates.prefix(batchSize)
+                for (_, update) in batch { update() }
+            }
         }
-    }
-    
-    private func updateEmitterBehavior(_ emitter: ParticleEmitterComponent) {
-        // Apply Nexus-specific modifications to existing emitter
-    }
-}
-```
+        ```
+      - ✅ Added detailed performance monitoring
+        ```swift
+        private struct UpdateMetrics {
+            var updateCount: Int = 0
+            var totalUpdateTime: TimeInterval = 0
+            var peakUpdateTime: TimeInterval = 0
+            var averageUpdateTime: TimeInterval
+        }
+        ```
+      - ✅ Implemented batched updates with 60fps target
 
-5. **Step 5: Update Systems**
-```swift
-@available(visionOS 2.0, *)
-public class NexusSystem: System {
-    private func updateNexusEmitter(entity: Entity, emitter: ParticleEmitterComponent, nexus: NexusComponent, deltaTime: TimeInterval) {
-        // Only modify behavior, don't replace emitter
-        var updatedEmitter = emitter
-        // Apply nexus behavior updates
-        entity.components[ParticleEmitterComponent.self] = updatedEmitter
-    }
-}
-```
+   4. ✅ Effect Updates (Day 3) - COMPLETED
+      - ✅ Updated FirefliesEffect implementation
+        ```swift
+        public class FirefliesEffect: PulseEffect {
+            public private(set) var staticProperties: PulseStaticProperties
+            public var dynamicProperties: PulseDynamicProperties
+            
+            public func updateDynamicProperties(_ particleSystem: ParticleEmitterComponent, deltaTime: Float) {
+                // Calculate glow effect
+                let glowIntensity = 0.8 + sin(Float(currentTime) * pulseFrequency) * pulseAmplitude
+                
+                // Update color with glow
+                var color = dynamicProperties.color
+                color.alpha *= glowIntensity
+                
+                // Apply dynamic updates
+                particleSystem.mainEmitter.birthRate = dynamicProperties.birthRate
+                particleSystem.mainEmitter.color = color.realityKitColor
+            }
+        }
+        ```
+      - ✅ Updated GalaxyEffect implementation
+        ```swift
+        public class GalaxyEffect: PulseEffect {
+            public private(set) var staticProperties: PulseStaticProperties
+            public var dynamicProperties: PulseDynamicProperties
+            
+            public func updateDynamicProperties(_ particleSystem: ParticleEmitterComponent, deltaTime: Float) {
+                // Calculate spiral motion
+                let spiralX = cos(time * spinForce) * centerAttraction
+                let spiralZ = sin(time * spinForce) * centerAttraction
+                
+                // Update acceleration for spiral motion
+                var acceleration = dynamicProperties.acceleration
+                acceleration.x = spiralX
+                acceleration.z = spiralZ
+                
+                // Apply dynamic updates
+                particleSystem.mainEmitter.acceleration = .init(acceleration)
+            }
+        }
+        ```
+      - ✅ Added migration support through property separation
 
-Key Changes:
-1. Factory handles creation and configuration
-2. Components focus on behavior modification
-3. Single source of truth for ParticleEmitterComponent
-4. Clear separation between creation and behavior
+   5. Testing & Validation (Day 4) - NEXT
+      - Performance benchmarking
+      - Memory usage verification
+      - Visual quality checks
 
-### Component System
-1. Component Override Issues:
-   - ✅ Fixed: NexusComponent overriding effect configurations
-   - ✅ Fixed: PulseComponent affecting particle behavior
-   - 🔍 Monitoring: Component state persistence
-   - 🔍 Monitoring: Performance impact of configuration updates
-
-2. Effect Behaviors:
-   - ✅ Fixed: Particle motion direction issues
-   - ✅ Fixed: Configuration inheritance
-   - 🔍 Testing: Galaxy disk formation stability
-   - 🔍 Testing: Fireflies natural motion
-
-3. Performance:
-   - 🔍 Monitoring: Component update cycle efficiency
-   - 🔍 Monitoring: Particle count impact
-   - ⏳ Pending: Complex physics reintegration
-   - ⏳ Pending: Optimization for large-scale effects
-
-### Debug System
-1. Logging:
-   - ✅ Added: Component state logging
-   - ✅ Added: Configuration update tracking
-   - ⏳ Pending: Performance metrics
-   - ⏳ Pending: Visual debug helpers
-
-## Priority Order
-1. 🔴 Verify distinct effect behaviors
-2. 🔴 Monitor component state management
-3. 🟡 Assess performance impact
-4. 🟡 Enhance debug visualization
-5. 🟢 Reintroduce complex physics
+   **Progress**: 90% Complete
+   - ✅ Property Separation complete
+   - ✅ Component Management complete
+   - ✅ Update System complete
+   - ✅ Effect Updates complete
+   - 🔄 Testing & Validation next
