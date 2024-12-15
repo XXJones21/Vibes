@@ -1,0 +1,62 @@
+@Tutorials(name: "Vibes Tutorials") {
+    @Intro(title: "Getting Started with Vibes") {
+        Learn how to create immersive spatial audio experiences with Vibes.
+        
+        @Video(source: "intro.mp4", poster: "intro-poster.png")
+    }
+    
+    @Chapter(name: "Essentials") {
+        Learn the basics of Vibes and get started with your first visualization.
+        
+        @Image(source: "chapter1-intro.png", alt: "An illustration showing the basic components of Vibes.")
+        
+        @TutorialReference(tutorial: "doc:GettingStarted")
+        @TutorialReference(tutorial: "doc:Installation")
+        @TutorialReference(tutorial: "doc:BasicConcepts")
+    }
+    
+    @Chapter(name: "Particle Effects") {
+        Create stunning visual effects with the PulseParticles system.
+        
+        @Image(source: "chapter2-intro.png", alt: "An illustration showing particle effects in action.")
+        
+        @TutorialReference(tutorial: "doc:CreatingEffects")
+        @TutorialReference(tutorial: "doc:Performance")
+    }
+    
+    @Chapter(name: "Audio Integration") {
+        Learn how to integrate music and create reactive visualizations.
+        
+        @Image(source: "chapter3-intro.png", alt: "An illustration showing audio visualization concepts.")
+        
+        @TutorialReference(tutorial: "doc:AudioVisualization")
+    }
+    
+    @Resources {
+        Explore more resources for Vibes development.
+        
+        @Documentation(destination: "doc:ProjectStructure") {
+            Learn about the project structure and organization.
+            
+            - Learn about the project's architecture
+            - Understand the module system
+            - Explore the file organization
+        }
+        
+        @Documentation(destination: "doc:DevelopmentWorkflow") {
+            Understand the development workflow and best practices.
+            
+            - Set up your development environment
+            - Follow coding guidelines
+            - Use development tools effectively
+        }
+        
+        @Documentation(destination: "doc:QualityGuidelines") {
+            Learn about quality standards and testing procedures.
+            
+            - Write effective tests
+            - Follow performance guidelines
+            - Maintain code quality
+        }
+    }
+} 

@@ -27,7 +27,7 @@
 		DF1234581B /* PulsarSymphony.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234581 /* PulsarSymphony.swift */; };
 		DF1234582B /* PulsarSymphony+Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234582 /* PulsarSymphony+Pagination.swift */; };
 		DF1234584B /* PreviewMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234584 /* PreviewMocks.swift */; };
-		DF3C1F3D2D0E84980002973B /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DF3C1F3C2D0E84980002973B /* RealityKitContent */; };
+		DF45150C2D05101C005AFB45 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DF45150B2D05101C005AFB45 /* RealityKitContent */; };
 		DF7671CA2D0BBBA200A3CAD7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF7671C82D0BBBA200A3CAD7 /* README.md */; };
 		DF7671CB2D0BBBA200A3CAD7 /* GalaxyEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7671C42D0BBBA200A3CAD7 /* GalaxyEffect.swift */; };
 		DF7671CC2D0BBBA200A3CAD7 /* PulseParticles.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7671C02D0BBBA200A3CAD7 /* PulseParticles.swift */; };
@@ -36,6 +36,7 @@
 		DF7671CF2D0BBBA200A3CAD7 /* FirefliesEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7671C32D0BBBA200A3CAD7 /* FirefliesEffect.swift */; };
 		DF7671D02D0BBBA200A3CAD7 /* PulseConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7671BE2D0BBBA200A3CAD7 /* PulseConfiguration.swift */; };
 		DF7671D12D0BBBA200A3CAD7 /* ParticleSystemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7671C62D0BBBA200A3CAD7 /* ParticleSystemView.swift */; };
+		DFD632DC2D0576F60092D46B /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DFD632DB2D0576F60092D46B /* RealityKitContent */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,8 +60,8 @@
 		DF1234581 /* PulsarSymphony.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsarSymphony.swift; sourceTree = "<group>"; };
 		DF1234582 /* PulsarSymphony+Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony+Pagination.swift"; sourceTree = "<group>"; };
 		DF1234584 /* PreviewMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewMocks.swift; sourceTree = "<group>"; };
-		DF3C1F3B2D0E83360002973B /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		DF4515062D05101C005AFB45 /* Vibes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vibes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF56547B2D0E99CE003CCC68 /* VibesDocumentation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VibesDocumentation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF6444202D077A8B0095CF79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF6444222D077D7A0095CF79 /* Vibes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vibes.entitlements; sourceTree = "<group>"; };
 		DF7671BE2D0BBBA200A3CAD7 /* PulseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseConfiguration.swift; sourceTree = "<group>"; };
@@ -73,12 +74,28 @@
 		DF7671C82D0BBBA200A3CAD7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		DF56547C2D0E99CE003CCC68 /* VibesDocumentation */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = VibesDocumentation;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		DF4515032D05101C005AFB45 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF3C1F3D2D0E84980002973B /* RealityKitContent in Frameworks */,
+				DFD632DC2D0576F60092D46B /* RealityKitContent in Frameworks */,
+				DF45150C2D05101C005AFB45 /* RealityKitContent in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF5654782D0E99CE003CCC68 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +107,7 @@
 			children = (
 				DF4515082D05101C005AFB45 /* Vibes */,
 				DF4515092D05101C005AFB45 /* Packages */,
+				DF56547C2D0E99CE003CCC68 /* VibesDocumentation */,
 				DF4515072D05101C005AFB45 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -98,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				DF4515062D05101C005AFB45 /* Vibes.app */,
+				DF56547B2D0E99CE003CCC68 /* VibesDocumentation.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -121,7 +140,6 @@
 		DF4515092D05101C005AFB45 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				DF3C1F3B2D0E83360002973B /* RealityKitContent */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -268,10 +286,33 @@
 			);
 			name = Vibes;
 			packageProductDependencies = (
-				DF3C1F3C2D0E84980002973B /* RealityKitContent */,
+				DF45150B2D05101C005AFB45 /* RealityKitContent */,
+				DFD632DB2D0576F60092D46B /* RealityKitContent */,
 			);
 			productName = Vibes;
 			productReference = DF4515062D05101C005AFB45 /* Vibes.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DF56547A2D0E99CE003CCC68 /* VibesDocumentation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF56548B2D0E99D1003CCC68 /* Build configuration list for PBXNativeTarget "VibesDocumentation" */;
+			buildPhases = (
+				DF5654772D0E99CE003CCC68 /* Sources */,
+				DF5654782D0E99CE003CCC68 /* Frameworks */,
+				DF5654792D0E99CE003CCC68 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DF56547C2D0E99CE003CCC68 /* VibesDocumentation */,
+			);
+			name = VibesDocumentation;
+			packageProductDependencies = (
+			);
+			productName = VibesDocumentation;
+			productReference = DF56547B2D0E99CE003CCC68 /* VibesDocumentation.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -285,6 +326,9 @@
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					DF4515052D05101C005AFB45 = {
+						CreatedOnToolsVersion = 16.1;
+					};
+					DF56547A2D0E99CE003CCC68 = {
 						CreatedOnToolsVersion = 16.1;
 					};
 				};
@@ -307,6 +351,7 @@
 			projectRoot = "";
 			targets = (
 				DF4515052D05101C005AFB45 /* Vibes */,
+				DF56547A2D0E99CE003CCC68 /* VibesDocumentation */,
 			);
 		};
 /* End PBXProject section */
@@ -317,6 +362,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF7671CA2D0BBBA200A3CAD7 /* README.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF5654792D0E99CE003CCC68 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +409,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DF5654772D0E99CE003CCC68 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
@@ -365,11 +424,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Vibes/Preview Content\"";
 				DEVELOPMENT_TEAM = AS9PH6XDN4;
+				DOCC_HOSTING_BASE_PATH = /documentation;
+				DOCC_JSON_PRETTYPRINT = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Vibes/Info.plist;
@@ -381,6 +443,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshjones.vibes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				RUN_DOCUMENTATION_COMPILER = NO;
 				SUPPORTED_PLATFORMS = "xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -393,11 +456,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Vibes/Preview Content\"";
 				DEVELOPMENT_TEAM = AS9PH6XDN4;
+				DOCC_HOSTING_BASE_PATH = /documentation;
+				DOCC_JSON_PRETTYPRINT = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Vibes/Info.plist;
@@ -409,6 +475,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshjones.vibes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				RUN_DOCUMENTATION_COMPILER = NO;
 				SUPPORTED_PLATFORMS = "xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -535,6 +602,96 @@
 			};
 			name = Release;
 		};
+		DF56548C2D0E99D1003CCC68 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VibesDocumentation/VibesDocumentation.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"VibesDocumentation/Preview Content\"";
+				DEVELOPMENT_TEAM = AS9PH6XDN4;
+				DOCC_OUTPUT_DIR = "$(DERIVED_DATA_DIR)/Build/Products/Debug-xros/Vibes.doccarchive";
+				DOCC_TARGET_NAME = Vibes;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VibesDocumentation/Info.plist;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				"INFOPLIST_KEY_UISupportsDocumentBrowser[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UISupportsDocumentBrowser[sdk=iphonesimulator*]" = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joshuajones.VibesDocumentation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_DOCUMENTATION_COMPILER = YES;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.1;
+			};
+			name = Debug;
+		};
+		DF56548D2D0E99D1003CCC68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VibesDocumentation/VibesDocumentation.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"VibesDocumentation/Preview Content\"";
+				DEVELOPMENT_TEAM = AS9PH6XDN4;
+				DOCC_OUTPUT_DIR = "$(DERIVED_DATA_DIR)/Build/Products/Debug-xros/Vibes.doccarchive";
+				DOCC_TARGET_NAME = Vibes;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VibesDocumentation/Info.plist;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				"INFOPLIST_KEY_UISupportsDocumentBrowser[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UISupportsDocumentBrowser[sdk=iphonesimulator*]" = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joshuajones.VibesDocumentation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_DOCUMENTATION_COMPILER = YES;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -556,6 +713,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		DF56548B2D0E99D1003CCC68 /* Build configuration list for PBXNativeTarget "VibesDocumentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF56548C2D0E99D1003CCC68 /* Debug */,
+				DF56548D2D0E99D1003CCC68 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
@@ -566,7 +732,11 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DF3C1F3C2D0E84980002973B /* RealityKitContent */ = {
+		DF45150B2D05101C005AFB45 /* RealityKitContent */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RealityKitContent;
+		};
+		DFD632DB2D0576F60092D46B /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityKitContent;
 		};

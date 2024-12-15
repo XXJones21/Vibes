@@ -68,7 +68,43 @@ public struct Observable<T> {
     }
 }
 
-/// Protocol defining the interface for all pulse particle effects
+/// A protocol defining the interface for all pulse particle effects.
+///
+/// PulseEffect provides a standardized way to create and manage particle effects in the Vibes app.
+/// Each effect manages its own static and dynamic properties, and can be updated on a per-frame basis.
+///
+/// ## Overview
+///
+/// A pulse effect consists of:
+/// - Static properties that rarely change (shape, size, lifetime)
+/// - Dynamic properties that update frequently (color, birth rate, acceleration)
+/// - A state machine for managing effect lifecycle
+/// - Property observation for efficient updates
+///
+/// ## Topics
+///
+/// ### Creating Effects
+/// - ``init(preset:)``
+/// - ``PulsePreset``
+///
+/// ### Properties
+/// - ``staticProperties``
+/// - ``dynamicProperties``
+/// - ``state``
+/// - ``isDirty``
+///
+/// ### Updating Effects
+/// - ``updateDynamicProperties(_:deltaTime:)``
+/// - ``applyStaticProperties(_:)``
+/// - ``markDirty()``
+///
+/// ### Example
+///
+/// ```swift
+/// let effect = FirefliesEffect(preset: .fireflies)
+/// pulseParticles.addEffect(effect)
+/// pulseParticles.scaleEffect(effect, to: 2.0)
+/// ```
 @available(visionOS 2.0, *)
 public protocol PulseEffect: PropertyObserver {
     /// Static properties that rarely change
@@ -87,18 +123,24 @@ public protocol PulseEffect: PropertyObserver {
     var currentParticleSystem: ParticleEmitterComponent? { get set }
     
     /// Apply static properties to a particle system
+    /// - Parameter particleSystem: The particle system to update
     func applyStaticProperties(_ particleSystem: inout ParticleEmitterComponent)
     
     /// Update dynamic properties for the current frame
+    /// - Parameters:
+    ///   - particleSystem: The particle system to update
+    ///   - deltaTime: Time since last update in seconds
     func updateDynamicProperties(_ particleSystem: inout ParticleEmitterComponent, deltaTime: Float)
     
     /// Mark effect as needing static property update
     func markDirty()
     
     /// Called when a property changes
+    /// - Parameter keyPath: The key path of the changed property
     func propertyDidChange(_ keyPath: AnyKeyPath)
     
     /// Adjust emission volume based on scale
+    /// - Parameter scale: The scale factor to apply
     func adjustEmissionVolume(scale: Float)
 }
 
