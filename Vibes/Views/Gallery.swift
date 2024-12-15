@@ -1,11 +1,10 @@
 import SwiftUI
 import RealityKit
-import MusicService
 
 @available(visionOS 2.0, *)
 struct Gallery: View {
     @StateObject private var viewModel = GalleryViewModel()
-    @EnvironmentObject private var musicService: VibesMusicService
+    @EnvironmentObject private var musicService: PulsarSymphony
     @State private var showingAuthAlert = false
     
     var body: some View {
@@ -59,8 +58,8 @@ struct Gallery: View {
 
 struct AlbumRow: View {
     let title: String
-    let albums: [MusicService.AlbumRepresentable]
-    let onAlbumTap: (MusicService.AlbumRepresentable) -> Void
+    let albums: [AlbumRepresentable]
+    let onAlbumTap: (AlbumRepresentable) -> Void
     @State private var dragOffset: CGFloat = 0
     @State private var dragVelocity: CGFloat = 0
     @State private var isDragging = false
@@ -106,8 +105,8 @@ struct AlbumRow: View {
 }
 
 struct AlbumCard: View {
-    let album: MusicService.AlbumRepresentable
-    let onTap: (MusicService.AlbumRepresentable) -> Void
+    let album: AlbumRepresentable
+    let onTap: (AlbumRepresentable) -> Void
     @State private var isHovered = false
     
     // CD case dimensions (in meters)
@@ -147,7 +146,7 @@ struct AlbumCard: View {
 }
 
 struct AlbumArtworkView: View {
-    let album: MusicService.AlbumRepresentable
+    let album: AlbumRepresentable
     let width: Float
     let height: Float
     let depth: Float
@@ -251,56 +250,44 @@ struct AlbumArtworkView: View {
 
 @MainActor
 class GalleryViewModel: ObservableObject {
-    @Published var currentCategory: MusicService.VibesAlbumCategory = .spatial
-    @Published var albumsByCategory: [MusicService.VibesAlbumCategory: [MusicService.AlbumRepresentable]] = [:]
-    @Published var selectedAlbum: MusicService.AlbumRepresentable?
+    @Published var currentCategory: PulsarCategory = .spatial
+    @Published var albumsByCategory: [PulsarCategory: [AlbumRepresentable]] = [:]
+    @Published var selectedAlbum: AlbumRepresentable?
     @Published var isPlaying = false
     @Published var error: Error?
     
-    func loadInitialContent(_ musicService: VibesMusicService) async throws {
+    func loadInitialContent(_ musicService: PulsarSymphony) async throws {
         guard musicService.isAuthorized else {
-            print("Not authorized, requesting authorization...")
             await musicService.checkAuthorization()
             guard musicService.isAuthorized else {
-                throw MusicServiceError.authorizationFailed
+                throw PulsarError.authorizationFailed
             }
             return
         }
         
-        print("Loading albums for categories...")
-        // Load albums for all categories
-        for category in MusicService.VibesAlbumCategory.allCases {
-            do {
-                print("Fetching albums for category:", category)
-                let albums = try await musicService.fetchAlbums(category: category)
-                print("Fetched \(albums.count) albums for category:", category)
-                albumsByCategory[category] = albums
-            } catch {
-                print("Failed to load albums for category \(category): \(error)")
-                // Continue loading other categories even if one fails
-                albumsByCategory[category] = []
+        // Load albums for each category
+        for category in PulsarCategory.allCases {
+            let albums = try await musicService.fetchAlbums(category: category)
+            DispatchQueue.main.async {
+                self.albumsByCategory[category] = albums
             }
         }
     }
     
-    func playAlbum(_ album: MusicService.AlbumRepresentable, using musicService: VibesMusicService) async throws {
+    func playAlbum(_ album: AlbumRepresentable, using musicService: PulsarSymphony) async throws {
         try await musicService.queueAlbum(album)
         try await musicService.play()
         isPlaying = true
     }
     
-    func pausePlayback(using musicService: VibesMusicService) async {
-        do {
-            try await musicService.pause()
-            isPlaying = false
-        } catch {
-            print("Failed to pause playback:", error)
-        }
+    func pausePlayback(using musicService: PulsarSymphony) async {
+        try? await musicService.pause()
+        isPlaying = false
     }
 }
 
 #Preview {
     Gallery()
-        .environmentObject(VibesMusicService())
+        .environmentObject(PulsarSymphony())
 }
 

@@ -1,18 +1,14 @@
 import SwiftUI
-import MusicService
 import RealityKit
-import VibesParticles
 
 @main
 @available(visionOS 2.0, *)
 struct VibesApp: App {
-    @StateObject private var musicService = VibesMusicService()
+    @StateObject private var musicService = PulsarSymphony()
     
     init() {
-        // Register particle system
-        if #available(visionOS 2.0, *) {
-            VibesParticles.registerSystem()
-        }
+        // No need to register components manually with PulseParticles
+        // The system handles registration automatically when effects are created
     }
     
     var body: some SwiftUI.Scene {

@@ -1,18 +1,44 @@
-# Vibes - Spatial Audio Music Player
+# Vibes
 
-A visionOS music player app that creates immersive spatial audio experiences.
+A visionOS music visualization app that creates immersive spatial audio experiences.
 
 ## Project Status
 
-## Current State
-The welcome animation has been significantly improved with standardized particle system bounds and more natural transitions. Particles now spawn around the user and flow smoothly between phases. Core functionality is maintained with better consistency, though some platform availability issues need addressing.
+## Current State (2024-01-13)
+The particle system has been significantly improved with proper scaling, visibility, and performance optimizations. Both fireflies and galaxy effects are now working as intended in 3D space, with smooth 60fps updates and proper performance monitoring.
+
+### Recent Achievements
+- Implemented proper particle system scaling and positioning
+- Added 60fps update timer with performance monitoring
+- Fixed particle visibility and emission issues
+- Refined effect presets for better visual quality
+
+### Top Priorities
+1. Begin next major project phase
+2. Explore additional particle effect types
+3. Fine-tune effects based on real-world testing
+4. Document performance characteristics
+
+See `current-status.md` for detailed progress and `current-issues.md` for known issues.
+
+## Current Focus
+Working on improving AetherParticles visibility and coordinate space handling. Recent updates include proper coordinate space conversion using RealityKit's content.convert system, fixed entity positioning and scaling, and improved debug visualization. Next steps involve testing visibility across different scenarios and implementing performance monitoring.
 
 ## Top Priorities
-1. Address platform availability linter errors
-2. Verify animation timing against UX specifications
-3. Test and optimize particle system performance
-4. Consider additional particle effects for other views
-5. Complete comprehensive testing with new bounds
+1. Test AetherParticles visibility in different view sizes and scenarios
+2. Implement performance monitoring for particle systems
+3. Add proper cleanup handling for particle systems
+4. Verify coordinate space conversion in edge cases
+
+### Current Priorities
+1. Complete particle system conversion and optimization
+2. Test performance with multiple simultaneous particle systems
+3. Finalize CSS/HTML particle effect conversions
+4. Verify Dolby Atmos integration
+5. Performance testing with 25+ AlbumVibes
+
+## Current State
+The module structure has been finalized with standardized naming (Aether prefix) and proper access levels. Core functionality and effects are organized into clear categories (Core, Presets, Animations) with consistent patterns. All public declarations have been reviewed and adjusted to appropriate access levels.
 
 ### Current Progress (December 7, 2023)
 Fixed particle system visibility issues by implementing correct RealityKit particle properties. Updated documentation with proper API usage and best practices. The welcome animation's particle system has been corrected with proper lifetime and size configurations.

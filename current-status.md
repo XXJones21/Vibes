@@ -1,25 +1,36 @@
 # Current Status
 
-## Welcome Animation
-- Improved particle system with standardized bounds (±12.5 units)
-- Optimized animation phases for more natural transitions
-- Particles now spawn around user in globe formation
-- Center pull phase reuses existing particles
-- Fixed particle vanishing issues with expanded boundaries
+## Latest Updates (2024-12-13)
 
-## Technical Status
-- Removed duplicate AetherParticles implementation
-- Standardized particle system bounds across all presets
-- Improved animation continuity between phases
-- Core functionality maintained with better consistency
+### Particle System Improvements
+- Fixed particle system visibility and scaling issues
+- Implemented proper particle system updates with 60fps timer
+- Added scale effect functionality for both fireflies and galaxy effects
+- Adjusted particle presets for better visibility and control
+- Positioned effects properly in 3D space
 
-## Known Issues
-- Platform availability linter errors need addressing
-- Animation timing may need fine-tuning
-- Particle counts and emission rates may need adjustment
+### Key Changes
+1. Core Updates:
+   - Added `scaleEffect` function to PulseParticles
+   - Added `adjustEmissionVolume` to PulseEffect protocol
+   - Fixed inout parameter issues in particle system updates
+   - Added QuartzCore import for proper timing
+
+2. Effect Refinements:
+   - Adjusted fireflies preset for better visibility
+   - Tuned galaxy effect parameters
+   - Implemented proper scaling for both effects
+   - Fixed particle emission volumes
+
+3. Performance:
+   - Implemented proper 60fps update timer
+   - Added performance monitoring
+   - Fixed frame rate issues
+   - Added proper cleanup on completion
 
 ## Next Steps
-- Address remaining linter errors
-- Verify animation timing against UX specifications
-- Test performance with increased particle counts
-- Consider additional particle effects for other views
+1. Begin work on next major project phase
+2. Consider additional particle effect types
+3. Fine-tune effect parameters based on real-world testing
+4. Document performance characteristics
+

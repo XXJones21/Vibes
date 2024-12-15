@@ -2,6 +2,33 @@ import Foundation
 import AVFoundation
 import Accelerate
 
+// MARK: - Audio Analysis Data Structures
+// TODO: Phase 2 - Expand AudioVisualizationData
+// This structure will be enhanced to store comprehensive song analysis data:
+// - MusicKit metadata and characteristics
+// - Real-time frequency analysis
+// - Beat detection and tempo mapping
+// - Energy levels and dynamics
+// - Section markers and transitions
+// Will serve as the data bridge between PulsarSymphony and VibeEngine
+
+public struct AudioVisualizationData {
+    let frequencies: [Float]
+    let waveform: [Float]
+    let beat: Float
+    let energy: Float
+    
+    init(frequencies: [Float] = [],
+         waveform: [Float] = [],
+         beat: Float = 0,
+         energy: Float = 0) {
+        self.frequencies = frequencies
+        self.waveform = waveform
+        self.beat = beat
+        self.energy = energy
+    }
+}
+
 class AudioAnalyzer: ObservableObject {
     private let engine = AVAudioEngine()
     private let bufferSize = 1024

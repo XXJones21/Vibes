@@ -1,12 +1,12 @@
 import SwiftUI
 import RealityKit
-import MusicService
 
 @available(visionOS 2.0, *)
 struct AlbumDetailView: View {
     let album: AlbumRepresentable
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var musicService: VibesMusicService
+    @State private var isLoading = false
+    @EnvironmentObject private var musicService: PulsarSymphony
     
     var body: some View {
         NavigationStack {
@@ -99,7 +99,7 @@ private struct ArtworkImage: View {
     let width: CGFloat
     let height: CGFloat
     @State private var modelEntity: ModelEntity?
-    @EnvironmentObject private var musicService: VibesMusicService
+    @EnvironmentObject private var musicService: PulsarSymphony
     
     // CD case dimensions (in meters)
     private let cardWidth: Float = 0.3  // Larger for detail view
@@ -174,7 +174,7 @@ private struct ArtworkImage: View {
 }
 
 #Preview {
-    AlbumDetailView(album: MusicKitAlbum.mock)
-        .environmentObject(VibesMusicService())
+    AlbumDetailView(album: PreviewData.mockAlbum)
+        .environmentObject(PulsarSymphony())
 } 
 

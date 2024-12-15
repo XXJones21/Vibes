@@ -5,7 +5,11 @@ import PackageDescription
 
 let package = Package(
     name: "RealityKitContent",
-    platforms: [.iOS(.v17), .visionOS(.v1)],
+    platforms: [
+        .visionOS(.v2),
+        .macOS(.v15),
+        .iOS(.v18)
+    ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
@@ -22,7 +26,9 @@ let package = Package(
         .target(
             name: "RealityKitContent",
             dependencies: [],
-            resources: [.process("Resources")]
+            resources: [
+                .process("RealityKitContent.rkassets")
+            ]
         ),
     ]
 )
