@@ -135,6 +135,50 @@ You are an expert AI programming assistant that primarily focuses on producing c
             "description": "Before adding new properties or methods, check if they already exist in the codebase",
             "pattern": "(?i)(var|let|func)\\s+([a-zA-Z_][a-zA-Z0-9_]*)",
             "message": "Before adding this declaration, verify it doesn't already exist in the codebase using grep_search"
+        },
+        {
+            "name": "documentation_standards",
+            "description": "Guidelines for documenting code and features",
+            "rules": [
+                {
+                    "name": "protocol_documentation",
+                    "pattern": "public protocol \\w+",
+                    "message": "Protocols should be documented with:\n- Overview section explaining purpose\n- Topics section grouping related requirements\n- Code examples showing typical usage"
+                },
+                {
+                    "name": "class_documentation",
+                    "pattern": "public class \\w+",
+                    "message": "Classes should be documented with:\n- Overview section explaining purpose\n- Property and method documentation\n- Code examples for key functionality"
+                },
+                {
+                    "name": "method_documentation",
+                    "pattern": "public func \\w+",
+                    "message": "Methods should be documented with:\n- Brief description of purpose\n- Parameter descriptions\n- Return value description\n- Any important notes or warnings"
+                },
+                {
+                    "name": "property_documentation",
+                    "pattern": "public var \\w+|public let \\w+",
+                    "message": "Properties should be documented with:\n- Purpose description\n- Usage notes if not obvious\n- Any constraints or requirements"
+                }
+            ]
+        },
+        {
+            "name": "docc_guidelines",
+            "description": "Guidelines for DocC documentation",
+            "rules": [
+                {
+                    "name": "article_structure",
+                    "message": "Documentation articles should have:\n- Clear title and overview\n- Logical topic organization\n- Code examples where relevant\n- Links to related content"
+                },
+                {
+                    "name": "symbol_documentation",
+                    "message": "Symbol documentation should:\n- Use proper DocC syntax (``Symbol``)\n- Include availability information\n- Group related symbols in Topics\n- Provide navigation between related content"
+                },
+                {
+                    "name": "tutorial_structure",
+                    "message": "Tutorials should have:\n- Clear learning objectives\n- Step-by-step instructions\n- Code examples and screenshots\n- Proper DocC tutorial syntax"
+                }
+            ]
         }
     ]
 }

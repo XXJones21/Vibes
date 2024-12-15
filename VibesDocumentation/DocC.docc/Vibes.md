@@ -13,23 +13,12 @@ Create immersive spatial audio experiences with visionOS.
 Vibes is a visionOS music visualization app that creates immersive spatial audio experiences. 
 This documentation covers the core technologies and features of the app.
 
-@Row {
-    @Column {
-        ### Particle System
-        Create stunning visual effects with the ``PulseParticles`` system.
-        
-        ### Music Integration
-        Seamless integration with Apple Music through ``PulsarSymphony``.
-    }
-    
-    @Column {
-        ### Spatial Audio
-        Full support for visionOS spatial audio features.
-        
-        ### Performance
-        Optimized for visionOS with automatic performance tuning.
-    }
-}
+### Features
+
+- Stunning particle effects with ``PulseParticles``
+- Seamless Apple Music integration
+- Full spatial audio support
+- Automatic performance optimization
 
 ## Topics
 
@@ -39,25 +28,25 @@ This documentation covers the core technologies and features of the app.
 - <doc:Installation>
 - <doc:BasicConcepts>
 
-### TechStacks
+### Core Technologies
 
-- <doc:PulseParticles>
-- <doc:PulsarSymphony>
+- ``PulseParticles``
+- ``PulseEffect``- ``PulseConfiguration``
+- ``PulsePreset``
 
-### Guides
+### Effects
+
+- ``FirefliesEffect``
+- ``GalaxyEffect``
+- ``DefaultPulseEffect``
+
+### Views
+
+- ``PulseSystemView``
+- ``WelcomeView``
+
+### Articles
 
 - <doc:ProjectStructure>
 - <doc:DevelopmentWorkflow>
-- <doc:QualityGuidelines>
-
-### Development
-
-- <doc:CreatingEffects>
-- <doc:AudioVisualization>
-- <doc:Performance>
-
-### Tools
-
-- <doc:DevelopmentTools>
-- <doc:AutomationShortcuts>
-- <doc:TestingGuidelines> 
+- <doc:QualityGuidelines> 
