@@ -1,10 +1,9 @@
 import SwiftUI
 import RealityKit
-import MusicService
 
 @available(visionOS 2.0, *)
 struct ImmersiveView: View {
-    @EnvironmentObject private var musicService: VibesMusicService
+    @EnvironmentObject private var musicService: PulsarSymphony
     
     var body: some View {
         RealityView { content in
@@ -23,5 +22,5 @@ struct ImmersiveView: View {
 
 #Preview {
     ImmersiveView()
-        .environmentObject(VibesMusicService())
+        .environmentObject(PulsarSymphony())
 } 

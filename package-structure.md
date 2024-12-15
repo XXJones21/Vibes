@@ -1,74 +1,117 @@
 # Vibes Package Structure
 
-## Core Package: VibesKit
+## Current Implementation: Hybrid/Monolithic Approach
 
-VibesKit serves as the umbrella package containing all core functionality modules. This structure allows for better organization, clear dependency management, and modular development.
+### Phase 1: Core App with Essential Packages
+Currently, we're using a hybrid approach with most functionality in the main app and only essential features as packages.
+
+#### Main App Components
+- Core UI and Navigation
+- State Management
+- Basic Visualization Logic
+- Asset Management
+- Configuration
+
+#### Essential Packages
+1. **PulsarSymphony** (formerly MusicService)
+   - Apple Music integration
+   - Audio session management
+   - Playback controls
+   - Music analysis
+
+2. **AetherParticles**
+   - Particle system core
+   - Physics and behavior
+   - Material management
+
+### Future Extraction Candidates
+These components will start in the main app and be extracted to packages as they stabilize:
+
+1. **VibesEngine**
+   - Music-to-visual mapping
+   - Visualization configurations
+   - Currently: Part of main app
+   - Future: Separate package
+
+2. **ImmersiveService**
+   - Immersive space management
+   - Scene transitions
+   - Currently: Part of main app
+   - Future: Separate package
+
+3. **TrackingService**
+   - Hand/Eye tracking
+   - Gesture recognition
+   - Currently: Part of main app
+   - Future: Separate package
+
+## Future Goal: VibeKit Umbrella Package
+
+> Note: This structure represents the eventual goal after components have been stabilized and extracted.
+
+### Core Package: VibeKit
+
+VibeKit will serve as the umbrella package containing all core functionality modules. This structure allows for better organization, clear dependency management, and modular development.
 
 ```swift
-import VibesKit
-// Provides access to all sub-modules
+import VibeKit
+// Will provide access to all sub-modules
 ```
 
 ### Sub-Packages
 
-#### 1. MusicAnalytics (formerly MusicService)
-- Apple Music integration
-- Audio session management
-- Playback controls
-- Music analysis and feature extraction
+#### 1. PulsarSymphony
 ```swift
-import VibesKit.MusicAnalytics
+import VibeKit.PulsarSymphony
 // Provides: MusicAnalyzer, PlaybackState, etc.
 ```
 
-#### 2. AetherParticles (formerly VibesParticles)
-- Particle system core
-- Physics and behavior
-- Material management
+#### 2. AetherParticles
 ```swift
-import VibesKit.AetherParticles
+import VibeKit.AetherParticles
 // Provides: ParticleSystem, ParticleEmitter, etc.
 ```
 
-#### 3. VisualizationEngine
-- Coordinates between MusicAnalytics and AetherParticles
-- Handles music-to-visual mapping
-- Manages visualization configurations
+#### 3. VibesEngine
 ```swift
-import VibesKit.VisualizationEngine
-// Provides: VibeGenerator, AlbumAnalyzer, etc.
+import VibeKit.VibesEngine
+// Will provide: VibeGenerator, AlbumAnalyzer, etc.
 ```
 
-#### 4. ImmersiveService (Future)
-- Manages immersive spaces
-- Handles scene transitions
-- Coordinates spatial audio
+#### 4. ImmersiveService
 ```swift
-import VibesKit.ImmersiveService
+import VibeKit.ImmersiveService
 // Will provide: ImmersiveSpaceManager, SceneController, etc.
 ```
 
-#### 5. TrackingService (Future)
-- Hand tracking integration
-- Eye tracking features
-- Gesture recognition
+#### 5. TrackingService
 ```swift
-import VibesKit.TrackingService
+import VibeKit.TrackingService
 // Will provide: HandTrackingManager, GestureRecognizer, etc.
 ```
 
 ## Package Dependencies
 
 ```
-VibesKit
-├── MusicAnalytics
+Current Structure:
+Vibes App
+├── PulsarSymphony
+│   ├── MusicKit
+│   └── AVFAudio
+└── AetherParticles
+    ├── RealityKit
+    └── Metal
+
+Future VibeKit Structure:
+VibeKit
+├── PulsarSymphony
 │   ├── MusicKit
 │   └── AVFAudio
 ├── AetherParticles
 │   ├── RealityKit
 │   └── Metal
-├── VisualizationEngine
-│   ├── MusicAnalytics
+├── VibesEngine
+│   ├── PulsarSymphony
 │   └── AetherParticles
 ├── ImmersiveService
 │   ├── RealityKit
@@ -77,71 +120,49 @@ VibesKit
     └── ARKit
 ```
 
-## Package Structure
-
-```
-VibesKit/
-├── Package.swift
-├── Sources/
-│   ├── VibesKit/           # Umbrella module
-│   ├── MusicAnalytics/     # Music analysis and playback
-│   ├── AetherParticles/    # Particle system
-│   ├── VisualizationEngine/# Visualization coordination
-│   ├── ImmersiveService/   # (Future) Immersive features
-│   └── TrackingService/    # (Future) Tracking features
-└── Tests/
-    ├── MusicAnalyticsTests/
-    ├── AetherParticlesTests/
-    └── VisualizationEngineTests/
-```
-
-## Benefits
-
-1. **Single Import Point**
-   - Clean app-level imports
-   - Unified versioning
-   - Coordinated releases
-
-2. **Modularity**
-   - Clear separation of concerns
-   - Independent feature development
-   - Easier testing and mocking
-
-3. **Scalability**
-   - Packages can evolve independently
-   - New features can be added as sub-packages
-   - Team can work on different modules
-
-4. **Maintenance**
-   - Isolated bug fixes
-   - Focused testing
-   - Clear dependency boundaries
-
 ## Implementation Guidelines
 
-1. Each sub-package should:
-   - Have its own test suite
-   - Include proper documentation
-   - Define clear public interfaces
-   - Handle its own dependencies
+1. **Monolithic First Principles:**
+   - Keep new features in main app initially
+   - Test and stabilize functionality
+   - Identify clear boundaries before extraction
+   - Document integration points
 
-2. Package Communication:
+2. **Package Extraction Criteria:**
+   - Feature is stable and well-tested
+   - Clear public interface defined
+   - Minimal dependencies on other components
+   - Reusability potential identified
+
+3. **Package Communication:**
    - Use protocols for interfaces
    - Implement proper error handling
    - Maintain version compatibility
    - Document breaking changes
 
-3. Visualization Flow:
-```swift
-// Example coordination in VisualizationEngine
-class VibeGenerator {
-    func generateVibe(for album: Album) -> VibeConfiguration {
-        let analysis = AlbumAnalyzer.analyze(album)
-        return AetherParticlesConfig(
-            energy: analysis.energy,
-            mood: analysis.mood,
-            tempo: analysis.tempo
-        )
-    }
-}
-```
+4. **Testing Strategy:**
+   - Unit tests in main app first
+   - Extract tests with package creation
+   - Maintain test coverage during extraction
+
+## Benefits of Hybrid Approach
+
+1. **Faster Initial Development**
+   - Reduced complexity during early stages
+   - Easier debugging and testing
+   - Flexible architecture evolution
+
+2. **Risk Management**
+   - Core features as stable packages
+   - Experimental features in main app
+   - Controlled package extraction
+
+3. **Better Module Design**
+   - Natural boundary identification
+   - Real-world usage patterns
+   - Optimized public interfaces
+
+4. **Team Workflow**
+   - Clear separation of stable/experimental code
+   - Focused package maintenance
+   - Gradual learning curve

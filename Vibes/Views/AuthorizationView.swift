@@ -1,10 +1,9 @@
 import SwiftUI
-import RealityKit
-import MusicService
 
 @available(visionOS 2.0, *)
 struct AuthorizationView: View {
-    @EnvironmentObject private var musicService: VibesMusicService
+    @State private var isAuthorizing = false
+    @EnvironmentObject private var musicService: PulsarSymphony
     
     var body: some View {
         VStack(spacing: 20) {
@@ -48,5 +47,5 @@ struct AuthorizationView: View {
 
 #Preview {
     AuthorizationView()
-        .environmentObject(VibesMusicService())
+        .environmentObject(PulsarSymphony())
 } 

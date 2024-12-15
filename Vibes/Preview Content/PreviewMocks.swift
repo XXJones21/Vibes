@@ -1,12 +1,15 @@
 import Foundation
 import MusicKit
-import MusicService
 
-// MARK: - Preview Helpers
+// MARK: - Preview Data
 @available(visionOS 2.0, *)
-extension MusicKitAlbum {
-    static var mock: MusicKitAlbum {
+enum PreviewData {
+    static var mockAlbum: AlbumRepresentable {
         MusicKitAlbum(Album.mock)
+    }
+    
+    static var mockAlbums: [AlbumRepresentable] {
+        Album.mockAlbums.map(MusicKitAlbum.init)
     }
 }
 
@@ -41,9 +44,7 @@ extension Album {
         }
     }
     
-    // TODO: Add more mock albums for Gallery and particle effect testing
     static var mockAlbums: [Album] {
-        // We'll expand this with different albums for testing various scenarios
         [mock]
     }
 } 
