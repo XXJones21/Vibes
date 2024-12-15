@@ -51,21 +51,21 @@ public extension PulsePreset {
             name: "Fireflies",
             description: "Gentle, floating particles that drift through space",
             configuration: PulseConfiguration(
-                birthRate: 500,
-                size: 0.05,
-                lifetime: 6.0,
-                speed: 0.3,
+                birthRate: 100,
+                size: 0.03,
+                lifetime: 3.0,
+                speed: 0.1,
                 emitterShape: .sphere,
-                emitterSize: [5, 5, 5],
-                acceleration: [0, 0.1, 0],
+                emitterSize: [0.5, 0.5, 0.5],
+                acceleration: [0, 0.02, 0],
                 color: .evolving(
-                    start: SIMD4(1, 1, 1, 0.8),
-                    end: SIMD4(1, 1, 1, 0.6)
+                    start: SIMD4(1, 0.9, 0.4, 1.0),
+                    end: SIMD4(1, 0.7, 0.2, 0.8)
                 )
             ),
             parameters: [
-                "pulseFrequency": 0.5,
-                "pulseAmplitude": 0.3
+                "pulseFrequency": 2.0,
+                "pulseAmplitude": 0.5
             ]
         )
     }
@@ -76,20 +76,20 @@ public extension PulsePreset {
             name: "Galaxy",
             description: "Swirling particles forming a galaxy-like disk",
             configuration: PulseConfiguration(
-                birthRate: 1000,
-                size: 0.05,
-                lifetime: 8.0,
-                speed: 0.8,
+                birthRate: 200,
+                size: 0.02,
+                lifetime: 3.0,
+                speed: 0.2,
                 emitterShape: .sphere,
-                emitterSize: [4, 0.1, 4],
-                acceleration: [0, 0, 0],
+                emitterSize: [0.8, 0.1, 0.8],
+                acceleration: [0, -0.05, 0],
                 color: .evolving(
-                    start: SIMD4(0.5, 0.8, 1.0, 0.8),
-                    end: SIMD4(0.8, 0.5, 1.0, 0.6)
+                    start: SIMD4(0.8, 0.9, 1.0, 1.0),
+                    end: SIMD4(0.9, 0.8, 1.0, 0.8)
                 )
             ),
             parameters: [
-                "spinForce": 0.5,
+                "spinForce": 0.8,
                 "centerAttraction": 0.3
             ]
         )

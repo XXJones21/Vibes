@@ -97,6 +97,9 @@ public protocol PulseEffect: PropertyObserver {
     
     /// Called when a property changes
     func propertyDidChange(_ keyPath: AnyKeyPath)
+    
+    /// Adjust emission volume based on scale
+    func adjustEmissionVolume(scale: Float)
 }
 
 /// Default implementations
@@ -138,6 +141,14 @@ public extension PulseEffect {
         particleSystem.mainEmitter.birthRate = dynamicProperties.birthRate
         particleSystem.mainEmitter.color = dynamicProperties.color.realityKitColor
         particleSystem.mainEmitter.acceleration = .init(dynamicProperties.acceleration)
+    }
+    
+    func adjustEmissionVolume(scale: Float) {
+        // Scale birth rate and emitter size with overall scale
+        var particleSystem = currentParticleSystem
+        particleSystem?.mainEmitter.birthRate *= scale
+        particleSystem?.emitterShapeSize *= scale
+        currentParticleSystem = particleSystem
     }
 }
 

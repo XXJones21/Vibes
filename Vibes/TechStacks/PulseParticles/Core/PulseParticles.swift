@@ -115,6 +115,9 @@ public class PulseParticles: ObservableObject {
         // Create entity for this effect
         let effectEntity = Entity()
         
+        // Position slightly forward
+        effectEntity.position = [0, 0, 0.25]
+        
         // Create or reuse particle system
         var particleSystem = particleSystems[effectId] ?? ParticleEmitterComponent()
         effect.currentParticleSystem = particleSystem
@@ -286,5 +289,17 @@ public class PulseParticles: ObservableObject {
         let effectId = ObjectIdentifier(effect as AnyObject)
         effectEntities[effectId]?.position = position
         updateEffectSpacing()
+    }
+    
+    /// Scale a specific effect
+    /// - Parameters:
+    ///   - effect: The effect to scale
+    ///   - scale: Scale factor to apply
+    public func scaleEffect(_ effect: PulseEffect, to scale: Float) {
+        let effectId = ObjectIdentifier(effect as AnyObject)
+        if let entity = effectEntities[effectId] {
+            entity.transform.scale = SIMD3<Float>(repeating: scale)
+            effect.adjustEmissionVolume(scale: scale)
+        }
     }
 } 

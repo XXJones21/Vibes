@@ -1,5 +1,6 @@
 import SwiftUI
 import RealityKit
+import QuartzCore
 
 @available(visionOS 2.0, *)
 struct WelcomeView: View {
@@ -13,6 +14,9 @@ struct WelcomeView: View {
     
     // Performance monitoring state
     @State private var lastMetrics: (TimeInterval, TimeInterval) = (0, 0) // (fireflies, galaxy)
+    
+    // Update timer
+    @State private var updateTimer: Timer?
     
     var body: some View {
         GeometryReader { geometry in
@@ -28,13 +32,65 @@ struct WelcomeView: View {
                 
                 // RealityView to display particle effects
                 RealityView { content in
+                    // Add marker entities
+                    let markerSize: Float = 0.1 // 10cm markers
+                    
+                    // Right marker (red)
+                    let rightMarker = ModelEntity(
+                        mesh: .generateBox(size: markerSize),
+                        materials: [SimpleMaterial(color: .red, isMetallic: true)]
+                    )
+                    rightMarker.position = [10, 0, 0]
+                    
+                    // Left marker (blue)
+                    let leftMarker = ModelEntity(
+                        mesh: .generateBox(size: markerSize),
+                        materials: [SimpleMaterial(color: .blue, isMetallic: true)]
+                    )
+                    leftMarker.position = [-10, 0, 0]
+                    
+                    // Bottom marker (green)
+                    let bottomMarker = ModelEntity(
+                        mesh: .generateBox(size: markerSize),
+                        materials: [SimpleMaterial(color: .green, isMetallic: true)]
+                    )
+                    bottomMarker.position = [0, -1.7, 0]
+                    
+                    // Top marker (yellow)
+                    let topMarker = ModelEntity(
+                        mesh: .generateBox(size: markerSize),
+                        materials: [SimpleMaterial(color: .yellow, isMetallic: true)]
+                    )
+                    topMarker.position = [0, 1.7, 0]
+                    
+                    // Back marker (purple)
+                    let backMarker = ModelEntity(
+                        mesh: .generateBox(size: markerSize),
+                        materials: [SimpleMaterial(color: .purple, isMetallic: true)]
+                    )
+                    backMarker.position = [0, 0, 10]
+                    
+                    // Add all markers to root entity
+                    pulseParticles.rootEntity.addChild(rightMarker)
+                    pulseParticles.rootEntity.addChild(leftMarker)
+                    pulseParticles.rootEntity.addChild(bottomMarker)
+                    pulseParticles.rootEntity.addChild(topMarker)
+                    pulseParticles.rootEntity.addChild(backMarker)
+                    
+                    // Add root entity last
                     content.add(pulseParticles.rootEntity)
                 }
                 .opacity(opacity)
             }
         }
         .ignoresSafeArea()
+        .dynamicTypeSize(.xxxLarge)
         .onAppear {
+            // Start particle system updates
+            updateTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { _ in
+                pulseParticles.update(currentTime: CACurrentMediaTime())
+            }
+            
             // First effect: Fireflies
             showFireflies = true
             withAnimation(.easeIn(duration: 2.0)) {
@@ -45,6 +101,7 @@ struct WelcomeView: View {
             let firefliesPreset = PulsePreset.fireflies
             let firefliesEffect = DefaultPulseEffect(preset: firefliesPreset)
             pulseParticles.addEffect(firefliesEffect)
+            pulseParticles.scaleEffect(firefliesEffect, to: 2.0)
             
             // Start performance monitoring
             monitorPerformance()
@@ -74,6 +131,7 @@ struct WelcomeView: View {
                     let galaxyPreset = PulsePreset.galaxy
                     let galaxyEffect = DefaultPulseEffect(preset: galaxyPreset)
                     pulseParticles.addEffect(galaxyEffect)
+                    pulseParticles.scaleEffect(galaxyEffect, to: 1.5)
                     
                     // Fade in galaxy
                     withAnimation(.easeIn(duration: 2.0)) {
@@ -97,6 +155,8 @@ struct WelcomeView: View {
                         // Complete the welcome sequence
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                             pulseParticles.removeAllEffects()
+                            updateTimer?.invalidate()
+                            updateTimer = nil
                             onComplete()
                         }
                     }
