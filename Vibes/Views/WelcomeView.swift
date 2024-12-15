@@ -32,52 +32,6 @@ struct WelcomeView: View {
                 
                 // RealityView to display particle effects
                 RealityView { content in
-                    // Add marker entities
-                    let markerSize: Float = 0.1 // 10cm markers
-                    
-                    // Right marker (red)
-                    let rightMarker = ModelEntity(
-                        mesh: .generateBox(size: markerSize),
-                        materials: [SimpleMaterial(color: .red, isMetallic: true)]
-                    )
-                    rightMarker.position = [10, 0, 0]
-                    
-                    // Left marker (blue)
-                    let leftMarker = ModelEntity(
-                        mesh: .generateBox(size: markerSize),
-                        materials: [SimpleMaterial(color: .blue, isMetallic: true)]
-                    )
-                    leftMarker.position = [-10, 0, 0]
-                    
-                    // Bottom marker (green)
-                    let bottomMarker = ModelEntity(
-                        mesh: .generateBox(size: markerSize),
-                        materials: [SimpleMaterial(color: .green, isMetallic: true)]
-                    )
-                    bottomMarker.position = [0, -1.7, 0]
-                    
-                    // Top marker (yellow)
-                    let topMarker = ModelEntity(
-                        mesh: .generateBox(size: markerSize),
-                        materials: [SimpleMaterial(color: .yellow, isMetallic: true)]
-                    )
-                    topMarker.position = [0, 1.7, 0]
-                    
-                    // Back marker (purple)
-                    let backMarker = ModelEntity(
-                        mesh: .generateBox(size: markerSize),
-                        materials: [SimpleMaterial(color: .purple, isMetallic: true)]
-                    )
-                    backMarker.position = [0, 0, 10]
-                    
-                    // Add all markers to root entity
-                    pulseParticles.rootEntity.addChild(rightMarker)
-                    pulseParticles.rootEntity.addChild(leftMarker)
-                    pulseParticles.rootEntity.addChild(bottomMarker)
-                    pulseParticles.rootEntity.addChild(topMarker)
-                    pulseParticles.rootEntity.addChild(backMarker)
-                    
-                    // Add root entity last
                     content.add(pulseParticles.rootEntity)
                 }
                 .opacity(opacity)
