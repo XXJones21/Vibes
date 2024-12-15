@@ -27,7 +27,7 @@
 		DF1234581B /* PulsarSymphony.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234581 /* PulsarSymphony.swift */; };
 		DF1234582B /* PulsarSymphony+Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234582 /* PulsarSymphony+Pagination.swift */; };
 		DF1234584B /* PreviewMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1234584 /* PreviewMocks.swift */; };
-		DF45150C2D05101C005AFB45 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DF45150B2D05101C005AFB45 /* RealityKitContent */; };
+		DF3C1F3D2D0E84980002973B /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DF3C1F3C2D0E84980002973B /* RealityKitContent */; };
 		DF7671CA2D0BBBA200A3CAD7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF7671C82D0BBBA200A3CAD7 /* README.md */; };
 		DF7671CB2D0BBBA200A3CAD7 /* GalaxyEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7671C42D0BBBA200A3CAD7 /* GalaxyEffect.swift */; };
 		DF7671CC2D0BBBA200A3CAD7 /* PulseParticles.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7671C02D0BBBA200A3CAD7 /* PulseParticles.swift */; };
@@ -36,7 +36,6 @@
 		DF7671CF2D0BBBA200A3CAD7 /* FirefliesEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7671C32D0BBBA200A3CAD7 /* FirefliesEffect.swift */; };
 		DF7671D02D0BBBA200A3CAD7 /* PulseConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7671BE2D0BBBA200A3CAD7 /* PulseConfiguration.swift */; };
 		DF7671D12D0BBBA200A3CAD7 /* ParticleSystemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7671C62D0BBBA200A3CAD7 /* ParticleSystemView.swift */; };
-		DFD632DC2D0576F60092D46B /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = DFD632DB2D0576F60092D46B /* RealityKitContent */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +59,7 @@
 		DF1234581 /* PulsarSymphony.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsarSymphony.swift; sourceTree = "<group>"; };
 		DF1234582 /* PulsarSymphony+Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PulsarSymphony+Pagination.swift"; sourceTree = "<group>"; };
 		DF1234584 /* PreviewMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewMocks.swift; sourceTree = "<group>"; };
+		DF3C1F3B2D0E83360002973B /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		DF4515062D05101C005AFB45 /* Vibes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vibes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF6444202D077A8B0095CF79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF6444222D077D7A0095CF79 /* Vibes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vibes.entitlements; sourceTree = "<group>"; };
@@ -78,8 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFD632DC2D0576F60092D46B /* RealityKitContent in Frameworks */,
-				DF45150C2D05101C005AFB45 /* RealityKitContent in Frameworks */,
+				DF3C1F3D2D0E84980002973B /* RealityKitContent in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +121,7 @@
 		DF4515092D05101C005AFB45 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				DF3C1F3B2D0E83360002973B /* RealityKitContent */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -268,8 +268,7 @@
 			);
 			name = Vibes;
 			packageProductDependencies = (
-				DF45150B2D05101C005AFB45 /* RealityKitContent */,
-				DFD632DB2D0576F60092D46B /* RealityKitContent */,
+				DF3C1F3C2D0E84980002973B /* RealityKitContent */,
 			);
 			productName = Vibes;
 			productReference = DF4515062D05101C005AFB45 /* Vibes.app */;
@@ -567,11 +566,7 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DF45150B2D05101C005AFB45 /* RealityKitContent */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RealityKitContent;
-		};
-		DFD632DB2D0576F60092D46B /* RealityKitContent */ = {
+		DF3C1F3C2D0E84980002973B /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityKitContent;
 		};
